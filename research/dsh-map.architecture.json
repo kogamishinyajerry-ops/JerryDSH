@@ -1,0 +1,362 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "DSH 身体全景图 · JerryDSH 研究线 01–11",
+    "locale": "zh-CN",
+    "quality_profile": "showcase",
+    "viewBox": [
+      1360,
+      720
+    ],
+    "views": [
+      {
+        "id": "journey",
+        "label": "一次对话的旅程",
+        "focus": [
+          "client",
+          "loop",
+          "assemble",
+          "llm",
+          "tools",
+          "diary",
+          "disk"
+        ],
+        "note": "主路径：听 → 想 → 说 → 做 → 记 → 存（研究报告 09/10/07）"
+      },
+      {
+        "id": "memory",
+        "label": "记忆系统",
+        "focus": [
+          "diary",
+          "disk",
+          "scratch",
+          "compaction"
+        ],
+        "note": "日记唯一真源；压缩遮住不删除；小抄可以过期、绝不允许错"
+      },
+      {
+        "id": "safety-gate",
+        "label": "安全闸",
+        "focus": [
+          "tools"
+        ],
+        "note": "六道关第②关的 ask 分支即审批；无人应答 = 拒绝（fail-closed）"
+      },
+      {
+        "id": "scale-out",
+        "label": "扩展与帮手",
+        "focus": [
+          "ecosys",
+          "helpers"
+        ],
+        "note": "插件 bundle 层叠注入能力；子代理可冷恢复、防冒充"
+      }
+    ]
+  },
+  "components": [
+    {
+      "id": "client",
+      "type": "frontend",
+      "label": "Web GUI / headless CLI",
+      "sublabel": "交互入口 · :3080 活环境 [05]",
+      "pos": [
+        60,
+        90
+      ],
+      "size": [
+        170,
+        56
+      ]
+    },
+    {
+      "id": "loop",
+      "type": "backend",
+      "label": "agent-loop 驱动循环",
+      "sublabel": "turn/step · 三通道收件箱 [09]",
+      "pos": [
+        340,
+        82
+      ],
+      "size": [
+        184,
+        72
+      ]
+    },
+    {
+      "id": "assemble",
+      "type": "backend",
+      "label": "system-prompt 装配",
+      "sublabel": "段落+工具表+派生历史 [10]",
+      "pos": [
+        620,
+        90
+      ],
+      "size": [
+        184,
+        64
+      ]
+    },
+    {
+      "id": "llm",
+      "type": "external",
+      "label": "LLM 适配器",
+      "sublabel": "流式 · 八条军规 [10]",
+      "pos": [
+        900,
+        90
+      ],
+      "size": [
+        184,
+        64
+      ]
+    },
+    {
+      "id": "compaction",
+      "type": "backend",
+      "label": "compaction 压缩",
+      "sublabel": "水位 0.8 · 遮住不删旧页 [07]",
+      "pos": [
+        340,
+        320
+      ],
+      "size": [
+        184,
+        64
+      ]
+    },
+    {
+      "id": "diary",
+      "type": "database",
+      "label": "会话日志（唯一真源）",
+      "sublabel": "只追加不涂改 · 唯一真源 [07]",
+      "pos": [
+        620,
+        320
+      ],
+      "size": [
+        184,
+        64
+      ]
+    },
+    {
+      "id": "tools",
+      "type": "backend",
+      "label": "工具流水线",
+      "sublabel": "六道关 · 参数塑封 [09]",
+      "pos": [
+        900,
+        320
+      ],
+      "size": [
+        184,
+        64
+      ]
+    },
+    {
+      "id": "helpers",
+      "type": "backend",
+      "label": "subagent 帮手树",
+      "sublabel": "可冷恢复 · 防冒充 [11]",
+      "pos": [
+        60,
+        320
+      ],
+      "size": [
+        196,
+        72
+      ]
+    },
+    {
+      "id": "disk",
+      "type": "database",
+      "label": "JSONL+zstd 落盘",
+      "sublabel": "默认后端 · 310 本实测 [07]",
+      "pos": [
+        340,
+        550
+      ],
+      "size": [
+        184,
+        64
+      ]
+    },
+    {
+      "id": "scratch",
+      "type": "database",
+      "label": "小抄层",
+      "sublabel": "projcache · FTS 默认关 [07]",
+      "pos": [
+        620,
+        550
+      ],
+      "size": [
+        184,
+        64
+      ]
+    },
+    {
+      "id": "ecosys",
+      "type": "cloud",
+      "label": "插件 & MCP 生态",
+      "sublabel": "bundle 层叠 · 10,529 仓库 [05]",
+      "pos": [
+        1140,
+        550
+      ],
+      "size": [
+        196,
+        72
+      ]
+    }
+  ],
+  "boundaries": [
+    {
+      "kind": "security-group",
+      "label": "沙箱围栏 + fail-closed 审批 [08]",
+      "wraps": [
+        "tools"
+      ]
+    },
+    {
+      "kind": "region",
+      "label": "记忆与存储层",
+      "wraps": [
+        "disk",
+        "scratch"
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "id": "c1",
+      "from": "client",
+      "to": "loop",
+      "label": "消息/插话 三通道"
+    },
+    {
+      "id": "c2",
+      "from": "loop",
+      "to": "assemble",
+      "label": "step 组装"
+    },
+    {
+      "id": "c3",
+      "from": "assemble",
+      "to": "llm",
+      "label": "流式请求"
+    },
+    {
+      "id": "c4",
+      "from": "llm",
+      "to": "tools",
+      "label": "工具调用",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "labelDy": 85
+    },
+    {
+      "id": "c5",
+      "from": "tools",
+      "to": "diary",
+      "label": "逐事件入日志",
+      "toSide": "right"
+    },
+    {
+      "id": "c6",
+      "from": "diary",
+      "to": "disk",
+      "label": "200ms 批量落盘",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "id": "c7",
+      "from": "diary",
+      "to": "scratch",
+      "label": "投影/FTS 增量",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "labelDy": 112
+    },
+    {
+      "id": "c8",
+      "from": "compaction",
+      "to": "diary",
+      "label": "摘要便签",
+      "toSide": "left"
+    },
+    {
+      "id": "c9",
+      "from": "loop",
+      "to": "compaction",
+      "label": "水位 0.8 触发",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "labelDy": 125
+    },
+    {
+      "id": "c10",
+      "from": "loop",
+      "to": "helpers",
+      "label": "委派/打断/汇报",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "id": "c11",
+      "from": "ecosys",
+      "to": "tools",
+      "label": "bundle 注入 · 工具表/MCP",
+      "fromSide": "top",
+      "toSide": "bottom"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "研究线底座（01–11）",
+      "items": [
+        "会话事件日志是唯一真源，其余全是投影与小抄",
+        "『模型可见即已记录』是运行时断言的不变量",
+        "能力 seam 三件套：定义 / 提供方 / 消费方，换提供方即换行为"
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "本机实测数字",
+      "items": [
+        "310 本日记全量导入零错误 · 工具调用 1.7 万次（run_code 3453 居首）",
+        "缓存读 3.4G token vs 未缓存输入 96M —— KV cache 价值 35 倍",
+        "模型画像：glm-5.3 9365 次 · deepseek-v4-pro 2502 · MiniMax-M3 2263"
+      ]
+    },
+    {
+      "dot": "violet",
+      "title": "省钱与加速机制",
+      "items": [
+        "KV 缓存纪律：只往后加不往前改，时变内容做成便利贴",
+        "压缩先跑无模型修剪再请模型摘要；遮住 ≠ 删除，历史永远可搜",
+        "全文检索 FTS 默认关闭（openAt: never）——先开官方再考虑插件"
+      ]
+    },
+    {
+      "dot": "rose",
+      "title": "安全大实话",
+      "items": [
+        "审批 fail-closed：允许这一次 / 拒绝 / 撤销 / 没人回答=拒绝",
+        "沙箱只管文件不管网络；部分强制（partial）必须当失败处理",
+        "装插件 = 在一切沙箱之外执行第三方代码：先源码体检、锁定版本"
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "版本与生态",
+      "items": [
+        "8 月节奏：9 天 5 版后进入静默期（三源一致核查法 30 秒）",
+        "凭证格式换代是单向门：rc.5 惨案——别停在断代点",
+        "三个装插件著名的坑：dist-tag 错位 / pnpm 构建拦截 / 网页专用插件"
+      ]
+    }
+  ]
+}

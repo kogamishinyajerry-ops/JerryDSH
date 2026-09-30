@@ -1,0 +1,60 @@
+{
+  "schemaVersion": 1,
+  "ok": false,
+  "command": "visual-check",
+  "evidenceKind": "automated-browser",
+  "status": "fail",
+  "visualReview": "pending",
+  "artifact": {
+    "path": "/Users/Zhuanz/projects/jerry-personal/JerryDSH/research/dsh-map.architecture.html",
+    "sha256": "303a2b7b9112fdc42835e9f23fcceadc2016e547f1414c5058a2d36bc44995e3",
+    "bytes": 720857
+  },
+  "state": {
+    "detail": "read",
+    "motion": "still"
+  },
+  "chrome": {
+    "status": "available",
+    "executable": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
+  },
+  "diagnostics": [
+    {
+      "code": "viewer/visual-check-runtime",
+      "severity": "error",
+      "message": "visual-check could not complete its Chrome inspection.",
+      "subject": {
+        "artifact": "/Users/Zhuanz/projects/jerry-personal/JerryDSH/research/dsh-map.architecture.html"
+      },
+      "evidence": {
+        "reason": "Error: Viewer chrome layout did not reach stable dimensions.\n    at sample (file:///Users/Zhuanz/projects/jerry-personal/JerryDSH/research/dsh-map.architecture.html?theme=light:10938:22)"
+      },
+      "supportedFixes": [
+        "resolve the reported Chrome inspection error, then rerun visual-check"
+      ]
+    }
+  ],
+  "containment": {
+    "status": "fail",
+    "viewports": []
+  },
+  "readability": {
+    "status": "fail",
+    "minimumProjectedNodeTextPx": 6,
+    "viewports": []
+  },
+  "viewerChrome": {
+    "status": "fail",
+    "viewports": []
+  },
+  "captures": {
+    "status": "fail",
+    "screenshots": [],
+    "contactSheet": null
+  },
+  "sidecars": {
+    "receipt": "dsh-map.architecture.visual-check.json",
+    "contactSheet": "dsh-map.architecture.visual-check.html"
+  },
+  "error": "Error: Viewer chrome layout did not reach stable dimensions.\n    at sample (file:///Users/Zhuanz/projects/jerry-personal/JerryDSH/research/dsh-map.architecture.html?theme=light:10938:22)"
+}

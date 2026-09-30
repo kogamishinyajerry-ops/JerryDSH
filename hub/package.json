@@ -1,0 +1,13 @@
+{
+  "name": "jerrydsh-hub",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Intranet offline self-hosted team hub: open collaboration suite + DSH agent runtime (the intranet answer to Feishu 8.0)",
+  "type": "commonjs",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "start": "node server.js"
+  }
+}

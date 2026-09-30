@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="archify-style spec-driven report (conventions follow tt-a1i/archify)">
+<title>Matt Pocock 工程道场 · 使用方法 × 学习精髓 × 第一性原理</title>
+<script>
+(function () {
+  try {
+    var theme = new URLSearchParams(location.search).get("theme");
+    if (theme !== "light" && theme !== "dark") {
+      theme = localStorage.getItem("dojo-theme");
+    }
+    if (theme !== "light" && theme !== "dark") {
+      theme = matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+    }
+    document.documentElement.setAttribute("data-theme", theme);
+  } catch (_) {}
+})();
+</script>
+<style>
+:root { color-scheme: dark; }
+[data-theme="dark"] {
+  --bg:#0d1117; --panel:#161b22; --panel2:#1c2129; --text:#e6edf3; --muted:#9199a1;
+  --border:#30363d; --edge:#7d8590; --halo:#0d1117;
+  --axiom:#a371f7; --risk:#f85149; --skill:#58a6ff; --artifact:#3fb950;
+  --accent:#58a6ff; --ok:#3fb950; --warn:#d29922;
+}
+[data-theme="light"] {
+  --bg:#f6f8fa; --panel:#ffffff; --panel2:#f0f3f6; --text:#1f2328; --muted:#59636e;
+  --border:#d0d7de; --edge:#8c959f; --halo:#ffffff;
+  --axiom:#8250df; --risk:#cf222e; --skill:#0969da; --artifact:#116329;
+  --accent:#0969da; --ok:#1a7f37; --warn:#9a6700;
+  color-scheme: light;
+}
+* { box-sizing:border-box; }
+html,body { margin:0; padding:0; }
+body { background:var(--bg); color:var(--text); font:15px/1.75 -apple-system,"SF Pro Text","PingFang SC","Hiragino Sans GB","Noto Sans SC","Microsoft YaHei",sans-serif; }
+code,.mono { font-family:ui-monospace,"SF Mono",Menlo,Consolas,monospace; font-size:.92em; background:var(--panel2); border:1px solid var(--border); border-radius:5px; padding:1px 6px; }
+a { color:var(--accent); text-decoration:none; } a:hover { text-decoration:underline; }
+
+/* 工具栏 */
+#toolbar { position:sticky; top:0; z-index:50; display:flex; align-items:center; gap:14px; flex-wrap:wrap;
+  background:color-mix(in srgb, var(--bg) 88%, transparent); backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--border); padding:10px 20px; }
+#toolbar .t { font-weight:700; font-size:15px; }
+.views { display:flex; gap:4px; flex-wrap:wrap; }
+.views button { border:1px solid var(--border); background:var(--panel); color:var(--muted); border-radius:999px;
+  padding:4px 14px; font-size:13px; cursor:pointer; transition:all .15s; }
+.views button:hover { color:var(--text); border-color:var(--accent); }
+.views button.on { background:var(--accent); border-color:var(--accent); color:var(--bg); font-weight:600; }
+#themeBtn { margin-left:auto; border:1px solid var(--border); background:var(--panel); color:var(--text);
+  border-radius:8px; padding:4px 12px; cursor:pointer; font-size:13px; }
+
+main { max-width:1180px; margin:0 auto; padding:28px 24px 80px; }
+.hero { padding:26px 0 10px; }
+.hero h1 { font-size:34px; line-height:1.25; margin:0 0 10px; letter-spacing:-.5px; }
+.hero .sub { color:var(--muted); font-size:15.5px; max-width:900px; }
+.badges { display:flex; gap:8px; flex-wrap:wrap; margin-top:14px; }
+.badge { font-size:12px; border:1px solid var(--border); border-radius:999px; padding:2px 12px; color:var(--muted); background:var(--panel); }
+.badge.pass { color:var(--ok); border-color:var(--ok); }
+
+section { margin-top:52px; }
+h2 { font-size:24px; margin:0 0 6px; letter-spacing:-.3px; border-top:1px solid var(--border); padding-top:30px; }
+h2 .idx { color:var(--muted); font-weight:600; font-size:15px; margin-right:10px; }
+.lead { color:var(--muted); max-width:920px; margin-bottom:18px; }
+
+/* 画布 */
+.canvas-wrap { border:1px solid var(--border); border-radius:14px; background:var(--panel); padding:10px; overflow-x:auto; }
+#map { display:block; width:100%; height:auto; min-width:900px; }
+.view-note { padding:8px 16px; font-size:13.5px; color:var(--muted); border-top:1px dashed var(--border); }
+.legend { display:flex; gap:14px; flex-wrap:wrap; margin:12px 4px 0; font-size:13px; color:var(--muted); }
+.legend .k { display:inline-block; width:12px; height:12px; border-radius:3px; margin-right:6px; vertical-align:-1px; }
+
+/* SVG 通用 */
+.layer-band { fill:var(--panel2); fill-opacity:.45; stroke:var(--border); stroke-dasharray:5 5; rx:12; }
+.layer-label { fill:var(--muted); font-size:12.5px; font-weight:600; }
+.comp rect { fill:var(--panel); stroke-width:1.6; rx:12; }
+.comp.axiom rect { stroke:var(--axiom); } .comp.risk rect { stroke:var(--risk); }
+.comp.skill rect { stroke:var(--skill); } .comp.artifact rect { stroke:var(--artifact); }
+.comp.axiom .dot { fill:var(--axiom); } .comp.risk .dot { fill:var(--risk); }
+.comp.skill .dot { fill:var(--skill); } .comp.artifact .dot { fill:var(--artifact); }
+.comp .lbl { fill:var(--text); font-size:13.5px; font-weight:700; text-anchor:middle; }
+.comp .sub { fill:var(--muted); font-size:11px; text-anchor:middle; }
+.edge path { fill:none; stroke:var(--edge); stroke-width:1.5; opacity:.85; }
+.edge polygon { fill:var(--edge); }
+.edge .elbl { fill:var(--muted); font-size:10.5px; text-anchor:middle; paint-order:stroke; stroke:var(--halo); stroke-width:4px; stroke-linejoin:round; }
+svg[data-view]:not([data-view="full"]) .comp:not(.focus) { opacity:.13; }
+svg[data-view]:not([data-view="full"]) .edge:not(.focus) { opacity:.08; }
+.comp, .edge { transition:opacity .25s; }
+
+/* 卡片网格 */
+.grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(330px,1fr)); gap:16px; margin-top:16px; }
+.card { border:1px solid var(--border); border-radius:14px; background:var(--panel); padding:18px 20px; }
+.card h3 { margin:0 0 4px; font-size:16.5px; }
+.card .tagline { color:var(--muted); font-size:13px; margin-bottom:10px; }
+.card .row { margin:8px 0; font-size:13.8px; }
+.card .row b.k { display:inline-block; min-width:74px; font-size:12px; letter-spacing:.5px; }
+.k.use { color:var(--skill); } .k.ess { color:var(--axiom); } .k.pri { color:var(--risk); }
+.card .flowstep { display:inline-block; width:22px; height:22px; border-radius:50%; background:var(--skill); color:var(--bg);
+  font-size:13px; font-weight:700; text-align:center; line-height:22px; margin-right:8px; }
+
+.axiom-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(330px,1fr)); gap:16px; }
+.axiom-card { border-left:3px solid var(--axiom); }
+.axiom-card .no { color:var(--axiom); font-weight:800; font-size:13px; }
+.axiom-card .demand, .axiom-card .forbid { font-size:13.5px; margin-top:6px; }
+.axiom-card .demand b { color:var(--ok); } .axiom-card .forbid b { color:var(--risk); }
+
+.micro { margin:14px 0 4px; border:1px solid var(--border); border-radius:12px; background:var(--panel); padding:8px; overflow-x:auto; }
+.micro svg { display:block; margin:0 auto; }
+.micro .cap { text-align:center; color:var(--muted); font-size:12px; padding:4px 0 2px; }
+.mtxt { fill:var(--text); font-size:12px; } .msub { fill:var(--muted); font-size:10.5px; }
+.mbox { fill:var(--panel2); stroke:var(--edge); stroke-width:1.3; rx:8; }
+.mline { stroke:var(--edge); stroke-width:1.4; fill:none; marker-end:url(#mArrow); }
+.mchip { fill-opacity:.18; stroke-width:1.2; rx:6; }
+
+/* 表格 */
+table { width:100%; border-collapse:collapse; font-size:13.8px; margin-top:14px; }
+th,td { border:1px solid var(--border); padding:9px 12px; text-align:left; vertical-align:top; }
+th { background:var(--panel2); font-size:12.5px; letter-spacing:.4px; color:var(--muted); }
+tr:nth-child(even) td { background:color-mix(in srgb, var(--panel) 55%, transparent); }
+
+/* 学习路径 */
+.weeks { display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:14px; margin-top:16px; }
+.week { border:1px solid var(--border); border-radius:14px; padding:16px 18px; background:var(--panel); }
+.week .wk { font-size:12px; color:var(--accent); font-weight:700; letter-spacing:1px; }
+.week h4 { margin:4px 0 8px; font-size:16px; }
+.week .hw { font-size:13px; color:var(--muted); border-top:1px dashed var(--border); padding-top:8px; margin-top:10px; }
+.week .hw b { color:var(--text); }
+
+.callout { border:1px solid var(--border); border-left:4px solid var(--accent); border-radius:10px;
+  background:var(--panel); padding:14px 18px; margin:16px 0; font-size:14.2px; }
+.callout.great { border-left-color:var(--ok); }
+
+footer { border-top:1px solid var(--border); margin-top:64px; padding:24px; color:var(--muted); font-size:13px; max-width:1180px; margin-inline:auto; }
+@media print {
+  #toolbar { display:none; }
+  body { background:#fff; }
+  .comp, .edge { transition:none; }
+}
+</style>
+</head>
+<body>
+
+<div id="toolbar">
+  <span class="t">Matt Pocock 工程道场</span>
+  <div class="views" id="viewTabs"></div>
+  <button id="themeBtn">明 / 暗</button>
+</div>
+
+<main>
+
+<div class="hero">
+  <h1>Matt Pocock 工程方法论全景<br><span style="font-size:20px;color:var(--muted);font-weight:600">使用方法 × 学习精髓 × 第一性原理</span></h1>
+  <p class="sub">
+    这套体系的核心主张：<b>这些技巧不是风格偏好，而是从 AI agent 的物理约束推导出的必然工程学</b>。
+    页面顶部架构图给出全推导链——六条公理 → 六种失败模式 → 十三项技巧 → 八类交接物；
+    正文逐项讲清<b>怎么用、学什么、为什么从第一性原理上必然成立</b>。
+  </p>
+  <div class="badges">
+    <span class="badge pass">✓ visual-check PASS · 33 组件 / 39 连线 / 5 视图</span>
+    <span class="badge">spec-driven：JSON 唯一真源</span>
+    <span class="badge">可视化约定对齐 tt-a1i/archify</span>
+    <span class="badge">内容源 mattpocock/skills (MIT) + aihero.dev 免费内容</span>
+    <span class="badge">DSH 插件 dsh-engineering-school · 12 技能已落地</span>
+  </div>
+</div>
+
+<section id="canvas-sec">
+  <h2><span class="idx">00</span>全景推导图（可切换视图）</h2>
+  <p class="lead">四个图层自上而下就是推导方向：物理约束 → 不干预时的失败 → 技巧 → 落进环境的持久产物。
+  切换右上视图聚焦单一视角；亮/暗主题可切换。</p>
+  <div class="canvas-wrap">
+    <svg id="map" xmlns="http://www.w3.org/2000/svg" data-view="full"></svg>
+    <div class="view-note" id="viewNote"></div>
+  </div>
+  <div class="legend">
+    <span><span class="k" style="background:var(--axiom)"></span>公理（物理约束）</span>
+    <span><span class="k" style="background:var(--risk)"></span>失败模式</span>
+    <span><span class="k" style="background:var(--skill)"></span>技巧（DSH 技能）</span>
+    <span><span class="k" style="background:var(--artifact)"></span>交接物（环境中的记忆）</span>
+  </div>
+</section>
+
+<section id="axioms">
+  <h2><span class="idx">01</span>第一性原理：六条公理</h2>
+  <p class="lead">
+    每条公理都是一个<b>可独立验证的物理事实</b>（不是观点）。整栋方法论大厦从这里推导：
+    公理 → 禁止什么 / 要求什么 → 失败模式 → 技巧。<b>只要这六条事实不变，技巧就永远有效；模型换代变了哪条，就重推哪条。</b>
+    这就是第一性原理的价值——你不需要背任何一条技巧。
+  </p>
+  <div class="axiom-grid" id="axiomGrid"></div>
+
+  <div class="micro">
+    <svg width="560" height="230" viewBox="0 0 560 230">
+      <defs><marker id="mArrow" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
+        <path d="M0,0 L7,3 L0,6 z" fill="var(--edge)"/></marker></defs>
+      <line x1="50" y1="200" x2="530" y2="200" stroke="var(--edge)" stroke-width="1.3"/>
+      <line x1="50" y1="200" x2="50" y2="20" stroke="var(--edge)" stroke-width="1.3"/>
+      <rect x="50" y="30" width="240" height="170" fill="var(--skill)" fill-opacity=".10" stroke="var(--skill)" stroke-dasharray="4 4" stroke-opacity=".5"/>
+      <text x="62" y="48" class="msub" fill="var(--skill)" style="fill:var(--skill);font-weight:700">聪明区 smart zone</text>
+      <path d="M50,55 C160,60 250,90 340,140 S480,185 525,192" stroke="var(--risk)" stroke-width="2.2" fill="none"/>
+      <circle cx="290" cy="107" r="4" fill="var(--risk)"/>
+      <line x1="290" y1="107" x2="290" y2="200" stroke="var(--risk)" stroke-dasharray="3 4" stroke-width="1"/>
+      <text x="298" y="96" class="mtxt" fill="var(--risk)" style="fill:var(--risk)">≈125–150k token：衰减开始，无报错</text>
+      <text x="530" y="218" class="msub" text-anchor="end">会话 token 数 →</text>
+      <text x="42" y="30" class="msub" text-anchor="end" transform="rotate(-90 42 30)">推理质量 →</text>
+      <text x="380" y="160" class="msub" fill="var(--risk)" style="fill:var(--risk)">笨区：更马虎 · 忘事 · 忠实性幻觉</text>
+      <text x="90" y="90" class="msub">窗口还有 60% 空间 ≠ 还能好好干活</text>
+      <text x="90" y="110" class="msub">按 smart zone 排任务，不按窗口上限</text>
+    </svg>
+    <div class="cap">公理二的直接后果：注意力预算按 token 封顶，质量在窗口上限之前就开始衰减——「越用越笨」不是 bug，是物理。</div>
+  </div>
+</section>
+
+<section id="flow">
+  <h2><span class="idx">02</span>主流五步：idea → ship 的次序为什么不可换</h2>
+  <p class="lead">
+    次序本身就是防错机制：<b>拷问在 spec 前</b>（先消灭猜测）、<b>spec 在实现前</b>（先外化记忆）、<b>审查在提交前</b>（独立验证）。
+    换掉次序，每一步本来防住的失败模式就会回来。DSH 里对应 <code>eng-idea-to-ship</code>（用户入口技能）编排以下五步。
+  </p>
+  <div class="grid">
+
+    <div class="card">
+      <h3><span class="flowstep">1</span>拷问对齐 · eng-grilling</h3>
+      <div class="tagline">治「做出来的不是要的」——misalignment 是 AI 协作第一大失败模式</div>
+      <div class="row"><b class="k use">怎么用</b> 开工前说「拷问我这个想法 / grill me」。agent 把需求建成<b>设计树</b>，按<b>轮次</b>问完整个<b>前沿</b>（前置已定、现在就能问的问题），每题编号并附推荐答案；你答完它重算前沿再问下一轮。</div>
+      <div class="row"><b class="k ess">学精髓</b> 两条铁律内化：<b>事实是 agent 的活</b>（能查的绝不问你，探索不阻塞提问）、<b>决策是你的活</b>（每个决策摆给你等）。前沿为空 + 你确认共识，才准动手。</div>
+      <div class="row"><b class="k pri">第一性</b> 公理三：模型对未知<b>静默填空</b>，猜与选不可分辨。两行提示直接要产出＝把设计权交给默认值。拷问是把「猜」变回「问」的唯一通道。</div>
+    </div>
+
+    <div class="card">
+      <h3><span class="flowstep">2</span>原型支线 · prototype</h3>
+      <div class="tagline">治「要看一眼才知道」——对话分辨率不够的问题</div>
+      <div class="row"><b class="k use">怎么用</b> 拷问中撞到纸面定不了的问题（状态机手感 / UI 长相）就分叉：造<b>一次性</b>原型只回答这一个问题——逻辑问题→单文件 HTML 自由操作台（纯模块可整体抬回真代码）；UI 问题→同路由 <code>?variant=</code> 多变体切换。</div>
+      <div class="row"><b class="k ess">学精髓</b> 原型是<b>用完即弃的提问方式</b>：不测试、不抽象、内存态、跑起来就行。结论折回真代码，原型本身提交到 <code>prototype/&lt;name&gt;</code> 分支当一手来源。</div>
+      <div class="row"><b class="k pri">第一性</b> 公理四：有些知识只存在于运行中。可运行物是人类与模型之间分辨率最高的沟通语言。</div>
+    </div>
+
+    <div class="card">
+      <h3><span class="flowstep">3</span>固化 · to-spec + to-tickets</h3>
+      <div class="tagline">治「决策随会话蒸发」——会话可弃，交接物长存</div>
+      <div class="row"><b class="k use">怎么用</b> 拷问共识说「落成 spec 和工单」。<b>不重新访谈，只合成</b>：spec 按模板（Problem / Solution / 用户故事 / 实现决策 / 测试决策 / Out of Scope），写前先和你确认<b>测试 seam</b>；工单＝<b>曳光弹垂直切片</b>（每片穿透所有层、独立可演示、一个 smart zone 装得下）+ <b>阻塞边</b>。宽改造走 <b>expand–contract</b>：先并存新形态，分批迁移，最后删旧。</div>
+      <div class="row"><b class="k ess">学精髓</b> spec 和工单是<b>无状态模型的记忆假肢</b>。每张票自足到可以被一个全新会话捡起——这不是官僚手续，是让「会话可弃」成为安全的架构决策。</div>
+      <div class="row"><b class="k pri">第一性</b> 公理一：会话清零。一切跨会话价值必须外化为环境文件；不外化的决策等价于没做过。</div>
+    </div>
+
+    <div class="card">
+      <h3><span class="flowstep">4</span>实现 · implement × eng-tdd</h3>
+      <div class="tagline">治「无反馈乱飞」——反馈速率是速度上限</div>
+      <div class="row"><b class="k use">怎么用</b> 每张票开<b>新会话</b>实现。驱动 eng-tdd：先写下要测的 seam 清单并确认（未经确认的 seam 上一条测试都不写），然后 red→green：写一个失败测试 → 恰好让它通过的实现 → 下一片。类型检查常跑、全量测试收尾跑一次。</div>
+      <div class="row"><b class="k ess">学精髓</b> 三个反模式要认得出：<b>实现耦合</b>（重构就红）、<b>同义反复</b>（断言用实现的方式重算期望值，构造上必过）、<b>水平切片</b>（先写完所有测试再写实现＝验证想象）。期望值必须来自独立真值。</div>
+      <div class="row"><b class="k pri">第一性</b> 公理四+六：模型只见窗口且非确定。窗口里没有独立真值时，模型会自信地漂移——失败测试是唯一便宜、快速、可重复的真值注入。</div>
+    </div>
+
+    <div class="card">
+      <h3><span class="flowstep">5</span>审查 · eng-code-review</h3>
+      <div class="tagline">治「谄媚审查」——验证者必须与生产者隔离</div>
+      <div class="row"><b class="k use">怎么用</b> implement 收尾自动跑：钉住固定点取 diff，<b>两个并行子代理</b>分跑两轴——<b>Standards</b>（仓库成文规范 + 12 条 Fowler smell 基线）与 <b>Spec</b>（是否忠实实现来源 issue：缺失 / 超范围 / 做错）——报告<b>并排呈现，不合并排序</b>。</div>
+      <div class="row"><b class="k ess">学精髓</b> 一份改动可以过一轴挂另一轴：规范全对但做错了东西，或做对了但破坏约定。分开报告是防止一轴掩盖另一轴；「看起来不错」不是审查。</div>
+      <div class="row"><b class="k pri">第一性</b> 公理三+六：附和倾向 + 非确定 ⇒ 自己审自己必然漏。并行子代理＝验证者上下文与生产者上下文物理隔离。</div>
+    </div>
+  </div>
+
+  <div class="grid" style="grid-template-columns:1fr 1fr">
+    <div class="micro">
+      <svg width="440" height="250" viewBox="0 0 440 250">
+        <circle cx="90" cy="60" r="26" class="mchip" fill="var(--axiom)" stroke="var(--axiom)"/>
+        <text x="90" y="64" class="mtxt" text-anchor="middle">想法</text>
+        <line class="mline" x1="90" y1="86" x2="90" y2="120"/>
+        <circle cx="60" cy="146" r="20" fill="var(--ok)" fill-opacity=".25" stroke="var(--ok)"/>
+        <circle cx="120" cy="146" r="20" fill="var(--ok)" fill-opacity=".25" stroke="var(--ok)"/>
+        <circle cx="230" cy="146" r="20" class="mchip" fill="var(--risk)" stroke="var(--risk)" stroke-dasharray="4 3"/>
+        <text x="60" y="150" class="msub" text-anchor="middle">已定</text>
+        <text x="120" y="150" class="msub" text-anchor="middle">已定</text>
+        <text x="230" y="150" class="msub" text-anchor="middle">开放</text>
+        <line class="mline" x1="90" y1="86" x2="212" y2="132"/>
+        <line class="mline" x1="230" y1="166" x2="230" y2="198"/>
+        <line class="mline" x1="120" y1="166" x2="330" y2="146"/>
+        <circle cx="230" cy="218" r="16" class="mchip" fill="var(--risk)" stroke="var(--risk)" stroke-dasharray="4 3"/>
+        <circle cx="330" cy="146" r="16" class="mchip" fill="var(--skill)" stroke="var(--skill)"/>
+        <text x="330" y="150" class="msub" text-anchor="middle" fill="var(--skill)" style="fill:var(--skill)">前沿</text>
+        <text x="230" y="222" class="msub" text-anchor="middle">被阻塞</text>
+        <text x="290" y="205" class="msub">阻塞随答案解除→晋升为前沿</text>
+        <text x="60" y="235" class="msub">■ 一轮问完整个前沿，每题带推荐答案</text>
+      </svg>
+      <div class="cap">拷问的设计树：绿色＝已定决策，红虚线＝开放，蓝＝前沿（前置已定、现在就能问的）。答案重塑树，前沿外推，直到为空。</div>
+    </div>
+    <div class="micro">
+      <svg width="440" height="250" viewBox="0 0 440 250">
+        <rect x="40" y="30" width="150" height="52" class="mbox" stroke="var(--risk)"/>
+        <text x="115" y="52" class="mtxt" text-anchor="middle" fill="var(--risk)" style="fill:var(--risk);font-weight:700">RED 红</text>
+        <text x="115" y="70" class="msub" text-anchor="middle">写一个失败测试</text>
+        <rect x="250" y="30" width="150" height="52" class="mbox" stroke="var(--ok)"/>
+        <text x="325" y="52" class="mtxt" text-anchor="middle" fill="var(--ok)" style="fill:var(--ok);font-weight:700">GREEN 绿</text>
+        <text x="325" y="70" class="msub" text-anchor="middle">恰好让它通过的实现</text>
+        <path d="M190,45 C225,20 265,20 300,32" class="mline" stroke="var(--edge)"/>
+        <path d="M250,72 C215,95 185,95 150,80" class="mline" stroke="var(--edge)"/>
+        <text x="222" y="16" class="msub" text-anchor="middle">只写够过的代码</text>
+        <text x="200" y="112" class="msub" text-anchor="middle">下一片（垂直切片）↺</text>
+        <rect x="40" y="150" width="360" height="46" class="mbox" stroke="var(--skill)"/>
+        <text x="220" y="168" class="mtxt" text-anchor="middle">闸门：只在预先约定的 seam 上测试</text>
+        <text x="220" y="186" class="msub" text-anchor="middle">未经确认的 seam 上，一条测试都不写 · 重构属于审查阶段，不属于本循环</text>
+        <text x="220" y="225" class="msub" text-anchor="middle">反模式：实现耦合 / 同义反复 / 水平切片</text>
+      </svg>
+      <div class="cap">TDD 循环：红→绿→下一片。循环小到可笑才对——「一次一片」不是教条，是让每一片都吃到上一片的教训。</div>
+    </div>
+  </div>
+
+  <div class="micro">
+    <svg width="700" height="240" viewBox="0 0 700 240">
+      <rect x="270" y="16" width="160" height="44" class="mbox" stroke="var(--skill)"/>
+      <text x="350" y="42" class="mtxt" text-anchor="middle">diff（固定点…HEAD）</text>
+      <path d="M310,60 C260,90 200,95 160,110" class="mline"/>
+      <path d="M390,60 C440,90 500,95 540,110" class="mline"/>
+      <rect x="60" y="112" width="200" height="56" class="mbox" stroke="var(--axiom)"/>
+      <text x="160" y="134" class="mtxt" text-anchor="middle">Standards 子代理</text>
+      <text x="160" y="152" class="msub" text-anchor="middle">仓库规范 + Fowler smell 基线</text>
+      <rect x="440" y="112" width="200" height="56" class="mbox" stroke="var(--axiom)"/>
+      <text x="540" y="134" class="mtxt" text-anchor="middle">Spec 子代理</text>
+      <text x="540" y="152" class="msub" text-anchor="middle">缺失 / 超范围 / 做错</text>
+      <path d="M160,168 C220,195 280,198 330,202" class="mline"/>
+      <path d="M540,168 C480,195 420,198 370,202" class="mline"/>
+      <rect x="230" y="204" width="240" height="30" class="mbox" stroke="var(--risk)"/>
+      <text x="350" y="224" class="mtxt" text-anchor="middle">并排报告 · 不合并排序</text>
+      <text x="640" y="140" class="msub" text-anchor="end">两个上下文互不可见</text>
+      <text x="350" y="120" class="msub" text-anchor="middle" style="fill:var(--ok)">并行 · 隔离</text>
+    </svg>
+    <div class="cap">双轴审查：一份改动可以过一轴挂另一轴——并排呈现防止「规范全对但做错了东西」被「代码很整洁」掩盖。</div>
+  </div>
+</section>
+
+<section id="pillars">
+  <h2><span class="idx">03</span>四根支柱：跑在主流下面的纪律与词汇</h2>
+  <p class="lead">主流回答「按什么次序做」，支柱回答「用什么语言说、按什么标准看」。四个技能都是模型可调用——任务匹配时 agent 自动加载。</p>
+  <div class="grid">
+    <div class="card">
+      <h3>eng-domain-modeling · 共享语言</h3>
+      <div class="tagline">语言是注意力的压缩器</div>
+      <div class="row"><b class="k use">怎么用</b> 讨论中术语一结晶就写进 <code>CONTEXT.md</code>（词汇表：术语＋一两句定义＋Avoid 列表）；难逆决策过<b>三条件</b>（难逆 / 无上下文会费解 / 真实权衡）才记 ADR，一段话即可。</div>
+      <div class="row"><b class="k ess">学精髓</b> 词表冲突当场挑（「你说的 account 是 Customer 还是 User？」）；与代码交叉验证（「代码只支持整单取消，你说可以部分取消——哪个对？」）。CONTEXT.md 只是词汇表，绝不当 spec 用。</div>
+      <div class="row"><b class="k pri">第一性</b> 公理二：注意力按 token 封顶。「materialization cascade」一个词顶一句话——共享语言让同一预算装下更多工程，还让 agent 的命名/导航/思考全部对齐。</div>
+    </div>
+    <div class="card">
+      <h3>eng-codebase-design · 深模块</h3>
+      <div class="tagline">depth / seam / adapter / leverage / locality</div>
+      <div class="row"><b class="k use">怎么用</b> 设计接口时用这套精确词汇（不漂移成「组件/service/API」）：<b>深模块</b>＝大量行为藏在小接口后。疑似浅模块过<b>删除测试</b>：删掉它，复杂度集中（好）还是只是搬家（坏）？</div>
+      <div class="row"><b class="k ess">学精髓</b> 深度是<b>接口的属性</b>不是实现的——内部可以由小块组成，只是不属接口。一个 adapter 是假想 seam，两个才是真 seam。</div>
+      <div class="row"><b class="k pri">第一性</b> 公理五：生成放大熵。深模块是唯一同时改善杠杆（调用方）、局部性（维护方）、可测性（所有人）的结构——把复杂度关回笼子。</div>
+    </div>
+    <div class="card">
+      <h3>eng-diagnosing-bugs · 诊断纪律</h3>
+      <div class="tagline">回路是 90%，其余是机械</div>
+      <div class="row"><b class="k use">怎么用</b> 硬 bug 交给它，六阶段：①造<b>会红的回路</b>（一条已跑过、确定、秒级、agent 可跑、断言你的确切症状的命令）→②复现+最小化（每个残留元素 load-bearing）→③3–5 个可证伪排序假设（先给你看）→④单变量插桩（<code>[DEBUG-xxxx]</code> 标签）→⑤先写回归测试再修→⑥清理（grep 标签，胜出假设写进 commit）。</div>
+      <div class="row"><b class="k ess">学精髓</b> 「没有能红的命令，就没有假设阶段」——直接读代码建理论正是这个技能要防的失败。回路要当产品经营：更快、更锐、更确定。</div>
+      <div class="row"><b class="k pri">第一性</b> 公理四：模型会自信地编。二分、假设检验、插桩全都只是消费一个真值信号——信号本身必须先存在。</div>
+    </div>
+    <div class="card">
+      <h3>eng-writing-for-agents · 为 agent 写作</h3>
+      <div class="tagline">指针经济学：一行指针，按需千金</div>
+      <div class="row"><b class="k use">怎么用</b> 写 AGENTS.md / 技能 / 任何指针文档时自动加载。核心杠杆：<b>context pointer</b> 措辞决定触发（触发词前置、一个分支一个触发）；信息三级阶梯（步骤断言＞文件内参考＞披露参考）；完成判据要<b>可判且穷尽</b>；用<b>引导词</b>（tight / red / frontier）招募模型先验；逐句猎 no-op。</div>
+      <div class="row"><b class="k ess">学精髓</b> 两种负载分开算：<b>context load</b>（常驻窗口，每轮付费）与 <b>cognitive load</b>（人的索引成本）。塞满的说明书让 agent 每件事都变差——注意力预算不陪你练勤奋。</div>
+      <div class="row"><b class="k pri">第一性</b> 公理二：每个常驻 token 双重计费（钱＋注意力）。渐进披露不是省钱技巧，是稀缺资源下的必然经济学。</div>
+    </div>
+  </div>
+
+  <div class="micro">
+    <svg width="640" height="210" viewBox="0 0 640 210">
+      <rect x="70" y="26" width="180" height="16" fill="var(--ok)" rx="3"/>
+      <rect x="70" y="46" width="180" height="120" class="mbox" stroke="var(--ok)"/>
+      <text x="160" y="36" class="msub" text-anchor="middle" fill="var(--ok)" style="fill:var(--ok);font-weight:700">小接口</text>
+      <text x="160" y="100" class="mtxt" text-anchor="middle">深实现</text>
+      <text x="160" y="122" class="msub" text-anchor="middle">复杂逻辑全部藏起</text>
+      <text x="160" y="188" class="mtxt" text-anchor="middle" fill="var(--ok)" style="fill:var(--ok);font-weight:700">深模块 ✓</text>
+      <rect x="390" y="26" width="200" height="16" fill="var(--risk)" rx="3"/>
+      <rect x="390" y="46" width="200" height="40" class="mbox" stroke="var(--risk)"/>
+      <text x="490" y="36" class="msub" text-anchor="middle" fill="var(--risk)" style="fill:var(--risk);font-weight:700">大接口</text>
+      <text x="490" y="70" class="msub" text-anchor="middle">薄实现：只是透传</text>
+      <text x="490" y="188" class="mtxt" text-anchor="middle" fill="var(--risk)" style="fill:var(--risk);font-weight:700">浅模块 ✗</text>
+      <text x="490" y="120" class="msub" text-anchor="middle">删除测试：删掉它，</text>
+      <text x="490" y="138" class="msub" text-anchor="middle">复杂度集中＝它在挣饭钱</text>
+    </svg>
+    <div class="cap">深 vs 浅：depth 是接口的属性——调用方每学一单位接口能驱动的行为量。深＝杠杆＋局部性；浅＝调用方替你读实现。</div>
+  </div>
+</section>
+
+<section id="special">
+  <h2><span class="idx">04</span>四个特种兵：按需启用</h2>
+  <p class="lead">不日常，但各自的触发场景一旦出现，没有它们就要付数量级的代价。</p>
+  <div class="grid">
+    <div class="card">
+      <h3>上下文卫生 · 阶段边界</h3>
+      <div class="tagline">边界换挡，不在阶段中间劈</div>
+      <div class="row"><b class="k use">怎么用</b> 阶段（拷问/实现/QA）之间的空隙上，按五问决策树自上而下：①本会话能继续吗（下一阶段需要本阶段做一手来源 / smart zone 还够）→②上下文对接下来无关吗（新会话）→③需要交接吗（新 harness / 新目录 / 同事 / 中途分叉）→④能 AFK 吗（子代理）→⑤否则压缩（带一句保留指引）。</div>
+      <div class="row"><b class="k ess">学精髓</b> 压缩是<b>默认项不是第一反应</b>——它垫底因为上面四问都更便宜或更精准；从压缩开始的人常得到「对被摘要拍扁的决策自信地错」的新会话。</div>
+      <div class="row"><b class="k pri">第一性</b> 公理二：衰减无报错无边界，只能在边界<b>主动</b>管理；Continue 以外每个动作都把一手来源变二手——先问「留下的代价」再付「有损的价」。</div>
+    </div>
+    <div class="card">
+      <h3>wayfinder · 迷雾工程</h3>
+      <div class="tagline">规划不是执行：产出决策，不是交付物</div>
+      <div class="row"><b class="k use">怎么用</b> 工程大到装不下且路看不见时说「画张地图」：tracker 上一个 <code>wayfinder:map</code> 父 issue + 决策票子 issue（research/prototype/grilling/task 四型）。<b>一会话一票</b>（research 例外），解决→关票→地图 Decisions-so-far 加指针→迷雾毕业新票。雾散后并入主流 to-spec。</div>
+      <div class="row"><b class="k ess">学精髓</b> <b>雾还是票？</b>检验是「能否现在精确陈述问题」，不是「能否现在回答」。想直接干活的冲动＝已到地图边缘，该移交主流。</div>
+      <div class="row"><b class="k pri">第一性</b> 公理一+三：大工程的未定决策远超一个会话——先花便宜的决策预算消灭不确定性，再花贵的实现预算。</div>
+    </div>
+    <div class="card">
+      <h3>eng-architecture-review · 架构巡检</h3>
+      <div class="tagline">本报告就是它的产物形态</div>
+      <div class="row"><b class="k use">怎么用</b> 空档时说「巡检架构」：按 YAGNI 先定范围（<code>git log</code> 热点优先）→子代理走查找<b>加深机会</b>（删除测试过滤）→产出<b>规格驱动、几何校验</b>的可视化 HTML 报告（候选卡：Files / Problem / Solution / Benefits / Before-After 图 / Strong–Worth exploring–Speculative 徽章）→挑中一个带回拷问立项。</div>
+      <div class="row"><b class="k ess">学精髓</b> 巡检是<b>盘点不是施工</b>；agent 加速代码熵，这是每天投资设计的机制化。</div>
+      <div class="row"><b class="k pri">第一性</b> 公理五：熵不休假。加深是唯一让「未来变更」变便宜的杠杆；报告可验证，因为图和代码一样会腐烂。</div>
+    </div>
+    <div class="card">
+      <h3>eng-wizard · 人的关卡</h3>
+      <div class="tagline">世界有一半只有人能走进</div>
+      <div class="row"><b class="k use">怎么用</b> agent 撞上只有人能过的墙（开账号 / 拿密钥 / 走陌生控制台）时自动触发：先读 repo 列出每个 stage 及其产出的值（CI 里每个 <code>secrets.*</code> 引用都要有着落），确认后生成分步 bash 向导——开 URL→说要复制什么→<code>ask_secret</code> 隐藏输入→幂等写 <code>.env</code>/<code>gh secret</code>→不可逆动作前 confirm。</div>
+      <div class="row"><b class="k ess">学精髓</b> 人机分工的<b>接口工程</b>：不编造可能不存在的步骤；不自己端到端跑（它等人输入）——静态走查每个值有着落即可。</div>
+      <div class="row"><b class="k pri">第一性</b> 公理四：环境有一半在 agent 感知之外。把人能走的路铺成可重走的台阶，把「每次重新解释」变成「跑一次脚本」。</div>
+    </div>
+  </div>
+
+  <div class="micro">
+    <svg width="560" height="300" viewBox="0 0 560 300">
+      <rect x="20" y="14" width="330" height="34" class="mbox" stroke="var(--skill)"/>
+      <text x="185" y="35" class="mtxt" text-anchor="middle">① 本会话能继续？（一手来源 / smart zone 够）</text>
+      <text x="440" y="35" class="msub" fill="var(--ok)" style="fill:var(--ok)">是 → Continue</text>
+      <line class="mline" x1="185" y1="48" x2="185" y2="70"/>
+      <rect x="20" y="72" width="330" height="34" class="mbox" stroke="var(--skill)"/>
+      <text x="185" y="93" class="mtxt" text-anchor="middle">② 上下文对接下来无关？</text>
+      <text x="440" y="93" class="msub" fill="var(--ok)" style="fill:var(--ok)">是 → 新会话（最便宜）</text>
+      <line class="mline" x1="185" y1="106" x2="185" y2="128"/>
+      <rect x="20" y="130" width="330" height="34" class="mbox" stroke="var(--skill)"/>
+      <text x="185" y="151" class="mtxt" text-anchor="middle">③ 有东西要旅行？（新harness/新目录/同事/分叉）</text>
+      <text x="440" y="151" class="msub" fill="var(--ok)" style="fill:var(--ok)">是 → Handoff</text>
+      <line class="mline" x1="185" y1="164" x2="185" y2="186"/>
+      <rect x="20" y="188" width="330" height="34" class="mbox" stroke="var(--skill)"/>
+      <text x="185" y="209" class="mtxt" text-anchor="middle">④ 任务能 AFK？（范围紧到无人值守）</text>
+      <text x="440" y="209" class="msub" fill="var(--ok)" style="fill:var(--ok)">是 → 子代理</text>
+      <line class="mline" x1="185" y1="222" x2="185" y2="244"/>
+      <rect x="20" y="246" width="330" height="34" class="mbox" stroke="var(--warn)"/>
+      <text x="185" y="267" class="mtxt" text-anchor="middle" fill="var(--warn)" style="fill:var(--warn)">⑤ 否则 → 压缩（默认项，不是第一反应）</text>
+      <text x="185" y="294" class="msub" text-anchor="middle">只在阶段边界决策；阶段中间 = 继续或拆子代理</text>
+    </svg>
+    <div class="cap">阶段边界五问决策树：自上而下，第一个「是」获胜。压缩带一句保留指引（「接下来要 QA 这块」）让摘要留住下一阶段需要的东西。</div>
+  </div>
+</section>
+
+<section id="cheatsheet">
+  <h2><span class="idx">05</span>速查表（数据来自架构图规格 JSON）</h2>
+  <p class="lead">规格里的 <code>cards</code> 即此表——改 JSON，画布与表格同步更新（单一真源）。</p>
+  <table id="cheatTable">
+    <thead><tr><th style="width:170px">技巧</th><th>怎么用</th><th>学习精髓</th><th>第一性原理</th></tr></thead>
+    <tbody></tbody>
+  </table>
+</section>
+
+<section id="learning">
+  <h2><span class="idx">06</span>学习路径：三层进阶 + 四周练手</h2>
+  <div class="callout">
+    <b>学习精髓总纲——三层进阶：</b><br>
+    <b>① 先学词</b>（词汇即技术）：tight / red / frontier / tracer bullet / seam / deep module / expand–contract / fog of war / handoff artifact / context pointer——引导词直接锚定 agent 行为，你说「造个 tight 的回路」，它立刻知道要快、确定、锐利、可跑。<b>检验：每个词能一句话讲给同事。</b><br>
+    <b>② 再学流</b>（次序即防错）：拷问→spec→逐票→审查的次序换了，每步防的失败模式就回来。<b>检验：能说出每一步防哪个失败模式、它来自哪条公理。</b><br>
+    <b>③ 后学判断</b>（taste 层）：边界五问、雾还是票、seam 放哪、值不值得 TDD——没有机械答案，只有<b>按序问的问题</b>。按序问，就是判断力的全部训练法。
+  </div>
+  <div class="weeks">
+    <div class="week"><div class="wk">第 1 周 · 对齐</div><h4>拷问 + wait-what</h4>
+      <div>技能：<code>eng-grilling</code></div>
+      <div class="hw"><b>作业</b>：拿一个真实小需求让 agent 拷问到前沿为空；数一数它问出了几个你没想过的决策。</div></div>
+    <div class="week"><div class="wk">第 2 周 · 交付</div><h4>主流全流程</h4>
+      <div>技能：<code>eng-idea-to-ship</code>（spec→tickets→逐票）</div>
+      <div class="hw"><b>作业</b>：跑一个小特性；spec 生成前亲手确认 seam 清单，再看它的 Testing Decisions 是否如约。</div></div>
+    <div class="week"><div class="wk">第 3 周 · 反馈</div><h4>TDD + 诊断</h4>
+      <div>技能：<code>eng-tdd</code> <code>eng-diagnosing-bugs</code></div>
+      <div class="hw"><b>作业</b>：测试先行的造一个小功能；找一个真 bug 体验「没有能红的命令就没有假设阶段」被拦住的感觉。</div></div>
+    <div class="week"><div class="wk">第 4 周 · 设计</div><h4>词汇 + 巡检</h4>
+      <div>技能：<code>eng-codebase-design</code> <code>eng-architecture-review</code></div>
+      <div class="hw"><b>作业</b>：巡检自己的 repo，找到一个过删除测试的加深机会，带回拷问立项。</div></div>
+    <div class="week"><div class="wk">持续层</div><h4>按需启用</h4>
+      <div>技能：<code>eng-writing-for-agents</code>（每次写 AGENTS.md/技能时）；<code>wayfinder</code> / <code>eng-wizard</code>（场景触发）；<code>dsh-school</code>（想学机制时）。</div>
+      <div class="hw"><b>习惯</b>：每次会话结束问自己——这次哪个失败模式差点发生、哪个技能救的场。</div></div>
+  </div>
+</section>
+
+<section id="antipatterns">
+  <h2><span class="idx">07</span>反模式对照表：从症状直查解药</h2>
+  <table>
+    <thead><tr><th>失败模式</th><th>典型症状</th><th>解药</th><th>一句识别</th></tr></thead>
+    <tbody>
+      <tr><td>misalignment</td><td>做出来的不是要的</td><td><code>eng-grilling</code> / 原型支线</td><td>「我以为它懂了」</td></tr>
+      <tr><td>语言混浊</td><td>又臭又错，agent 找不到东西</td><td><code>eng-domain-modeling</code> + <code>eng-writing-for-agents</code></td><td>20 个词说 1 个词的事</td></tr>
+      <tr><td>flying blind</td><td>自信地错，没人变红</td><td><code>eng-tdd</code> / <code>eng-diagnosing-bugs</code></td><td>修完没有回归测试</td></tr>
+      <tr><td>session loss</td><td>昨天的决策今天消失</td><td>to-spec / to-tickets</td><td>「为什么当初这么写？」没人答得上来</td></tr>
+      <tr><td>ball of mud</td><td>每个改动牵动全身</td><td><code>eng-codebase-design</code> + <code>eng-architecture-review</code></td><td>删除测试失败：复杂度只是搬家</td></tr>
+      <tr><td>dumb zone</td><td>越用越笨，重解释更糟</td><td>上下文卫生（边界五问）</td><td>忘掉 20 轮前的指令、重复已纠正的错</td></tr>
+      <tr><td>谄媚审查</td><td>「看起来不错！」</td><td><code>eng-code-review</code> 双轴并行子代理</td><td>审查者与生产者同源</td></tr>
+      <tr><td>默认值接管</td><td>spec 里全是它替你选的</td><td>拷问在 spec 前；spec 只合成不访谈</td><td>猜与选不可分辨</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="method">
+  <h2><span class="idx">08</span>可视化方法：Archify 产线（本报告怎么做的）</h2>
+  <p class="lead">
+    本报告的可视化对齐 <b>tt-a1i/archify</b>（可验证架构图，21.7k★）的核心约定：<b>规格驱动 · 几何校验 · 多视图 · 主题化 · 零 CDN 自包含</b>。
+    图不是画完就算——图和代码一样会腐烂，所以图也要有测试。
+  </p>
+  <table>
+    <thead><tr><th style="width:180px">约定</th><th>本报告的实现</th></tr></thead>
+    <tbody>
+      <tr><td><b>规格驱动</b></td><td><code>matt-pocock-dojo.architecture.json</code> 是唯一真源：33 组件（id/type/label/pos/size）、39 连线（from/to/label/路由边）、5 视图（focus 子集）、13 张 cards。画布与速查表都由它渲染。</td></tr>
+      <tr><td><b>可验证</b></td><td><code>validate-geometry.mjs</code> 四道门：越界 / 两两重叠(8px) / 连线悬空引用 / 视图引用。本次真实抓到 <code>f5→t-tdd</code> 悬空引用并修复——校验不是仪式，真的咬人。产物 <code>matt-pocock-dojo.visual-check.json</code>：PASS。</td></tr>
+      <tr><td><b>多视图</b></td><td>一张图五个镜头：全景 / 第一性原理 / 主流 / 纪律与词汇 / 特种兵。非焦点组件降透明度而不是删除——结构始终在场。</td></tr>
+      <tr><td><b>主题化 + 可分享</b></td><td>暗/亮双主题（首绘前解析，无闪烁）；<code>?view=mainflow&amp;theme=light</code> 直接分享某个镜头。</td></tr>
+      <tr><td><b>零 CDN 自包含</b></td><td>双击即开、离线可用、邮件可发——报告是交付物，不是网页服务。</td></tr>
+      <tr><td><b>复用</b></td><td>对任意代码库说「<b>巡检架构</b>」（DSH 技能 <code>eng-architecture-review</code>）即走同一产线：探索→候选→spec→校验→HTML 报告。</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="dsh">
+  <h2><span class="idx">09</span>DSH 落地：这套东西现在就在你机器上</h2>
+  <p class="lead">
+    以上全部技巧已做成 DSH 插件 <code>dsh-engineering-school</code>（<code>~/.dsh/plugins/dsh-engineering-school/</code>），已接入 web profile：
+    12 个技能（11 个模型可调用 + <code>eng-idea-to-ship</code> 用户入口），改技能文件热重载即时生效。
+  </p>
+  <table>
+    <thead><tr><th>你想做什么</th><th>说什么 / 敲什么</th><th>触发技能</th></tr></thead>
+    <tbody>
+      <tr><td>开工前对齐需求</td><td>「拷问我这个想法」</td><td><code>eng-grilling</code></td></tr>
+      <tr><td>走完整工程流</td><td>敲 <code>eng-idea-to-ship</code> 并说处境</td><td><code>eng-idea-to-ship</code></td></tr>
+      <tr><td>修疑难 bug</td><td>「diagnose 这个 bug」</td><td><code>eng-diagnosing-bugs</code></td></tr>
+      <tr><td>审查分支</td><td>「review since &lt;固定点&gt;」</td><td><code>eng-code-review</code></td></tr>
+      <tr><td>巡检架构</td><td>「巡检架构 / 找技术债」</td><td><code>eng-architecture-review</code></td></tr>
+      <tr><td>学 agent 机制</td><td>「教我 smart zone / DSH 怎么用」</td><td><code>dsh-school</code></td></tr>
+    </tbody>
+  </table>
+</section>
+
+</main>
+
+<footer>
+  内容：Matt Pocock《AI Skills for Real Engineers》（github.com/mattpocock/skills，MIT）＋ aihero.dev 免费内容（AI Coding Dictionary 等），深度整合与 DSH 适配。<br>
+  可视化：archify 风格规格驱动产线（约定对齐 tt-a1i/archify）；几何校验 PASS。<br>
+  产物：matt-pocock-dojo.architecture.json · matt-pocock-dojo.html · validate-geometry.mjs · matt-pocock-dojo.visual-check.json ＠ JerryDSH/matt-pocock-dojo/<br>
+  生成：2026-08-30 · DSH (glm-5.3)
+</footer>
+
+<script id="spec" type="application/json">
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "Matt Pocock 工程方法论全景 · 公理 → 失败模式 → 技巧 → 交接物",
+    "locale": "zh-CN",
+    "quality_profile": "showcase",
+    "generator": "archify-style spec-driven (hand-rolled, conventions follow tt-a1i/archify)",
+    "viewBox": [1560, 920],
+    "layers": [
+      { "label": "第一性原理层 · 六公理（物理约束）", "y": 20, "h": 104 },
+      { "label": "失败模式层 · 不干预时的必然结局", "y": 150, "h": 116 },
+      { "label": "技巧层 · 主流（左→右＝工程次序）", "y": 310, "h": 132 },
+      { "label": "技巧层 · 支柱纪律与特种兵", "y": 450, "h": 252 },
+      { "label": "交接物层 · 环境里的持久记忆", "y": 730, "h": 112 }
+    ],
+    "views": [
+      { "id": "full", "label": "全景", "focus": [], "note": "四层全亮：从物理约束到交付物的一条推导链" },
+      { "id": "derivation", "label": "第一性原理", "focus": ["ax-stateless", "ax-attention", "ax-silent", "ax-window", "ax-entropy", "ax-nondet", "fm-lost", "fm-lang", "fm-misalign", "fm-blind", "fm-mud", "fm-drift"], "note": "只看公理→失败模式：技巧不是偏好，是约束下的必然" },
+      { "id": "mainflow", "label": "主流", "focus": ["t-grill", "t-proto", "t-spec", "t-impl", "t-review", "t-wayfinder", "a-spec", "a-tickets"], "note": "idea→ship 的次序：拷问→原型支线→spec→逐票实现→双轴审查" },
+      { "id": "discipline", "label": "纪律与词汇", "focus": ["t-domain", "t-design", "t-diag", "t-writing", "t-arch", "a-context", "a-adr", "a-tests", "a-report"], "note": "跑在主流下面的词汇层与反馈纪律" },
+      { "id": "ops", "label": "特种兵", "focus": ["t-hygiene", "t-wayfinder", "t-wizard", "t-proto", "a-handoff", "a-branch"], "note": "按需启用的四个特种场景" }
+    ]
+  },
+  "components": [
+    { "id": "ax-stateless", "type": "axiom", "label": "公理一 · 无状态", "sublabel": "会话清零，记忆归零", "pos": [30, 40], "size": [230, 64] },
+    { "id": "ax-attention", "type": "axiom", "label": "公理二 · 注意力稀缺", "sublabel": "窗口有限 · 预算按 token 封顶", "pos": [285, 40], "size": [230, 64] },
+    { "id": "ax-silent", "type": "axiom", "label": "公理三 · 静默填空", "sublabel": "猜与选不可分辨 · 谄媚", "pos": [540, 40], "size": [230, 64] },
+    { "id": "ax-window", "type": "axiom", "label": "公理四 · 只见窗口", "sublabel": "世界只能经工具感知", "pos": [795, 40], "size": [230, 64] },
+    { "id": "ax-entropy", "type": "axiom", "label": "公理五 · 生成放大熵", "sublabel": "产出提速，混乱同速", "pos": [1050, 40], "size": [230, 64] },
+    { "id": "ax-nondet", "type": "axiom", "label": "公理六 · 变异非确定", "sublabel": "同输入，不同输出", "pos": [1305, 40], "size": [230, 64] },
+
+    { "id": "fm-lost", "type": "risk", "label": "决策随会话蒸发", "sublabel": "昨天的为什么，今天没了", "pos": [30, 176], "size": [230, 76] },
+    { "id": "fm-lang", "type": "risk", "label": "语言混浊", "sublabel": "20 个词说 1 个词的事", "pos": [285, 176], "size": [230, 76] },
+    { "id": "fm-misalign", "type": "risk", "label": "做出来的不是要的", "sublabel": "misalignment · 第一大失败", "pos": [540, 176], "size": [230, 76] },
+    { "id": "fm-blind", "type": "risk", "label": "无反馈乱飞", "sublabel": " flying blind · 自信地错", "pos": [795, 176], "size": [230, 76] },
+    { "id": "fm-mud", "type": "risk", "label": "大泥球", "sublabel": "复杂度超前累积", "pos": [1050, 176], "size": [230, 76] },
+    { "id": "fm-drift", "type": "risk", "label": "长会话劣化 · 笨区", "sublabel": "没有报错的渐变", "pos": [1305, 176], "size": [230, 76] },
+
+    { "id": "t-grill", "type": "skill", "label": "① eng-grilling 拷问", "sublabel": "设计树 · 前沿轮次", "pos": [40, 336], "size": [210, 92] },
+    { "id": "t-proto", "type": "skill", "label": "② 原型支线", "sublabel": "一次性代码答一个问题", "pos": [300, 336], "size": [210, 92] },
+    { "id": "t-spec", "type": "skill", "label": "③ to-spec + to-tickets", "sublabel": "spec · 曳光弹工单 · 阻塞边", "pos": [560, 336], "size": [210, 92] },
+    { "id": "t-impl", "type": "skill", "label": "④ implement × eng-tdd", "sublabel": "red→green · 预约定 seam", "pos": [820, 336], "size": [210, 92] },
+    { "id": "t-review", "type": "skill", "label": "⑤ eng-code-review", "sublabel": "Standards ∥ Spec 双轴", "pos": [1080, 336], "size": [210, 92] },
+
+    { "id": "t-domain", "type": "skill", "label": "eng-domain-modeling", "sublabel": "共享语言 · CONTEXT.md · ADR", "pos": [40, 484], "size": [210, 92] },
+    { "id": "t-design", "type": "skill", "label": "eng-codebase-design", "sublabel": "深模块 · seam · leverage", "pos": [300, 484], "size": [210, 92] },
+    { "id": "t-diag", "type": "skill", "label": "eng-diagnosing-bugs", "sublabel": "先造会红的回路", "pos": [560, 484], "size": [210, 92] },
+    { "id": "t-writing", "type": "skill", "label": "eng-writing-for-agents", "sublabel": "指针 · 双负载 · 引导词", "pos": [820, 484], "size": [210, 92] },
+
+    { "id": "t-hygiene", "type": "skill", "label": "上下文卫生", "sublabel": "阶段边界五选项", "pos": [40, 632], "size": [210, 92] },
+    { "id": "t-wayfinder", "type": "skill", "label": "wayfinder", "sublabel": "迷雾工程 · 决策票地图", "pos": [300, 632], "size": [210, 92] },
+    { "id": "t-arch", "type": "skill", "label": "eng-architecture-review", "sublabel": "加深机会 · 可验证报告", "pos": [560, 632], "size": [210, 92] },
+    { "id": "t-wizard", "type": "skill", "label": "eng-wizard", "sublabel": "只有人能过的关→脚本", "pos": [820, 632], "size": [210, 92] },
+
+    { "id": "a-context", "type": "artifact", "label": "CONTEXT.md", "sublabel": "词汇表 · 唯一语言真源", "pos": [30, 762], "size": [176, 72] },
+    { "id": "a-adr", "type": "artifact", "label": "ADR", "sublabel": "难逆决策的为什么", "pos": [222, 762], "size": [176, 72] },
+    { "id": "a-spec", "type": "artifact", "label": "Spec", "sublabel": "多会话工作的家", "pos": [414, 762], "size": [176, 72] },
+    { "id": "a-tickets", "type": "artifact", "label": "工单", "sublabel": "一个 smart zone 一张", "pos": [606, 762], "size": [176, 72] },
+    { "id": "a-tests", "type": "artifact", "label": "回归测试", "sublabel": "锁住 bug 的 seam", "pos": [798, 762], "size": [176, 72] },
+    { "id": "a-branch", "type": "artifact", "label": "prototype 分支", "sublabel": "原型＝一手来源", "pos": [990, 762], "size": [176, 72] },
+    { "id": "a-handoff", "type": "artifact", "label": "Handoff 文档", "sublabel": "跨会话/跨 harness 搬运", "pos": [1182, 762], "size": [176, 72] },
+    { "id": "a-report", "type": "artifact", "label": "巡检报告", "sublabel": "可验证的架构图", "pos": [1374, 762], "size": [176, 72] }
+  ],
+  "connections": [
+    { "id": "d1", "from": "ax-stateless", "to": "fm-lost", "label": "记忆归零", "fromSide": "bottom", "toSide": "top" },
+    { "id": "d2", "from": "ax-attention", "to": "fm-lang", "label": "预算耗散", "fromSide": "bottom", "toSide": "top" },
+    { "id": "d3", "from": "ax-silent", "to": "fm-misalign", "label": "默认值替你做主", "fromSide": "bottom", "toSide": "top" },
+    { "id": "d4", "from": "ax-window", "to": "fm-blind", "label": "看不见就编", "fromSide": "bottom", "toSide": "top" },
+    { "id": "d5", "from": "ax-entropy", "to": "fm-mud", "label": "熵同速放大", "fromSide": "bottom", "toSide": "top" },
+    { "id": "d6", "from": "ax-attention", "to": "fm-drift", "label": "信号淹没在噪声里", "fromSide": "bottom", "toSide": "top", "labelDy": 30 },
+    { "id": "d7", "from": "ax-nondet", "to": "fm-blind", "label": "两次不一样", "fromSide": "bottom", "toSide": "top", "labelDy": 30 },
+
+    { "id": "f1", "from": "fm-misalign", "to": "t-grill", "label": "把猜变问", "fromSide": "bottom", "toSide": "top" },
+    { "id": "f2", "from": "fm-misalign", "to": "t-review", "label": "独立验证", "fromSide": "bottom", "toSide": "top", "labelDy": 40 },
+    { "id": "f3", "from": "fm-lang", "to": "t-domain", "label": "共享语言", "fromSide": "bottom", "toSide": "top" },
+    { "id": "f4", "from": "fm-lang", "to": "t-writing", "label": "指针经济学", "fromSide": "bottom", "toSide": "top", "labelDy": 60 },
+    { "id": "f5", "from": "fm-blind", "to": "t-impl", "label": "真值通道", "fromSide": "bottom", "toSide": "top", "labelDy": 40 },
+    { "id": "f6", "from": "fm-blind", "to": "t-diag", "label": "回路先行", "fromSide": "bottom", "toSide": "top", "labelDy": 40 },
+    { "id": "f7", "from": "fm-blind", "to": "t-proto", "label": "拉高保真度", "fromSide": "bottom", "toSide": "top", "labelDy": 80 },
+    { "id": "f8", "from": "fm-lost", "to": "t-spec", "label": "外化记忆", "fromSide": "bottom", "toSide": "top", "labelDy": 90 },
+    { "id": "f9", "from": "fm-lost", "to": "t-wayfinder", "label": "大工程画地图", "fromSide": "bottom", "toSide": "top", "labelDy": 120 },
+    { "id": "f10", "from": "fm-mud", "to": "t-design", "label": "深模块", "fromSide": "bottom", "toSide": "top", "labelDy": 60 },
+    { "id": "f11", "from": "fm-mud", "to": "t-arch", "label": "日常巡检", "fromSide": "bottom", "toSide": "top", "labelDy": 100 },
+    { "id": "f12", "from": "fm-drift", "to": "t-hygiene", "label": "边界换挡", "fromSide": "bottom", "toSide": "top", "labelDy": 150 },
+    { "id": "f13", "from": "fm-misalign", "to": "t-proto", "label": "要看一眼才知道", "fromSide": "bottom", "toSide": "top", "labelDy": 60 },
+
+    { "id": "m1", "from": "t-grill", "to": "t-proto", "label": "纸面定不了→支线", "fromSide": "right", "toSide": "left" },
+    { "id": "m2", "from": "t-grill", "to": "t-spec", "label": "对齐即合成", "fromSide": "right", "toSide": "left", "labelDy": -18 },
+    { "id": "m3", "from": "t-proto", "to": "t-spec", "label": "结论折回", "fromSide": "right", "toSide": "left" },
+    { "id": "m4", "from": "t-spec", "to": "t-impl", "label": "一票一会话", "fromSide": "right", "toSide": "left" },
+    { "id": "m5", "from": "t-impl", "to": "t-review", "label": "收尾双轴", "fromSide": "right", "toSide": "left" },
+    { "id": "m6", "from": "t-wayfinder", "to": "t-spec", "label": "雾散并入主流", "fromSide": "top", "toSide": "bottom" },
+    { "id": "m7", "from": "t-design", "to": "t-arch", "label": "词汇 underneath", "fromSide": "right", "toSide": "left" },
+    { "id": "m8", "from": "t-grill", "to": "t-domain", "label": "拷问同时留痕", "fromSide": "bottom", "toSide": "top" },
+
+    { "id": "o1", "from": "t-domain", "to": "a-context", "label": "", "fromSide": "bottom", "toSide": "top" },
+    { "id": "o2", "from": "t-domain", "to": "a-adr", "label": "", "fromSide": "bottom", "toSide": "top" },
+    { "id": "o3", "from": "t-spec", "to": "a-spec", "label": "", "fromSide": "bottom", "toSide": "top" },
+    { "id": "o4", "from": "t-spec", "to": "a-tickets", "label": "", "fromSide": "bottom", "toSide": "top" },
+    { "id": "o5", "from": "t-impl", "to": "a-tests", "label": "", "fromSide": "bottom", "toSide": "top" },
+    { "id": "o6", "from": "t-diag", "to": "a-tests", "label": "", "fromSide": "bottom", "toSide": "top" },
+    { "id": "o7", "from": "t-hygiene", "to": "a-handoff", "label": "", "fromSide": "bottom", "toSide": "top" },
+    { "id": "o8", "from": "t-arch", "to": "a-report", "label": "", "fromSide": "bottom", "toSide": "top" },
+    { "id": "o9", "from": "t-proto", "to": "a-branch", "label": "", "fromSide": "bottom", "toSide": "top" }
+  ],
+  "cards": [
+    { "id": "t-grill", "use": "开工前说\"拷问我这个想法\"；agent 一轮问完整个前沿，每题带推荐答案", "essence": "把\"猜\"变成\"问\"：设计树走完，前沿为空才动手", "first": "公理三：模型会静默填空，猜与选不可分辨——唯一解法是把决策显式摆给人" },
+    { "id": "t-proto", "use": "纸面上定不了的问题（手感/外观）→ 一次性原型答一个问题", "essence": "对话分辨率不够时，造便宜的真物来反应", "first": "公理四：有些知识只能从运行中来；可运行物是最高分辨率的语言" },
+    { "id": "t-spec", "use": "拷问完说\"落成 spec 和工单\"；垂直切片+阻塞边，一票一个 smart zone", "essence": "spec/工单是无状态模型的记忆假肢：会话可弃，交接物长存", "first": "公理一：会话清零——一切跨会话价值必须外化到环境" },
+    { "id": "t-impl", "use": "逐票新会话实现；驱动 eng-tdd：先约 seam，再 red→green", "essence": "反馈速率是速度上限：一失败测试→恰好过→下一片", "first": "公理四+六：模型只见窗口且非确定——只有独立真值能锚住行为" },
+    { "id": "t-review", "use": "implement 收尾自动触发；两轴并行子代理，报告并排不合并", "essence": "\"规范全对但做错了\"与\"做对了但破坏约定\"必须分开看", "first": "公理三+六：附和倾向+非确定 → 验证者与生产者必须隔离" },
+    { "id": "t-domain", "use": "讨论中术语一结晶就写进 CONTEXT.md；难逆决策过三条件记 ADR", "essence": "共享语言是注意力的压缩器：materialization cascade 一个词顶一句话", "first": "公理二：注意力按 token 封顶——语言越精炼，同一预算装越多工程" },
+    { "id": "t-design", "use": "设计接口时按词汇表说话；加深机会过删除测试", "essence": "大量行为藏在小接口后：深=杠杆+局部性", "first": "公理五：生成放大熵——只有深模块能把复杂度关回笼子" },
+    { "id": "t-diag", "use": "疑难 bug 交给它：先造对本 bug 会红的回路，再假设、插桩、修复", "essence": "回路是 90%：没有能红的命令，就没有假设阶段", "first": "公理四：模型会自信地编——只有可重复的红色信号是真值" },
+    { "id": "t-writing", "use": "写 AGENTS.md/技能时自动加载；指针措辞前置触发词", "essence": "上下文是双重成本：指针一行，内联千金", "first": "公理二：每个常驻 token 每轮付费且花注意力——渐进披露是经济学必然" },
+    { "id": "t-hygiene", "use": "阶段边界上按五问决策树换挡：Continue→清→交接→子代理→压缩", "essence": "smart zone 是预算不是窗口上限：质量在满之前就开始掉", "first": "公理二：注意力衰减无报错无边界——只能在边界主动管理" },
+    { "id": "t-wayfinder", "use": "工程大到装不下时说\"画张地图\"；决策票一次解决一张", "essence": "规划不是执行：产出决策，不是交付物", "first": "公理一+三：大工程的未定决策太多——先消灭不确定性再消耗实现预算" },
+    { "id": "t-arch", "use": "空档时说\"巡检架构\"；spec 驱动可验证 HTML 报告，挑一个回主流", "essence": "盘点不是施工：每天投资设计，对抗熵增", "first": "公理五：熵不休假——加深是唯一让未来变更变便宜的杠杆" },
+    { "id": "t-wizard", "use": "agent 撞上只有人能过的墙时自动生成向导脚本", "essence": "人机分工的接口工程：重复解释不如一次落成脚本", "first": "公理四：世界有一半只有人能走进——把那条路铺成可重走的台阶" }
+  ]
+}
+
+</script>
+
+<script>
+"use strict";
+const spec = JSON.parse(document.getElementById("spec").textContent);
+const svg = document.getElementById("map");
+const NS = "http://www.w3.org/2000/svg";
+const [W, H] = spec.meta.viewBox;
+svg.setAttribute("viewBox", `0 0 ${W} ${H}`);
+const byId = new Map(spec.components.map((c) => [c.id, c]));
+
+function el(name, attrs, parent) {
+  const n = document.createElementNS(NS, name);
+  for (const [k, v] of Object.entries(attrs ?? {})) n.setAttribute(k, String(v));
+  if (parent) parent.appendChild(n);
+  return n;
+}
+
+// 层带
+for (const layer of spec.meta.layers ?? []) {
+  const g = el("g", {}, svg);
+  el("rect", { x: 12, y: layer.y, width: W - 24, height: layer.h, class: "layer-band", rx: 12 }, g);
+  const t = el("text", { x: 26, y: layer.y + 20, class: "layer-label" }, g);
+  t.textContent = layer.label;
+}
+
+// 连线
+function sidePoint(c, side) {
+  const [x, y] = c.pos, [w, h] = c.size;
+  return side === "top" ? [x + w / 2, y] : side === "bottom" ? [x + w / 2, y + h]
+    : side === "left" ? [x, y + h / 2] : [x + w, y + h / 2];
+}
+function sideNormal(side) {
+  return side === "top" ? [0, -1] : side === "bottom" ? [0, 1] : side === "left" ? [-1, 0] : [1, 0];
+}
+const edgeNodes = [];
+for (const conn of spec.connections) {
+  const a = byId.get(conn.from), b = byId.get(conn.to);
+  if (!a || !b) continue;
+  const p1 = sidePoint(a, conn.fromSide ?? "right");
+  const p2 = sidePoint(b, conn.toSide ?? "left");
+  const n1 = sideNormal(conn.fromSide ?? "right");
+  const n2 = sideNormal(conn.toSide ?? "left");
+  const k = Math.max(50, Math.hypot(p2[0] - p1[0], p2[1] - p1[1]) * 0.28);
+  const c1 = [p1[0] + n1[0] * k, p1[1] + n1[1] * k];
+  const c2 = [p2[0] + n2[0] * k, p2[1] + n2[1] * k];
+  const g = el("g", { class: "edge", "data-id": conn.id }, svg);
+  const path = el("path", { d: `M${p1[0]},${p1[1]} C${c1[0]},${c1[1]} ${c2[0]},${c2[1]} ${p2[0]},${p2[1]}` }, g);
+  // 箭头：终点切线方向
+  const dx = 3 * (p2[0] - c2[0]), dy = 3 * (p2[1] - c2[1]);
+  const len = Math.hypot(dx, dy) || 1, ux = dx / len, uy = dy / len;
+  const s = 8;
+  el("polygon", { points: `${p2[0]},${p2[1]} ${p2[0] - ux * s - uy * s * 0.5},${p2[1] - uy * s + ux * s * 0.5} ${p2[0] - ux * s + uy * s * 0.5},${p2[1] - uy * s - ux * s * 0.5}` }, g);
+  if (conn.label) {
+    const t05 = 0.5;
+    const mx = t05 ** 3 * p1[0] + 3 * t05 ** 2 * (1 - t05) * c1[0] + 3 * t05 * (1 - t05) ** 2 * c2[0] + (1 - t05) ** 3 * p2[0];
+    const my = t05 ** 3 * p1[1] + 3 * t05 ** 2 * (1 - t05) * c1[1] + 3 * t05 * (1 - t05) ** 2 * c2[1] + (1 - t05) ** 3 * p2[1];
+    const t = el("text", { x: mx, y: my - 4 + (conn.labelDy ?? 0), class: "elbl" }, g);
+    t.textContent = conn.label;
+  }
+  path.dataset.from = conn.from; path.dataset.to = conn.to;
+  edgeNodes.push({ g, conn });
+}
+
+// 组件
+for (const c of spec.components) {
+  const [x, y] = c.pos, [w, h] = c.size;
+  const g = el("g", { class: `comp ${c.type}`, "data-id": c.id }, svg);
+  el("rect", { x, y, width: w, height: h }, g);
+  el("circle", { cx: x + 14, cy: y + h / 2 - 9, r: 4, class: "dot" }, g);
+  const lbl = el("text", { x: x + w / 2, y: y + h / 2 - 8, class: "lbl" }, g);
+  lbl.textContent = c.label;
+  const sub = el("text", { x: x + w / 2, y: y + h / 2 + 14, class: "sub" }, g);
+  sub.textContent = c.sublabel ?? "";
+}
+
+// 视图逻辑
+const tabs = document.getElementById("viewTabs");
+const note = document.getElementById("viewNote");
+function setView(id) {
+  const view = spec.meta.views.find((v) => v.id === id) ?? spec.meta.views[0];
+  svg.dataset.view = view.id;
+  const focus = new Set(view.id === "full" ? [] : view.focus);
+  for (const g of svg.querySelectorAll(".comp")) g.classList.toggle("focus", view.id === "full" || focus.has(g.dataset.id));
+  for (const e of edgeNodes) e.g.classList.toggle("focus", view.id === "full" || (focus.has(e.conn.from) && focus.has(e.conn.to)));
+  for (const b of tabs.querySelectorAll("button")) b.classList.toggle("on", b.dataset.view === view.id);
+  note.textContent = view.note;
+  const u = new URL(location); u.searchParams.set("view", view.id); history.replaceState(null, "", u);
+}
+for (const v of spec.meta.views) {
+  const b = document.createElement("button");
+  b.textContent = v.label; b.dataset.view = v.id;
+  b.onclick = () => setView(v.id);
+  tabs.appendChild(b);
+}
+const urlView = new URLSearchParams(location.search).get("view");
+setView(spec.meta.views.some((v) => v.id === urlView) ? urlView : "full");
+
+// 主题
+const themeBtn = document.getElementById("themeBtn");
+themeBtn.onclick = () => {
+  const next = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark";
+  document.documentElement.setAttribute("data-theme", next);
+  try { localStorage.setItem("dojo-theme", next); } catch (_) {}
+  const u = new URL(location); u.searchParams.set("theme", next); history.replaceState(null, "", u);
+};
+
+// 公理卡（数据内联渲染，保持正文一处维护）
+const AXIOMS = [
+  { no: "公理一 · 无状态", s: "模型跨请求、跨会话零记忆；参数推理后冻结，不学习。", req: "一切跨会话价值外化为环境文件（CONTEXT.md / spec / ticket / ADR / handoff）", forb: "指望「它记得」" },
+  { no: "公理二 · 注意力稀缺", s: "窗口有限；每 token 影响力预算封顶，不随窗口变大。", req: "共享语言压缩 · 渐进披露 · 按 smart zone 排预算", forb: "塞满说明书 · 无限续会话 · 「再解释一遍」" },
+  { no: "公理三 · 静默填空", s: "未知处模型选默认值填入，猜与选不可分辨；训练偏好附和。", req: "决策显式问给人 · 双轴独立验证 · 期望值来自独立真值", forb: "两行提示直接要 spec · 自己审自己" },
+  { no: "公理四 · 只见窗口", s: "模型看不到代码库，只看到每次请求重发的窗口内容。", req: "反馈回路/工具结果是一手感知 · 投资代码库的 agent 体验", forb: "相信「它应该知道」" },
+  { no: "公理五 · 生成放大熵", s: "产出速度数量级提升，混乱以同速累积。", req: "每天投资设计（深模块）· 巡检回路 · 只加不减是事故", forb: "「先把功能做完再重构」" },
+  { no: "公理六 · 变异非确定", s: "同样的输入可能得到不同的输出。", req: "过程纪律 · 可判完成判据 · 产物可验证（连图也要校验）", forb: "祈祷式复现 · 「上次好好的」当论据" },
+];
+const grid = document.getElementById("axiomGrid");
+for (const a of AXIOMS) {
+  const d = document.createElement("div");
+  d.className = "card axiom-card";
+  d.innerHTML = `<div class="no">${a.no}</div><div style="font-size:14px;margin-top:4px">${a.s}</div>
+    <div class="demand"><b style="color:var(--ok)">→ 要求</b>　${a.req}</div>
+    <div class="forbid"><b style="color:var(--risk)">→ 禁止</b>　${a.forb}</div>`;
+  grid.appendChild(d);
+}
+
+// 速查表（spec.cards 驱动）
+const tbody = document.querySelector("#cheatTable tbody");
+for (const card of spec.cards ?? []) {
+  const comp = byId.get(card.id);
+  const tr = document.createElement("tr");
+  tr.innerHTML = `<td><b>${comp ? comp.label : card.id}</b></td><td>${card.use}</td><td>${card.essence}</td><td>${card.first}</td>`;
+  tbody.appendChild(tr);
+}
+</script>
+</body>
+</html>

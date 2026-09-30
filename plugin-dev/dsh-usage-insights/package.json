@@ -1,0 +1,13 @@
+{
+  "name": "dsh-usage-insights",
+  "version": "0.1.0",
+  "description": "DSH 使用洞察：模块/技能激活面板 + 工具与功能高频统计仪表盘（web 路由 /usage-insights）",
+  "type": "module",
+  "main": "index.js",
+  "files": ["index.js", "dashboard.js", "cordis.patch.yml"],
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  }
+}

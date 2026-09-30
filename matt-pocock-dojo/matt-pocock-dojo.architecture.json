@@ -1,0 +1,122 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "Matt Pocock 工程方法论全景 · 公理 → 失败模式 → 技巧 → 交接物",
+    "locale": "zh-CN",
+    "quality_profile": "showcase",
+    "generator": "archify-style spec-driven (hand-rolled, conventions follow tt-a1i/archify)",
+    "viewBox": [1560, 920],
+    "layers": [
+      { "label": "第一性原理层 · 六公理（物理约束）", "y": 20, "h": 104 },
+      { "label": "失败模式层 · 不干预时的必然结局", "y": 150, "h": 116 },
+      { "label": "技巧层 · 主流（左→右＝工程次序）", "y": 310, "h": 132 },
+      { "label": "技巧层 · 支柱纪律与特种兵", "y": 450, "h": 252 },
+      { "label": "交接物层 · 环境里的持久记忆", "y": 730, "h": 112 }
+    ],
+    "views": [
+      { "id": "full", "label": "全景", "focus": [], "note": "四层全亮：从物理约束到交付物的一条推导链" },
+      { "id": "derivation", "label": "第一性原理", "focus": ["ax-stateless", "ax-attention", "ax-silent", "ax-window", "ax-entropy", "ax-nondet", "fm-lost", "fm-lang", "fm-misalign", "fm-blind", "fm-mud", "fm-drift"], "note": "只看公理→失败模式：技巧不是偏好，是约束下的必然" },
+      { "id": "mainflow", "label": "主流", "focus": ["t-grill", "t-proto", "t-spec", "t-impl", "t-review", "t-wayfinder", "a-spec", "a-tickets"], "note": "idea→ship 的次序：拷问→原型支线→spec→逐票实现→双轴审查" },
+      { "id": "discipline", "label": "纪律与词汇", "focus": ["t-domain", "t-design", "t-diag", "t-writing", "t-arch", "a-context", "a-adr", "a-tests", "a-report"], "note": "跑在主流下面的词汇层与反馈纪律" },
+      { "id": "ops", "label": "特种兵", "focus": ["t-hygiene", "t-wayfinder", "t-wizard", "t-proto", "a-handoff", "a-branch"], "note": "按需启用的四个特种场景" }
+    ]
+  },
+  "components": [
+    { "id": "ax-stateless", "type": "axiom", "label": "公理一 · 无状态", "sublabel": "会话清零，记忆归零", "pos": [30, 40], "size": [230, 64] },
+    { "id": "ax-attention", "type": "axiom", "label": "公理二 · 注意力稀缺", "sublabel": "窗口有限 · 预算按 token 封顶", "pos": [285, 40], "size": [230, 64] },
+    { "id": "ax-silent", "type": "axiom", "label": "公理三 · 静默填空", "sublabel": "猜与选不可分辨 · 谄媚", "pos": [540, 40], "size": [230, 64] },
+    { "id": "ax-window", "type": "axiom", "label": "公理四 · 只见窗口", "sublabel": "世界只能经工具感知", "pos": [795, 40], "size": [230, 64] },
+    { "id": "ax-entropy", "type": "axiom", "label": "公理五 · 生成放大熵", "sublabel": "产出提速，混乱同速", "pos": [1050, 40], "size": [230, 64] },
+    { "id": "ax-nondet", "type": "axiom", "label": "公理六 · 变异非确定", "sublabel": "同输入，不同输出", "pos": [1305, 40], "size": [230, 64] },
+
+    { "id": "fm-lost", "type": "risk", "label": "决策随会话蒸发", "sublabel": "昨天的为什么，今天没了", "pos": [30, 176], "size": [230, 76] },
+    { "id": "fm-lang", "type": "risk", "label": "语言混浊", "sublabel": "20 个词说 1 个词的事", "pos": [285, 176], "size": [230, 76] },
+    { "id": "fm-misalign", "type": "risk", "label": "做出来的不是要的", "sublabel": "misalignment · 第一大失败", "pos": [540, 176], "size": [230, 76] },
+    { "id": "fm-blind", "type": "risk", "label": "无反馈乱飞", "sublabel": " flying blind · 自信地错", "pos": [795, 176], "size": [230, 76] },
+    { "id": "fm-mud", "type": "risk", "label": "大泥球", "sublabel": "复杂度超前累积", "pos": [1050, 176], "size": [230, 76] },
+    { "id": "fm-drift", "type": "risk", "label": "长会话劣化 · 笨区", "sublabel": "没有报错的渐变", "pos": [1305, 176], "size": [230, 76] },
+
+    { "id": "t-grill", "type": "skill", "label": "① eng-grilling 拷问", "sublabel": "设计树 · 前沿轮次", "pos": [40, 336], "size": [210, 92] },
+    { "id": "t-proto", "type": "skill", "label": "② 原型支线", "sublabel": "一次性代码答一个问题", "pos": [300, 336], "size": [210, 92] },
+    { "id": "t-spec", "type": "skill", "label": "③ to-spec + to-tickets", "sublabel": "spec · 曳光弹工单 · 阻塞边", "pos": [560, 336], "size": [210, 92] },
+    { "id": "t-impl", "type": "skill", "label": "④ implement × eng-tdd", "sublabel": "red→green · 预约定 seam", "pos": [820, 336], "size": [210, 92] },
+    { "id": "t-review", "type": "skill", "label": "⑤ eng-code-review", "sublabel": "Standards ∥ Spec 双轴", "pos": [1080, 336], "size": [210, 92] },
+
+    { "id": "t-domain", "type": "skill", "label": "eng-domain-modeling", "sublabel": "共享语言 · CONTEXT.md · ADR", "pos": [40, 484], "size": [210, 92] },
+    { "id": "t-design", "type": "skill", "label": "eng-codebase-design", "sublabel": "深模块 · seam · leverage", "pos": [300, 484], "size": [210, 92] },
+    { "id": "t-diag", "type": "skill", "label": "eng-diagnosing-bugs", "sublabel": "先造会红的回路", "pos": [560, 484], "size": [210, 92] },
+    { "id": "t-writing", "type": "skill", "label": "eng-writing-for-agents", "sublabel": "指针 · 双负载 · 引导词", "pos": [820, 484], "size": [210, 92] },
+
+    { "id": "t-hygiene", "type": "skill", "label": "上下文卫生", "sublabel": "阶段边界五选项", "pos": [40, 632], "size": [210, 92] },
+    { "id": "t-wayfinder", "type": "skill", "label": "wayfinder", "sublabel": "迷雾工程 · 决策票地图", "pos": [300, 632], "size": [210, 92] },
+    { "id": "t-arch", "type": "skill", "label": "eng-architecture-review", "sublabel": "加深机会 · 可验证报告", "pos": [560, 632], "size": [210, 92] },
+    { "id": "t-wizard", "type": "skill", "label": "eng-wizard", "sublabel": "只有人能过的关→脚本", "pos": [820, 632], "size": [210, 92] },
+
+    { "id": "a-context", "type": "artifact", "label": "CONTEXT.md", "sublabel": "词汇表 · 唯一语言真源", "pos": [30, 762], "size": [176, 72] },
+    { "id": "a-adr", "type": "artifact", "label": "ADR", "sublabel": "难逆决策的为什么", "pos": [222, 762], "size": [176, 72] },
+    { "id": "a-spec", "type": "artifact", "label": "Spec", "sublabel": "多会话工作的家", "pos": [414, 762], "size": [176, 72] },
+    { "id": "a-tickets", "type": "artifact", "label": "工单", "sublabel": "一个 smart zone 一张", "pos": [606, 762], "size": [176, 72] },
+    { "id": "a-tests", "type": "artifact", "label": "回归测试", "sublabel": "锁住 bug 的 seam", "pos": [798, 762], "size": [176, 72] },
+    { "id": "a-branch", "type": "artifact", "label": "prototype 分支", "sublabel": "原型＝一手来源", "pos": [990, 762], "size": [176, 72] },
+    { "id": "a-handoff", "type": "artifact", "label": "Handoff 文档", "sublabel": "跨会话/跨 harness 搬运", "pos": [1182, 762], "size": [176, 72] },
+    { "id": "a-report", "type": "artifact", "label": "巡检报告", "sublabel": "可验证的架构图", "pos": [1374, 762], "size": [176, 72] }
+  ],
+  "connections": [
+    { "id": "d1", "from": "ax-stateless", "to": "fm-lost", "label": "记忆归零", "fromSide": "bottom", "toSide": "top" },
+    { "id": "d2", "from": "ax-attention", "to": "fm-lang", "label": "预算耗散", "fromSide": "bottom", "toSide": "top" },
+    { "id": "d3", "from": "ax-silent", "to": "fm-misalign", "label": "默认值替你做主", "fromSide": "bottom", "toSide": "top" },
+    { "id": "d4", "from": "ax-window", "to": "fm-blind", "label": "看不见就编", "fromSide": "bottom", "toSide": "top" },
+    { "id": "d5", "from": "ax-entropy", "to": "fm-mud", "label": "熵同速放大", "fromSide": "bottom", "toSide": "top" },
+    { "id": "d6", "from": "ax-attention", "to": "fm-drift", "label": "信号淹没在噪声里", "fromSide": "bottom", "toSide": "top", "labelDy": 30 },
+    { "id": "d7", "from": "ax-nondet", "to": "fm-blind", "label": "两次不一样", "fromSide": "bottom", "toSide": "top", "labelDy": 30 },
+
+    { "id": "f1", "from": "fm-misalign", "to": "t-grill", "label": "把猜变问", "fromSide": "bottom", "toSide": "top" },
+    { "id": "f2", "from": "fm-misalign", "to": "t-review", "label": "独立验证", "fromSide": "bottom", "toSide": "top", "labelDy": 40 },
+    { "id": "f3", "from": "fm-lang", "to": "t-domain", "label": "共享语言", "fromSide": "bottom", "toSide": "top" },
+    { "id": "f4", "from": "fm-lang", "to": "t-writing", "label": "指针经济学", "fromSide": "bottom", "toSide": "top", "labelDy": 60 },
+    { "id": "f5", "from": "fm-blind", "to": "t-impl", "label": "真值通道", "fromSide": "bottom", "toSide": "top", "labelDy": 40 },
+    { "id": "f6", "from": "fm-blind", "to": "t-diag", "label": "回路先行", "fromSide": "bottom", "toSide": "top", "labelDy": 40 },
+    { "id": "f7", "from": "fm-blind", "to": "t-proto", "label": "拉高保真度", "fromSide": "bottom", "toSide": "top", "labelDy": 80 },
+    { "id": "f8", "from": "fm-lost", "to": "t-spec", "label": "外化记忆", "fromSide": "bottom", "toSide": "top", "labelDy": 90 },
+    { "id": "f9", "from": "fm-lost", "to": "t-wayfinder", "label": "大工程画地图", "fromSide": "bottom", "toSide": "top", "labelDy": 120 },
+    { "id": "f10", "from": "fm-mud", "to": "t-design", "label": "深模块", "fromSide": "bottom", "toSide": "top", "labelDy": 60 },
+    { "id": "f11", "from": "fm-mud", "to": "t-arch", "label": "日常巡检", "fromSide": "bottom", "toSide": "top", "labelDy": 100 },
+    { "id": "f12", "from": "fm-drift", "to": "t-hygiene", "label": "边界换挡", "fromSide": "bottom", "toSide": "top", "labelDy": 150 },
+    { "id": "f13", "from": "fm-misalign", "to": "t-proto", "label": "要看一眼才知道", "fromSide": "bottom", "toSide": "top", "labelDy": 60 },
+
+    { "id": "m1", "from": "t-grill", "to": "t-proto", "label": "纸面定不了→支线", "fromSide": "right", "toSide": "left" },
+    { "id": "m2", "from": "t-grill", "to": "t-spec", "label": "对齐即合成", "fromSide": "right", "toSide": "left", "labelDy": -18 },
+    { "id": "m3", "from": "t-proto", "to": "t-spec", "label": "结论折回", "fromSide": "right", "toSide": "left" },
+    { "id": "m4", "from": "t-spec", "to": "t-impl", "label": "一票一会话", "fromSide": "right", "toSide": "left" },
+    { "id": "m5", "from": "t-impl", "to": "t-review", "label": "收尾双轴", "fromSide": "right", "toSide": "left" },
+    { "id": "m6", "from": "t-wayfinder", "to": "t-spec", "label": "雾散并入主流", "fromSide": "top", "toSide": "bottom" },
+    { "id": "m7", "from": "t-design", "to": "t-arch", "label": "词汇 underneath", "fromSide": "right", "toSide": "left" },
+    { "id": "m8", "from": "t-grill", "to": "t-domain", "label": "拷问同时留痕", "fromSide": "bottom", "toSide": "top" },
+
+    { "id": "o1", "from": "t-domain", "to": "a-context", "label": "", "fromSide": "bottom", "toSide": "top" },
+    { "id": "o2", "from": "t-domain", "to": "a-adr", "label": "", "fromSide": "bottom", "toSide": "top" },
+    { "id": "o3", "from": "t-spec", "to": "a-spec", "label": "", "fromSide": "bottom", "toSide": "top" },
+    { "id": "o4", "from": "t-spec", "to": "a-tickets", "label": "", "fromSide": "bottom", "toSide": "top" },
+    { "id": "o5", "from": "t-impl", "to": "a-tests", "label": "", "fromSide": "bottom", "toSide": "top" },
+    { "id": "o6", "from": "t-diag", "to": "a-tests", "label": "", "fromSide": "bottom", "toSide": "top" },
+    { "id": "o7", "from": "t-hygiene", "to": "a-handoff", "label": "", "fromSide": "bottom", "toSide": "top" },
+    { "id": "o8", "from": "t-arch", "to": "a-report", "label": "", "fromSide": "bottom", "toSide": "top" },
+    { "id": "o9", "from": "t-proto", "to": "a-branch", "label": "", "fromSide": "bottom", "toSide": "top" }
+  ],
+  "cards": [
+    { "id": "t-grill", "use": "开工前说\"拷问我这个想法\"；agent 一轮问完整个前沿，每题带推荐答案", "essence": "把\"猜\"变成\"问\"：设计树走完，前沿为空才动手", "first": "公理三：模型会静默填空，猜与选不可分辨——唯一解法是把决策显式摆给人" },
+    { "id": "t-proto", "use": "纸面上定不了的问题（手感/外观）→ 一次性原型答一个问题", "essence": "对话分辨率不够时，造便宜的真物来反应", "first": "公理四：有些知识只能从运行中来；可运行物是最高分辨率的语言" },
+    { "id": "t-spec", "use": "拷问完说\"落成 spec 和工单\"；垂直切片+阻塞边，一票一个 smart zone", "essence": "spec/工单是无状态模型的记忆假肢：会话可弃，交接物长存", "first": "公理一：会话清零——一切跨会话价值必须外化到环境" },
+    { "id": "t-impl", "use": "逐票新会话实现；驱动 eng-tdd：先约 seam，再 red→green", "essence": "反馈速率是速度上限：一失败测试→恰好过→下一片", "first": "公理四+六：模型只见窗口且非确定——只有独立真值能锚住行为" },
+    { "id": "t-review", "use": "implement 收尾自动触发；两轴并行子代理，报告并排不合并", "essence": "\"规范全对但做错了\"与\"做对了但破坏约定\"必须分开看", "first": "公理三+六：附和倾向+非确定 → 验证者与生产者必须隔离" },
+    { "id": "t-domain", "use": "讨论中术语一结晶就写进 CONTEXT.md；难逆决策过三条件记 ADR", "essence": "共享语言是注意力的压缩器：materialization cascade 一个词顶一句话", "first": "公理二：注意力按 token 封顶——语言越精炼，同一预算装越多工程" },
+    { "id": "t-design", "use": "设计接口时按词汇表说话；加深机会过删除测试", "essence": "大量行为藏在小接口后：深=杠杆+局部性", "first": "公理五：生成放大熵——只有深模块能把复杂度关回笼子" },
+    { "id": "t-diag", "use": "疑难 bug 交给它：先造对本 bug 会红的回路，再假设、插桩、修复", "essence": "回路是 90%：没有能红的命令，就没有假设阶段", "first": "公理四：模型会自信地编——只有可重复的红色信号是真值" },
+    { "id": "t-writing", "use": "写 AGENTS.md/技能时自动加载；指针措辞前置触发词", "essence": "上下文是双重成本：指针一行，内联千金", "first": "公理二：每个常驻 token 每轮付费且花注意力——渐进披露是经济学必然" },
+    { "id": "t-hygiene", "use": "阶段边界上按五问决策树换挡：Continue→清→交接→子代理→压缩", "essence": "smart zone 是预算不是窗口上限：质量在满之前就开始掉", "first": "公理二：注意力衰减无报错无边界——只能在边界主动管理" },
+    { "id": "t-wayfinder", "use": "工程大到装不下时说\"画张地图\"；决策票一次解决一张", "essence": "规划不是执行：产出决策，不是交付物", "first": "公理一+三：大工程的未定决策太多——先消灭不确定性再消耗实现预算" },
+    { "id": "t-arch", "use": "空档时说\"巡检架构\"；spec 驱动可验证 HTML 报告，挑一个回主流", "essence": "盘点不是施工：每天投资设计，对抗熵增", "first": "公理五：熵不休假——加深是唯一让未来变更变便宜的杠杆" },
+    { "id": "t-wizard", "use": "agent 撞上只有人能过的墙时自动生成向导脚本", "essence": "人机分工的接口工程：重复解释不如一次落成脚本", "first": "公理四：世界有一半只有人能走进——把那条路铺成可重走的台阶" }
+  ]
+}

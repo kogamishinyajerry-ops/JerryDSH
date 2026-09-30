@@ -1,0 +1,224 @@
+{
+  "accuracy": {
+    "plugin-auto（插件本体）": {
+      "correct": 29,
+      "total": 37
+    },
+    "always-inspect-first（无脑检查）": {
+      "correct": 22,
+      "total": 37
+    },
+    "always-direct（无脑直接）": {
+      "correct": 15,
+      "total": 37
+    },
+    "coin-flip（随机 50/50）": {
+      "correct": 17,
+      "total": 37
+    }
+  },
+  "confusion": {
+    "inspect→inspect": 17,
+    "inspect→direct": 4,
+    "inspect→neutral": 1,
+    "direct→direct": 12,
+    "direct→inspect": 3,
+    "direct→neutral": 0
+  },
+  "silentOnNeutral": 6,
+  "groups": {
+    "A": {
+      "n": 7,
+      "ok": 7
+    },
+    "B": {
+      "n": 6,
+      "ok": 5
+    },
+    "C": {
+      "n": 6,
+      "ok": 6
+    },
+    "D": {
+      "n": 6,
+      "ok": 6
+    },
+    "E": {
+      "n": 6,
+      "ok": 1
+    },
+    "F": {
+      "n": 6,
+      "ok": 4
+    },
+    "G": {
+      "n": 6,
+      "ok": 6
+    }
+  },
+  "errors": [
+    {
+      "id": "b6",
+      "group": "B",
+      "label": "inspect",
+      "text": "The build is broken on macOS, find out why",
+      "predicted": "direct",
+      "correct": false
+    },
+    {
+      "id": "e1",
+      "group": "E",
+      "label": "direct",
+      "text": "不要修复旧代码，直接重写整个模块",
+      "predicted": "inspect",
+      "correct": false
+    },
+    {
+      "id": "e2",
+      "group": "E",
+      "label": "inspect",
+      "text": "别急着写代码，先调查一下线上到底哪里慢",
+      "predicted": "neutral",
+      "correct": false
+    },
+    {
+      "id": "e3",
+      "group": "E",
+      "label": "inspect",
+      "text": "先别实现，帮我分析一下这个方案的可行性",
+      "predicted": "direct",
+      "correct": false
+    },
+    {
+      "id": "e4",
+      "group": "E",
+      "label": "direct",
+      "text": "Don't debug it — just rewrite the whole thing from scratch",
+      "predicted": "inspect",
+      "correct": false
+    },
+    {
+      "id": "e6",
+      "group": "E",
+      "label": "direct",
+      "text": "No need to review anything, just ship it",
+      "predicted": "inspect",
+      "correct": false
+    },
+    {
+      "id": "f2",
+      "group": "F",
+      "label": "inspect",
+      "text": "Add a new export feature, but the build is currently broken",
+      "predicted": "direct",
+      "correct": false
+    },
+    {
+      "id": "f4",
+      "group": "F",
+      "label": "inspect",
+      "text": "Investigate the latency spike, then build a small dashboard for it",
+      "predicted": "direct",
+      "correct": false
+    }
+  ],
+  "robust": [
+    {
+      "id": "R1",
+      "desc": "门控：preset=standard 时不注入",
+      "pass": true,
+      "got": true
+    },
+    {
+      "id": "R2",
+      "desc": "门控：无 preset 时不注入",
+      "pass": true,
+      "got": true
+    },
+    {
+      "id": "R3",
+      "desc": "门控：header.agentPreset 回退生效",
+      "pass": true,
+      "got": true
+    },
+    {
+      "id": "R3b",
+      "desc": "门控：最后一个 preset 事件生效（standard→routing-suite）",
+      "pass": true,
+      "got": true
+    },
+    {
+      "id": "R4",
+      "desc": "空事件会话 → 沉默",
+      "pass": true,
+      "got": true
+    },
+    {
+      "id": "R5",
+      "desc": "来源过滤：跳过 tool 来源首消息，采用真正的用户消息",
+      "pass": true,
+      "got": true
+    },
+    {
+      "id": "R6",
+      "desc": "字符串消息形态兼容（data 直接是字符串）",
+      "pass": true,
+      "got": true
+    },
+    {
+      "id": "R7",
+      "desc": "幂等：重复组装不叠加 section",
+      "pass": true,
+      "got": true
+    },
+    {
+      "id": "R8",
+      "desc": "强制 strategy=direct 覆盖分类器",
+      "pass": true,
+      "got": true
+    },
+    {
+      "id": "R9",
+      "desc": "强制 strategy=inspect-first 覆盖分类器",
+      "pass": true,
+      "got": true
+    },
+    {
+      "id": "R10",
+      "desc": "enabled=false 完全旁路",
+      "pass": true,
+      "got": true
+    },
+    {
+      "id": "R11",
+      "desc": "非破坏：原 sections 保留、注入项 order=10",
+      "pass": true,
+      "got": true
+    },
+    {
+      "id": "R12",
+      "desc": "强制策略 + 空任务仍然注入（策略无条件生效）",
+      "pass": true,
+      "got": true
+    },
+    {
+      "id": "R13",
+      "desc": "Config schema：默认值与非法值拒绝",
+      "pass": true,
+      "got": true
+    },
+    {
+      "id": "R14",
+      "desc": "webServer 注册只读状态端点 /routing-suite/api",
+      "pass": true,
+      "got": true
+    }
+  ],
+  "cost": {
+    "perCallUs": 1.7742920000000009,
+    "payload": {
+      "inspect": "Routing guidance: this is a maintenance or investigation task. Inspect the relevant facts first, identify the root cause, then make the smallest justified change and verify it.",
+      "direct": "Routing guidance: this is a creation or implementation task. Move directly toward a usable result, keep the design proportional, and verify the finished behavior."
+    }
+  }
+}

@@ -1,0 +1,12 @@
+node_modules/
+*.log
+.DS_Store
+*.tar.gz
+*.zip
+dist/
+.codebuddy/
+.codex-crs/
+.codex-relay/
+.dsh-file-claim/
+.workbuddy/
+hub/data/

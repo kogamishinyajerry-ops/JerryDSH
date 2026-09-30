@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "ok": true,
+  "command": "visual-check",
+  "evidenceKind": "geometry",
+  "status": "pass",
+  "spec": {
+    "path": "matt-pocock-dojo.architecture.json",
+    "components": 33,
+    "connections": 37,
+    "views": 5
+  },
+  "diagnostics": [],
+  "checkedAt": "2026-09-05T16:17:02.403Z"
+}

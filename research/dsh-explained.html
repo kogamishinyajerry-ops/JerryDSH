@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DSH 全景科普报告 —— AI 编程助手的身体说明书</title>
+<style>
+  :root{
+    --paper:#faf6ec; --card:#fffdf7; --ink:#2a2620; --muted:#8a8072;
+    --blue:#2b4c9b; --blue-soft:#e7edfb; --red:#d9483b; --red-soft:#fceae7;
+    --green:#2f8a5d; --green-soft:#e6f4ec; --hi:#ffe58a;
+    --line:#e6ddc9; --shadow:0 2px 10px rgba(90,70,30,.07);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth; scroll-padding-top:14px}
+  body{
+    margin:0;color:var(--ink);background:var(--paper);
+    background-image:radial-gradient(rgba(120,100,60,.045) 1px,transparent 1px);
+    background-size:22px 22px;
+    font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei",system-ui,sans-serif;
+    font-size:15px;line-height:1.74;
+  }
+  #bar{position:fixed;top:0;left:0;height:3.5px;width:0;background:linear-gradient(90deg,var(--blue),#7a9bf0);z-index:99;transition:width .1s}
+  .shell{max-width:1300px;margin:0 auto;padding:22px 26px 90px;display:grid;grid-template-columns:212px minmax(0,1fr);gap:34px}
+  @media(max-width:1020px){.shell{grid-template-columns:1fr;gap:0}}
+
+  /* ---------- 侧栏目录 ---------- */
+  .toc{position:sticky;top:14px;align-self:start;max-height:calc(100vh - 28px);overflow:auto;font-size:13px;padding:14px 12px;background:var(--card);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow)}
+  @media(max-width:1020px){.toc{position:static;max-height:none;margin-bottom:18px}}
+  .toc .brand{font-weight:800;font-size:14.5px;margin-bottom:2px}
+  .toc .brand small{display:block;font-weight:500;color:var(--muted);font-size:11px;margin-top:2px}
+  .toc .grp{margin:12px 0 3px;font-size:10.5px;letter-spacing:.16em;color:var(--muted);padding-left:8px}
+  .toc a{display:block;color:var(--ink);text-decoration:none;padding:3.5px 8px;border-radius:7px;border-left:2px solid transparent;line-height:1.45}
+  .toc a:hover{background:var(--blue-soft);color:var(--blue)}
+  .toc a.on{background:var(--blue-soft);color:var(--blue);font-weight:700;border-left-color:var(--blue)}
+  .toc .lv{margin-top:12px;padding:9px 8px;border-top:1px dashed var(--line);font-size:11.5px;color:var(--muted);line-height:2}
+
+  /* ---------- 头部 ---------- */
+  header.top{margin-bottom:8px}
+  .kicker{display:inline-block;font-size:12px;letter-spacing:.16em;color:var(--blue);border:1.5px dashed var(--blue);border-radius:999px;padding:2px 13px;background:var(--card)}
+  h1{font-size:clamp(26px,3.6vw,38px);line-height:1.32;margin:14px 0 8px;font-weight:800}
+  h1 .u{position:relative;white-space:nowrap}
+  h1 .u::after{content:"";position:absolute;left:-2%;right:-2%;bottom:4%;height:32%;background:var(--hi);z-index:-1;border-radius:4px;transform:rotate(-1.2deg)}
+  .lead{color:#5c554a;margin:0 0 10px;max-width:860px}
+  .meta{font-size:12.5px;color:var(--muted)}
+  .meta b{color:var(--ink)}
+  .statstrip{display:grid;grid-template-columns:repeat(auto-fit,minmax(112px,1fr));gap:8px;margin:16px 0 4px}
+  .stat{background:linear-gradient(180deg,var(--card),#fdf9ef);border:1.5px solid var(--line);border-radius:11px;padding:9px 8px;text-align:center;box-shadow:var(--shadow)}
+  .stat .n{font-size:20px;font-weight:800;color:var(--blue);letter-spacing:-.02em}
+  .stat .n small{font-size:11.5px;font-weight:600}
+  .stat .d{font-size:11px;color:var(--muted);line-height:1.45;margin-top:1px}
+
+  /* ---------- 章节 ---------- */
+  section{margin-top:42px;scroll-margin-top:10px}
+  .shead{display:flex;align-items:baseline;gap:11px;border-bottom:2px solid var(--ink);padding-bottom:7px;margin-bottom:14px;flex-wrap:wrap}
+  .shead .no{font-size:13px;font-weight:800;color:var(--card);background:var(--blue);border-radius:8px;padding:1.5px 10px;transform:rotate(-2deg);box-shadow:var(--shadow)}
+  .shead h2{font-size:clamp(19px,2.6vw,25px);margin:0}
+  .diff{margin-left:auto;font-size:11.5px;color:var(--muted);white-space:nowrap}
+  .diff i{font-style:normal;color:var(--blue)} .diff em{font-style:normal;color:#d8cdb4}
+  .sub{color:var(--muted);margin:0 0 12px;font-size:13.5px}
+
+  .card{background:var(--card);border:1px solid var(--line);border-radius:13px;box-shadow:var(--shadow);padding:18px 20px 16px}
+  .card>h3:first-child{margin-top:0}
+  h3{font-size:16.5px;margin:20px 0 8px}
+  p{margin:8px 0}
+  .hl{background:linear-gradient(transparent 58%,var(--hi) 58%);padding:0 2px;font-weight:600}
+  .pen{color:var(--red);font-weight:700}
+  .ok{color:var(--green);font-weight:700}
+  ul.plain{padding-left:20px;margin:8px 0}
+  ul.plain li{margin:5px 0}
+  ol.plain{padding-left:22px;margin:8px 0}
+  ol.plain li{margin:6px 0}
+
+  .talk{display:flex;gap:9px;background:var(--green-soft);border-radius:10px;padding:9px 13px;font-size:14px;margin:10px 0}
+  .talk::before{content:"🗣️";flex:none}
+  .talk b{color:var(--green)}
+  .quote{border-left:4px solid var(--red);background:var(--red-soft);border-radius:0 10px 10px 0;padding:11px 15px;font-size:14px;margin:12px 0}
+  .tip{border-left:4px solid var(--blue);background:var(--blue-soft);border-radius:0 10px 10px 0;padding:10px 14px;font-size:14px;margin:12px 0}
+
+  .grid{display:grid;gap:10px;margin:12px 0}
+  @media(min-width:760px){.grid.c2{grid-template-columns:1fr 1fr}.grid.c3{grid-template-columns:repeat(3,1fr)}.grid.c4{grid-template-columns:repeat(4,1fr)}}
+  .mini{background:var(--paper);border:1.5px solid var(--line);border-radius:11px;padding:11px 13px}
+  .mini b{display:block;font-size:14.5px;margin-bottom:2px}
+  .mini .em{font-size:22px;float:right;margin-left:6px}
+  .mini span{font-size:13px;color:#5f594e;display:block}
+
+  table{width:100%;border-collapse:collapse;font-size:13px;margin:10px 0 14px}
+  th{background:#f0e9d8;text-align:left;padding:6px 9px;border:1px solid var(--line);font-size:12px;letter-spacing:.02em}
+  td{padding:6px 9px;border:1px solid var(--line);vertical-align:top}
+  tbody tr:nth-child(even) td{background:#faf6ec}
+  td code, p code, li code, .talk code{background:#f0e9d8;padding:0 5px;border-radius:5px;font-size:.88em;font-family:ui-monospace,Menlo,Consolas,monospace;white-space:nowrap}
+  .tc{text-align:center}
+
+  code.block,pre{display:block;background:#2e2a22;color:#ece4d2;padding:12px 15px;border-radius:11px;font-size:12.5px;line-height:1.66;overflow:auto;font-family:ui-monospace,Menlo,Consolas,monospace;margin:10px 0}
+  pre .c{color:#8f8672} pre .b{color:#8fb2ee} pre .g{color:#95d3ae} pre .y{color:#e8d48b} pre .r{color:#f0a49b}
+  pre.flow .k{color:#e8d48b;font-weight:700}
+
+  .ev{display:inline-block;font-size:10.5px;font-weight:700;border-radius:5px;padding:0 6px;margin-left:5px;vertical-align:1.5px}
+  .ev.m{background:var(--green-soft);color:var(--green)}
+  .ev.s{background:var(--blue-soft);color:var(--blue)}
+  .ev.i{background:#f1eefc;color:#6d55c8}
+
+  figure{margin:14px 0;text-align:center}
+  figure svg{max-width:100%;height:auto}
+  figcaption{font-size:12.5px;color:var(--muted);margin-top:6px;text-align:center}
+
+  details.fun{margin:10px 0;background:#fdfaf1;border:1.5px dashed #d8c99a;border-radius:11px;padding:7px 13px}
+  details.fun summary{cursor:pointer;font-weight:700;color:#8a6d1f;font-size:13.5px;list-style:none;display:flex;gap:7px;align-items:center}
+  details.fun summary::before{content:"🔍"}
+  details.fun[open] summary{margin-bottom:5px}
+  details.fun .body{font-size:13.5px;color:#6b5f3f}
+
+  /* KV 可视化 */
+  .kv-row{display:flex;align-items:center;gap:9px;margin:9px 0;flex-wrap:wrap}
+  .kv-label{width:130px;font-size:13px;font-weight:700;flex:none;text-align:right}
+  .track{display:flex;gap:2.5px;flex:1;min-width:210px}
+  .b{height:22px;flex:1;border-radius:3px;background:var(--blue-soft);border:1px solid #d5def5}
+  .b.hit{background:linear-gradient(180deg,#bcd0f7,#9fbdf2);border-color:#8fb2ee}
+  .b.new{background:var(--hi);border-color:#e5c65e}
+  .b.miss{background:repeating-linear-gradient(45deg,#f6d3ce,#f6d3ce 4px,#fdeae7 4px,#fdeae7 8px);border-color:#eeb6ae}
+  .kv-badge{font-size:12.5px;font-weight:800;flex:none}
+  .kv-badge.good{color:var(--green)}.kv-badge.bad{color:var(--red)}
+  .legend{font-size:12px;color:var(--muted);margin-top:4px}
+  .legend i{display:inline-block;width:11px;height:11px;border-radius:3px;vertical-align:-1px;margin:0 4px 0 9px}
+
+  /* compaction 页堆 */
+  .pages{display:flex;gap:5px;align-items:flex-start;margin:14px 0 4px;flex-wrap:wrap}
+  .pg{width:28px;height:39px;border:1.5px solid var(--line);border-radius:3.5px;background:#fff;box-shadow:var(--shadow);flex:none;position:relative}
+  .pg::before{content:"";position:absolute;top:6px;left:4px;right:4px;height:2px;background:var(--line)}
+  .pg.old{opacity:.35;filter:grayscale(1)}
+  .pg.now{border-color:var(--blue);background:var(--blue-soft)}
+  .sticky{position:relative;background:var(--hi);padding:8px 12px;border-radius:3px 3px 12px 3px;box-shadow:0 4px 9px rgba(120,90,0,.22);transform:rotate(-2.5deg);font-size:13px;font-weight:700;color:#6b5310;flex:none;margin-right:9px}
+  .sticky small{display:block;font-weight:500;font-size:11px}
+
+  /* chevron 流水线 */
+  .chev{display:flex;flex-wrap:wrap;gap:6px;align-items:stretch;margin:12px 0}
+  .chev .st{flex:1;min-width:118px;background:var(--card);border:1.5px solid var(--line);border-radius:10px;padding:8px 10px;font-size:12.5px;position:relative;box-shadow:var(--shadow)}
+  .chev .st b{display:block;font-size:13px;color:var(--blue)}
+  .chev .st small{color:var(--muted);display:block;font-size:11.5px;line-height:1.5}
+  .chev .st::after{content:"➜";position:absolute;right:-11px;top:38%;color:var(--blue);font-size:13px;z-index:2}
+  .chev .st:last-child::after{content:""}
+  @media(max-width:760px){.chev .st::after{content:""}}
+
+  /* 时间线 */
+  ol.tl{list-style:none;margin:14px 0;padding:0;position:relative}
+  ol.tl::before{content:"";position:absolute;left:8px;top:8px;bottom:8px;width:2.5px;background:linear-gradient(var(--blue),#a8bdec);border-radius:2px}
+  ol.tl li{position:relative;padding:0 0 18px 34px}
+  ol.tl li::before{content:"";position:absolute;left:1.5px;top:6px;width:14px;height:14px;border-radius:50%;background:var(--card);border:4px solid var(--blue);box-shadow:0 0 0 3.5px rgba(43,76,155,.12)}
+  ol.tl li.warn::before{border-color:var(--red);box-shadow:0 0 0 3.5px rgba(217,72,59,.12)}
+  .tl-time{font-size:11.5px;color:var(--muted);letter-spacing:.06em}
+  .tl-title{font-weight:800;font-size:15px}
+  .tl-title .cur{font-size:11px;color:var(--green);background:var(--green-soft);padding:1px 7px;border-radius:6px;margin-left:6px}
+  .tl-body{font-size:13.5px;color:#5c554a;margin-top:1px}
+
+  .ending{margin-top:52px;padding:26px 26px;border-radius:14px;text-align:center;background:linear-gradient(135deg,#2b4c9b,#4066c4);color:#f2f5ff;box-shadow:var(--shadow)}
+  .ending h2{color:#fff;margin:0 0 6px}
+  .ending p{color:#dbe4fb;max-width:640px;margin:6px auto;font-size:14.5px}
+  footer{margin-top:26px;color:var(--muted);font-size:12px;text-align:center}
+
+  .js .reveal{opacity:0;transform:translateY(12px);transition:opacity .5s ease,transform .5s ease}
+  .js .reveal.in{opacity:1;transform:none}
+  @media print{#bar,.toc{display:none}.js .reveal{opacity:1;transform:none}body{background:#fff}.shell{display:block;max-width:none}}
+</style>
+</head>
+<body>
+<div id="bar"></div>
+
+<div class="shell">
+
+<!-- ================= 侧栏 ================= -->
+<nav class="toc" aria-label="章节导航">
+  <div class="brand">DSH 全景科普报告<small>DeepSeek Harness · 身体说明书</small></div>
+  <div class="grp">开场</div>
+  <a href="#s1">01 身体构造：微内核</a>
+  <a href="#s2">02 核心循环与投递</a>
+  <div class="grp">记忆系统</div>
+  <a href="#s3">03 日记本：会话日志</a>
+  <a href="#s4">04 落盘：两个存储后端</a>
+  <a href="#s5">05 小抄：投影与缓存</a>
+  <a href="#s6">06 与模型说话</a>
+  <a href="#s7">07 日记太厚：压缩</a>
+  <div class="grp">手与规矩</div>
+  <a href="#s8">08 工具流水线</a>
+  <a href="#s9">09 安全模型</a>
+  <div class="grp">扩展生态</div>
+  <a href="#s10">10 帮手体系</a>
+  <a href="#s11">11 插件机制与三个坑</a>
+  <div class="grp">时间线</div>
+  <a href="#s12">12 进化史与版本追踪</a>
+  <a href="#s13">13 生态快照</a>
+  <a href="#s14">14 研究方法与证据</a>
+  <div class="lv">
+    <span class="ev m">实测</span> 本机亲眼所见<br>
+    <span class="ev s">源码</span> 读代码/文档得出<br>
+    <span class="ev i">推断</span> 合理推测，明说未实证<br>
+    🗣️ 绿条 = 中学生版一句话
+  </div>
+</nav>
+
+<!-- ================= 正文 ================= -->
+<main>
+
+<header class="top reveal">
+  <span class="kicker">JerryDSH 科普版全景报告 · 数据截至 2026-08-23</span>
+  <h1>AI 编程助手是怎么"活"起来的？<br>—— DSH <span class="u">身体说明书</span></h1>
+  <p class="lead">大语言模型是个绝顶聪明却没有手脚、没有记性的"脑子"。DSH（DeepSeek Harness）就是给它装的身体。这份报告按"你发一句话之后身体里发生什么"的顺序，把这个开源工作台完整拆开——每章开头有一句<b>中学生也能懂的人话</b>，往下是逐层的硬核细节与实测数据。</p>
+  <p class="meta">研究对象 <b>dsh 0.1.1-rc.2</b>（npm latest）· macOS arm64 · 事实来源：<b>11 份技术报告</b>（research/01–11）+ 19 张插件实测卡 · 全部实验在隔离环境完成，活体配置零改动</p>
+  <div class="statstrip">
+    <div class="stat"><div class="n">6</div><div class="d">核心包（每个组合必启动）</div></div>
+    <div class="stat"><div class="n">14+</div><div class="d">能力 seam（可替换器官）</div></div>
+    <div class="stat"><div class="n">202</div><div class="d">本机会话日记（实测清点）</div></div>
+    <div class="stat"><div class="n">148<small>MB</small></div><div class="d">日记总占用</div></div>
+    <div class="stat"><div class="n">−89.4%</div><div class="d">官方存储优化瘦身幅度</div></div>
+    <div class="stat"><div class="n">10,529</div><div class="d">生态插件仓库（GitHub topic）</div></div>
+    <div class="stat"><div class="n">5<small>版/9天</small></div><div class="d">8 月发布节奏</div></div>
+    <div class="stat"><div class="n">3<small>级</small></div><div class="d">证据分级标注</div></div>
+  </div>
+</header>
+
+<!-- ============ 01 身体构造 ============ -->
+<section id="s1" class="reveal">
+  <div class="shead"><span class="no">01</span><h2>身体构造：微内核与"可替换器官"</h2><span class="diff">难度 <i>●●</i><em>○</em></span></div>
+  <p class="sub">为什么这套系统拆成了几十个小包，而不是一个大程序。</p>
+  <div class="card">
+    <div class="talk"><b>一句人话：</b>身体有一个小小的"心脏"（谁都必须有），其余全是<b>可替换的器官</b>——肺换成人工肺、腿换成轮子，人还是那个人。</div>
+
+    <h3>心脏：六个核心包 <span class="ev s">源码</span></h3>
+    <p>任何 DSH 组合都一定启动这六个包，它们构成一条主干：</p>
+    <div class="grid c3">
+      <div class="mini"><span class="em">📖</span><b>session 会话日志</b><span>那本只往后写的日记（03 章主角）</span></div>
+      <div class="mini"><span class="em">🧩</span><b>system-prompt 提示词组装</b><span>每次思考前拼装"给脑子的说明书"（06 章）</span></div>
+      <div class="mini"><span class="em">🛠️</span><b>tools 工具注册表</b><span>几十种工具的登记处与执行流水线（08 章）</span></div>
+      <div class="mini"><span class="em">🤖</span><b>agent 代理句柄</b><span>对"一个正在干活的 AI"的编程接口</span></div>
+      <div class="mini"><span class="em">🔄</span><b>agent-loop 驱动循环</b><span>心脏起搏器：想→做→记的风车（02 章）</span></div>
+      <div class="mini"><span class="em">🏷️</span><b>scope 作用域</b><span>让每个 AI 只看见自己该看见的能力</span></div>
+    </div>
+
+    <h3>器官：能力 seam（接口三件套）</h3>
+    <p>除了心脏，每项能力都做成一个 <b>seam（接缝）</b>——一个抽象接口配三种角色：<b>定义</b>（接口本身）、<b>提供方</b>（真正干活的实现）、<b>消费方</b>（通常是一个面向模型的工具）。想换实现，只换提供方，别的都不用动（<span class="ev s">源码</span>）：</p>
+    <ul class="plain">
+      <li>文件系统 <code>ctx.fs</code> → 本地实现 ↔ 未来的远程/沙箱实现</li>
+      <li>命令执行 <code>ctx.shell</code> → bash ↔ PowerShell ↔ 受限执行器</li>
+      <li>模型对话 <code>ctx.llm</code> → DeepSeek ↔ pi-ai 网关 ↔ 任何新模型</li>
+      <li>进程围栏 <code>ctx.sandbox</code> → macOS Seatbelt / Linux Landlock·bwrap / Windows ACL</li>
+      <li>子代理 <code>ctx.subagents</code> → 进程内 ↔ Codex ↔ Claude Code（10 章）</li>
+      <li>会话持久化 / 会话检索 / 压缩 / 日程 / 目标 / 技能 / MCP 桥……共 14+ 个</li>
+    </ul>
+    <p>妙处：文件系统和命令执行共享同一个"执行世界"，把两者的提供方一起指向远程沙箱，就等于<b>把 Bash、终端、代码补全整体搬去了云端</b>——不需要为每个工具单独改造。</p>
+
+    <h3>身体的两种出厂形态</h3>
+    <ul class="plain">
+      <li><b>Web 版</b>（base + web-app 组合包）：你现在看到的图形界面就是</li>
+      <li><b>headless 版</b>（base + headless）：无界面的命令行形态，跑脚本/CI 用</li>
+      <li>两种形态之上再叠 <b>profile（个性化配置包）</b>和<b>插件</b>——层叠规则见 11 章</li>
+    </ul>
+
+    <details class="fun"><summary>冷知识：插件怎么做到"不改源码也能加新事件类型"？</summary><div class="body">TypeScript 的 declaration merging（声明合并）：插件对着别人拥有的类型表说"我再往里添一行"，编译后就像原生的一样。系统里六张最重要的"类型表"（消息块、结束原因、轮次原因、会话事件等）全都开放这种扩展。</div></details>
+    <details class="fun"><summary>冷知识：所有跨包传的编号都是"防拿错"的</summary><div class="body">会话 id、工具调用 id、任务 id 在类型层面互不可换——就像药瓶、奶瓶、胶水瓶虽然都是瓶，但盖子拧不到一起去。历史上曾因为"任务 id 和会话 id 长得一模一样"差点出安全 bug，于是全部上了"品牌化类型"。</div></details>
+  </div>
+</section>
+
+<!-- ============ 02 循环与投递 ============ -->
+<section id="s2" class="reveal">
+  <div class="shead"><span class="no">02</span><h2>核心循环：想一步，做一步，记一笔</h2><span class="diff">难度 <i>●●</i><em>○</em></span></div>
+  <p class="sub">你发一句话之后，身体里转起来的那个风车——以及"中途插话"去了哪。</p>
+  <div class="card">
+    <div class="talk"><b>一句人话：</b>像你解大题：读题→打草稿→用工具→检查→再想下一步。<b>一步</b> = 调用一次 AI 模型 + 它顺手做的几个工具；<b>一轮</b> = 从收到消息到它认为干完，中间可以有很多步。</div>
+
+    <pre class="flow"><span class="k">turn/start</span>  <span class="c">── 轮次开启（领取输入之前）</span>
+   │  认领收件箱：<span class="y">全部 next-step 输入 + 一条 next-turn 消息</span>
+   │  组装：提示词段落 + 工具 schema
+   ▼
+<span class="k">agent/pre-step</span> <span class="c">── 串行拦截链：可 reject / 可改写消息批次</span>
+   │  首次被拒或改写为空 → 仍关闭一个<span class="y">无步骤轮次</span>（尝试照样入日记）
+   │  enter(messages)
+   ▼
+<span class="k">step/start</span>
+   │  entered 消息 → user/message 入日志
+   │  从日记派生模型历史（03 章投影规则）
+   │  agent/request → llm/stream <span class="c">── 请求内幕见 06 章</span>
+   │      assistant/chunk* → assistant/message
+   │  tool/call* → <span class="b">六道关工具流水线（08 章）</span> → tool/result*
+<span class="k">step/end</span>
+   │  工具还欠请求 / next-step 输入到达 → 认领 → 下一个 step
+   ▼
+<span class="k">agent/turn-stopping</span> <span class="c">── 串行事件：轮次没有工具/插话后续时</span>
+<span class="k">turn/end</span>  <span class="c">── 七种终态之一（下表）</span></pre>
+
+    <h3>收件箱：三个投递通道 <span class="ev s">源码</span></h3>
+    <p>你的话（以及系统的各种注入）先进"收件箱"再被认领。收件箱分两个格子：<code>next-turn</code>（下一轮）和 <code>next-step</code>（下一步）；三个通道语义精确不同：</p>
+    <table>
+      <thead><tr><th>通道</th><th>落点</th><th>会唤醒吗</th><th>典型来源</th></tr></thead>
+      <tbody>
+        <tr><td><code>followup</code> 整轮排队</td><td>next-turn 列表，独占自己的轮次</td><td class="tc">✅</td><td>用户发的新消息、给子代理的新指令</td></tr>
+        <tr><td><code>steer</code> 中途引导</td><td>运行中→最近的步骤边界；空闲→开新轮</td><td class="tc">✅</td><td>运行中的纠正/补充（被拒的步骤会让它先停在收件箱）</td></tr>
+        <tr><td><code>inject</code> 静默注入</td><td>收件箱里静静躺着，等别的消息唤醒</td><td class="tc">❌</td><td>文件变化通知、定时任务结果、技能内容等"模型可见上下文"</td></tr>
+      </tbody>
+    </table>
+    <p>收件箱本身就是<b>持久投影</b>：每一条排队/认领/丢弃都写成规范化的日志事件，重开后队列原样恢复。认领（claim）= 一步领取"全部 next-step + 一条 next-turn"，以纯删除完成、不发丢弃通知。</p>
+
+    <h3>轮次的七种死法 <span class="ev s">源码</span></h3>
+    <table>
+      <thead><tr><th>终态</th><th>含义</th><th>谁发出</th></tr></thead>
+      <tbody>
+        <tr><td><code>completed</code></td><td>正常干完</td><td>循环</td></tr>
+        <tr><td><code>aborted</code></td><td>被取消打断（日志只记粗粒度；"谁取消的"是运行时信息，另走事件）</td><td>循环</td></tr>
+        <tr><td><code>blocked</code></td><td>被拦截链挡住</td><td>循环</td></tr>
+        <tr><td><code>error</code></td><td>失败（结构化错误对象入日志）</td><td>循环</td></tr>
+        <tr><td><code>max-tokens</code></td><td>轮内任一步被截断 → <b>整轮优先记截断</b>，即使之后继续干了</td><td>循环</td></tr>
+        <tr><td><code>interrupted</code></td><td>崩溃后重开时合成的"补句号"——<b>循环永远不会发这个</b></td><td>崩溃恢复</td></tr>
+        <tr><td><code>legacy</code></td><td>导入旧记录时取消原因不明</td><td>导入器</td></tr>
+      </tbody>
+    </table>
+
+    <h3>其它拦截点与杂项 <span class="ev s">源码</span></h3>
+    <ul class="plain">
+      <li><b>请求失败恢复</b>：失败步骤关闭后、轮次关闭前，监听器可修复状态并返回 <code>retry</code> 开新轮——与 06 章的重试层配合。</li>
+      <li><b>维护任务</b>：完全空闲时可跑"非轮次任务"（比如 07 章的手动压缩），对外状态仍显示空闲。</li>
+      <li><b>取消收敛闩</b>：取消进行中到达的新消息会先停车，等取消完全收敛到空闲后再发车，绝不半路追尾。</li>
+      <li><b>会话起点四来源</b>：<code>startup / resume / clear / compact</code>——刷新、恢复、清空、压缩后都会走一遍"开场"。</li>
+      <li><b>一人一份所有权</b>：编程创建的代理返回"句柄+拆除器"——只有创建者能拆，工厂卸载会连带停掉它造的所有代理；组装到一半失败会整体回滚，"半组装的 AI"在类型上不可到达。</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ 03 日记本 ============ -->
+<section id="s3" class="reveal">
+  <div class="shead"><span class="no">03</span><h2>日记本：只许往后写的会话日志</h2><span class="diff">难度 <i>●●</i><em>○</em></span></div>
+  <p class="sub">整套系统的记忆中枢——一个听起来很"笨"、实则极其聪明的设计。</p>
+  <div class="card">
+    <div class="talk"><b>一句人话：</b>一本<span class="hl">只许往后写、不许涂改</span>的日记：你说的、AI 想的草稿、每次工具申请和结果，全部按顺序编号记下。想"后悔"只能再写一行新的，不能撕旧的。</div>
+
+    <h3>为什么这么设计</h3>
+    <div class="grid c3">
+      <div class="mini"><span class="em">🎬</span><b>可以重放</b><span>从第一页读到最后就能完整重现整场对话，包括 AI 的每个念头（草稿碎片也不丢）</span></div>
+      <div class="mini"><span class="em">🔋</span><b>断电不慌</b><span>最后一行写了一半？撕掉那半行，系统自动"补句号"接着来</span></div>
+      <div class="mini"><span class="em">🔒</span><b>不可篡改</b><span>历史就是历史；所有"当前状态"都是从日记算出来的投影</span></div>
+    </div>
+
+    <h3>日记里都记什么：事件词汇表 <span class="ev s">源码</span></h3>
+    <p>每一行叫一个<b>事件</b>，全局连续编号（第 i 行的编号就是 i）。核心 12 + 2 种，插件还能扩展：</p>
+    <table>
+      <thead><tr><th>事件</th><th>记录什么</th><th>模型可见？</th></tr></thead>
+      <tbody>
+        <tr><td><code>turn/start · turn/end</code></td><td>轮次的开/闭（含七种终态）</td><td class="tc">否（结构）</td></tr>
+        <tr><td><code>step/start · step/end</code></td><td>步骤边界</td><td class="tc">否</td></tr>
+        <tr><td><code>user/message</code></td><td>用户消息 / 注入上下文 / 续跑请求（来源字段区分）</td><td class="tc">✅</td></tr>
+        <tr><td><code>assistant/chunk</code></td><td>流式草稿碎片——逐 token 保真，<b>绝不丢弃</b></td><td class="tc">否（原料）</td></tr>
+        <tr><td><code>assistant/message</code></td><td>组装完成的正式回答（带 token 用量；截断的前缀会标 interrupted）</td><td class="tc">✅</td></tr>
+        <tr><td><code>tool/call · tool/result</code></td><td>工具申请（参数原样字符串）与结果（可带展示卡片数据）</td><td class="tc">✅（结果）</td></tr>
+        <tr><td><code>steering/message</code></td><td>中途插话</td><td class="tc">✅</td></tr>
+        <tr><td><code>todo/write</code></td><td>任务清单整表快照（最新一次赢）</td><td class="tc">否（界面）</td></tr>
+        <tr><td><code>request/header</code></td><td>请求信封全量快照（配置+系统提示词+工具表），变更时追加</td><td class="tc">否</td></tr>
+        <tr><td><code>request/context</code></td><td>路由与容量变化（仅变化时记）</td><td class="tc">否</td></tr>
+        <tr><td><code>session/end-seed</code></td><td>"继承的前缀到此为止"——恢复/分叉的边界标记</td><td class="tc">否</td></tr>
+        <tr><td><i>插件扩展</i></td><td>压缩三事件、钩子对、子代理描述符……都是"仅日志"事件</td><td class="tc">视声明</td></tr>
+      </tbody>
+    </table>
+
+    <h3>遮住 ≠ 撕掉：surface（模型可见层）<span class="ev s">源码</span></h3>
+    <p>模型看到的对话不是日记全文，而是日记的一个<b>投影</b>（surface）。三种产生消息的事件带一个"怎么进入投影"的标记：普通的 <code>append</code>（排在尾部），以及压缩用的 <code>replace(start, end)</code>（<span class="hl">原位替换一段、旧页全部保留</span>，只是模型暂时看不见）。派生规则：</p>
+    <ul class="plain">
+      <li>草稿碎片在派生时跳过——组装后的正式回答才是权威；</li>
+      <li>内容为空的回答（截断且没写出东西）不进对话，但用量照记；</li>
+      <li>工具结果转成 user 角色消息；注入上下文按时间顺序原样插入；</li>
+      <li>边界类事件（轮次/步骤/请求头）都是结构信息，不产生消息。</li>
+    </ul>
+    <p class="tip"><b>铁律："模型可见即已记录"</b>是运行时断言的不变量——凡是发给模型的东西，必须能从日记完整重建。所以想新增一种模型可见的输入，就必须新增一种事件类型，没有捷径。</p>
+
+    <h3>家谱与身份证 <span class="ev s">源码</span> + <span class="ev m">实测</span></h3>
+    <ul class="plain">
+      <li>每本日记的<b>首页</b>（header）记元数据：格式版本、创建时间、工作目录、<b>父会话</b>（从谁分叉）、继承长度、辈分（嵌套深度）、所用的能力预设。辈分会持久化，重开也降不了——防"套娃"。</li>
+      <li>分叉（fork）有讲究：只能从"已完成轮次的平衡点"分叉，正在写一半的轮次不带走。</li>
+      <li>会话编号没有统一格式——本机实测就有两种长相（115 个裸 UUID / 87 个 <code>session-</code> 前缀 UUID，来自 6 个不同的出生地）。<b>判断会话身份要看首页字段，永远不要猜编号长相。</b></li>
+      <li>所有事件数据必须在写入时就可通过 JSON 序列化检查——坏数据在源头就被拒，日记永远和磁盘格式一致。</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ 04 落盘 ============ -->
+<section id="s4" class="reveal">
+  <div class="shead"><span class="no">04</span><h2>落盘：两个存储后端的较量</h2><span class="diff">难度 <i>●●●</i></span></div>
+  <p class="sub">日记在磁盘上长什么样——以及为什么最新最炫的数据库方案反而没当默认。</p>
+  <div class="card">
+    <div class="talk"><b>一句人话：</b>日记默认存成<b>压缩文件</b>（像羽绒服抽真空）；8 月那次大优化把"数据库方案"瘦身了 89%，但工程师拿数据一比——传统文件反而更小，于是数据库仍是可选项。不迷信新技术，拿数字说话。</div>
+
+    <h3>磁盘布局 <span class="ev m">实测</span></h3>
+    <pre><span class="c"># ~/.dsh/ 用户的 DSH 主目录（本机 2026-08-23 快照）</span>
+├─ sessions/                       <span class="c"># 日记根目录：17 个项目抽屉 / 202 本日记 / 148 MB</span>
+│   └─ --Users-Zhuanz-projects-jerry-personal-JerryDSH--/   <span class="c"># 项目抽屉（工作目录净化而来）</span>
+│       ├─ session-cab630ef-f4cb-…/   <span class="c"># 每本日记一个目录（会话编号净化）</span>
+│       │   └─ session.jsonl.zstd     <span class="c"># 日记本体：zstd 压缩的 JSON 行</span>
+│       └─ 34bc6407-9e42-…/
+├─ storages/
+│   ├─ session_projcache.json      <span class="c"># 小抄缓存（05 章）：178 本 / 620 KB / 格式 v3</span>
+│   └─ workspace.json
+├─ settings.yaml  <span class="c"># 全局设置</span>   ├─ .credentials.yaml  <span class="c"># 密码本（0600 权限）</span>
+└─ profiles/      <span class="c"># 隔离实验场（11 章）</span></pre>
+    <p>目录名做了严格净化：只放行字母数字和 <code>._-</code>，其余字符转 <code>~XXXX</code> 编码（空格变成 <code>~0020</code>，顺便防路径穿越）。<span class="ev s">源码</span></p>
+
+    <h3>默认后端：JSONL + zstd <span class="ev s">源码</span></h3>
+    <ul class="plain">
+      <li><b>物理形态</b>：一个只含首页的校验帧 + 之后每批写入一个带校验的 zstd 帧——"真空袋按批封装"，断电时最坏丢最后一袋。</li>
+      <li><b>打包行</b>：AI 回答时一个字一个字蹦的碎片，连续 3 个以上同类型的会被打包成一行再存（三种打包标签），真实编程会话日志实测小 <b>60%</b>；读取端永远解包，写读不对称但无感。</li>
+      <li><b>攒批写入</b>：事件先进队列，固定 200ms 合并窗口（后来的不延长截止），每轮领取前强制排空——一次磁盘同步扛更多记录，一条不丢。</li>
+      <li><b>懒实体化</b>：<code>create</code> 不写盘！第一次真正写入才落盘（临时文件 + 强制同步 + 硬链接发布防覆盖）。创建了但一个字没写的会话<b>不留任何痕迹</b>，也不出现在列表里。</li>
+      <li><b>没有删除接口</b>：日记只增不减，清理靠手动删目录；同一本日记同时只允许一个写入者。</li>
+    </ul>
+
+    <h3>可选后端：SQLite（schema 17）<span class="ev s">源码</span></h3>
+    <p>8 月 19 日版本带来的重做：把碎片流打包进数据库行——每行最多 1024 个事件 / 1MiB，超过 4KiB 的走 zstd 压缩，引用序列用差分编码；每批事务 <code>BEGIN IMMEDIATE</code> + 同步级别钉死 <code>FULL</code>（不同 SQLite 构建都保证已提交就真落盘）；已提交的行永不重写（写放大有界）。旧格式数据库一律拒绝、<b>不提供迁移</b>。</p>
+
+    <h3>官方基准对比（105 本日记 / 250 万事件，三次均值）<span class="ev s">源码</span></h3>
+    <table>
+      <thead><tr><th>后端</th><th>体积</th><th>写入</th><th>整本读取 p50/p95</th><th>读最后 50 条</th><th>分叉 105 本</th></tr></thead>
+      <tbody>
+        <tr><td><b>JSONL+zstd（默认）</b></td><td class="tc"><b>30.65 MB</b> 🏆</td><td class="tc">28.21 s</td><td class="tc">4.49 / 23.36 ms</td><td class="tc">10.58 ms</td><td class="tc">14.48 s</td></tr>
+        <tr><td>SQLite 打包行</td><td class="tc">75.01 MB</td><td class="tc"><b>8.58 s</b> 🏆</td><td class="tc"><b>3.95</b> / 21.58 ms</td><td class="tc"><b>0.253 ms</b> 🏆</td><td class="tc"><b>13.10 s</b> 🏆</td></tr>
+        <tr><td>SQLite 旧标量布局</td><td class="tc">709.57 MB</td><td class="tc">10.64 s</td><td class="tc">9.02 / 69.16 ms</td><td class="tc">0.189 ms</td><td class="tc">19.30 s</td></tr>
+      </tbody>
+    </table>
+    <p>打包方案比旧布局小 <b>89.4%</b>（250 万行 → 6.6 万行），写入快 19%——但整本体积仍输给 JSONL。各有冠军，所以<b>默认保持 JSONL</b>，追求极速尾部读取/频繁分叉的部署才切 SQLite。<span class="ev i">推断</span>：官方这份克制是对的——个人日记通常不大，体积比尾部延迟重要。</p>
+
+    <h3>崩溃恢复的精细账 <span class="ev s">源码</span></h3>
+    <ul class="plain">
+      <li>最后一帧撕裂 → 保留已完整解码的记录、从帧头截断、合成"补句号"；<b>已提交前缀里</b>的校验失败才算损坏（拒绝加载）。</li>
+      <li>被打断的工具调用恢复成两种语义：<code>TOOL_NOT_STARTED</code>（没开始，随便重试）和 <code>TOOL_OUTCOME_UNKNOWN</code>（结果不明——明确叮嘱模型只重试幂等操作或先问人）。</li>
+      <li>拒绝外来格式是明确报"请升级"而不是报"损坏"——版本方向说清楚，不吓唬人。</li>
+    </ul>
+    <p class="tip"><b>外部工具不能裸读日记文件</b>（压缩帧 + 打包行 + 未来可能是数据库行）。正确入口是官方读接口：列清单 <code>list</code> / 整本读 <code>inspect</code> / <b>从水位增量读 <code>readFrom(seq)</code></b>——最后这个是所有"加速小抄"的地基（05 章）。</p>
+  </div>
+</section>
+
+<!-- ============ 05 投影缓存 ============ -->
+<section id="s5" class="reveal">
+  <div class="shead"><span class="no">05</span><h2>小抄体系：投影与缓存</h2><span class="diff">难度 <i>●●●</i></span></div>
+  <p class="sub">聊天列表页为什么不用翻整本日记？——因为有一套"小抄"加速层。</p>
+  <div class="card">
+    <div class="talk"><b>一句人话：</b>日记是权威，其余全是<b>小抄</b>。小抄的铁律：<span class="hl">可以过期，绝不允许错</span>。写失败了就先放着（下次自愈），对不上号就整张扔掉重算——日记永远是小抄的老板。</div>
+
+    <h3>投影：从日记自动算出的"当前状态" <span class="ev s">源码</span></h3>
+    <p>框架订阅一次"日记有新事件"，之后<b>每个事件都流经每个注册的计算单元</b>（标题、token 用量、目标进度……）。两条省力规矩：</p>
+    <ul class="plain">
+      <li><b>同引用即无工作</b>：与本单元无关的事件，计算函数返回同一个对象引用，系统用"是不是同一个对象"一比就跳过全部下游工作；</li>
+      <li><b>全量值规则</b>：凡是带状态的事件必须带"变更后的完整状态"，绝不带增量——每个值自己就能说明自己。</li>
+    </ul>
+    <p>本机实测注册的单元：<code>sessionStats / title / goal / tokenUsage / contextPressure</code>——正是界面侧栏和会话卡片上那些数字。<span class="ev m">实测</span></p>
+
+    <h3>持久小抄：检查点缓存 <span class="ev s">源码</span></h3>
+    <p>重开后重算所有状态太慢，于是每本日记在轮次结束时存一份检查点到 <code>session_projcache.json</code>。安全契约六条：</p>
+    <ol class="plain">
+      <li>后台写失败只警告，缓存保持旧（下次自愈）；</li>
+      <li>计算单元版本号变了 → 整行丢弃重算，<b>绝不做迁移</b>；</li>
+      <li>存下的值必须过当前的校验器，畸形行直接扔；</li>
+      <li>记录绑定日记身份（创建时间+目录）——同编号但"换了本"的记录整体作废；</li>
+      <li><b>日记领先，小抄跟随</b>：先把事件刷进日记，小抄才落地——崩溃时小抄只会落后，不会超前；</li>
+      <li>两个必写点（轮次结束、会话转冷）+ 条数/时间双节流。</li>
+    </ol>
+    <p><b>冷读阶梯</b>（打开旧会话时）：查小抄 → 找到可信水位 → <code>readFrom(水位)</code> 只回放尾巴 → 刷新小抄。这就是第 04 章 <code>readFrom</code> 存在的意义：增量折叠只补尾巴。</p>
+
+    <h3>会话搜索：默认关着的全文索引 <span class="ev s">源码</span></h3>
+    <ul class="plain">
+      <li>官方自带基于 SQLite FTS5 的全文搜索（分词召回、跨会话分页、高亮摘要），但<b>默认 <code>openAt: never</code> + 纯内存</b>——连数据库模块都不加载，搜索请求直接报"未启用"。侧栏只能搜标题和项目名。</li>
+      <li>想用要在配置层改 <code>openAt: first-search / startup</code> 并给持久路径；索引是"可丢弃重建"的派生库，单进程独占，绝不能指向日记数据库本身。</li>
+      <li>索引默认覆盖三层文本：当前可见的、被压缩遮住的、纯日志的——<b>遮住≠删掉，历史永远可搜</b>。</li>
+    </ul>
+    <p class="tip"><b>为什么值得知道：</b>第三方"会话搜索/记忆"类插件很多，但官方引擎其实内置只是没开——先开官方的再决定要不要装插件，是省钱省事的最短路径。<span class="ev i">推断</span></p>
+  </div>
+</section>
+
+<!-- ============ 06 与模型说话 ============ -->
+<section id="s6" class="reveal">
+  <div class="shead"><span class="no">06</span><h2>与模型说话：请求装配 · 缓存纪律 · 流式协议</h2><span class="diff">难度 <i>●●●</i></span></div>
+  <p class="sub">"想"这一步的完整内幕——系统如何又快又省地跟模型对话。</p>
+  <div class="card">
+    <div class="talk"><b>一句人话：</b>跟模型对话像续写一本小说：小说前面的字一个都不能改（改了 AI 就得从头重读，又慢又贵），新内容只能往后贴。整套系统有条铁律——<span class="hl">只往后加，不往前改</span>。</div>
+
+    <h3>一次请求怎么拼出来 <span class="ev s">源码</span></h3>
+    <ul class="plain">
+      <li><b>系统提示词</b>：各插件贡献"段落"，按序号拼接（约定：<code>-100</code> 是 DSH 的自我介绍、<code>0</code> 是部署人格、工具说明书占 <code>100–199</code>）；段落里的 <code>{{变量}}</code> 在组装时插值（当前时间、工作目录等）。</li>
+      <li><b>工具清单</b>：各提供方报上自己的工具说明书，汇聚成本次请求的工具表（有个保留字防抢占）。</li>
+      <li><b>对话历史</b>：从日记投影（03 章派生规则）。</li>
+      <li>三者组装成一次完整请求，同时把<b>请求信封全量快照</b>写进日记（02 章的 <code>request/header</code>）——"每个请求都是日记的纯函数"。</li>
+    </ul>
+    <p>有一个霸气但合法的口子：<b>complete 段</b>——任何插件可以声明"我就是完整的系统提示词"，组装流程照常跑完（工具照常解析），最后恢复它为唯一段落。想整体换人格，走这个正门。</p>
+
+    <h3>KV cache：AI 的"读到哪记到哪" <span class="ev s">源码</span></h3>
+    <p>模型服务端会把读过的前缀缓存住。死穴：<span class="pen">前缀改一个字，缓存全部作废、整本重读重算钱</span>。系统的五条缓存纪律：</p>
+    <div class="kv-row"><div class="kv-label">✅ 常驻部分稳定</div><div class="track"><span class="b hit"></span><span class="b hit"></span><span class="b hit"></span><span class="b hit"></span><span class="b hit"></span><span class="b hit"></span><span class="b hit"></span><span class="b hit"></span><span class="b hit"></span><span class="b hit"></span><span class="b new"></span><span class="b new"></span></div><div class="kv-badge good">只处理新尾巴</div></div>
+    <div class="kv-row"><div class="kv-label">❌ 每轮都改前缀</div><div class="track"><span class="b miss"></span><span class="b miss"></span><span class="b miss"></span><span class="b miss"></span><span class="b miss"></span><span class="b miss"></span><span class="b miss"></span><span class="b miss"></span><span class="b miss"></span><span class="b miss"></span><span class="b miss"></span><span class="b miss"></span></div><div class="kv-badge bad">缓存全作废</div></div>
+    <p class="legend"><i style="background:#9fbdf2"></i>缓存命中（不重读） <i style="background:var(--hi)"></i>新内容 <i style="background:#f6b9b0"></i>被迫重读</p>
+    <ol class="plain">
+      <li>系统提示词与工具表只在真的变化时才记"变更快照"——连续请求前缀逐字节稳定；</li>
+      <li>会变的信息（时间/目录/文件通知）做成<b>便利贴</b>：完整快照追加在历史后面，旧快照被新快照"顶替"但历史一字不动；</li>
+      <li>压缩（07 章）是唯一合法的"重写"，天然断缓存——这是它的固有代价；</li>
+      <li>回放元数据跟内容块逐块对齐裁剪：丢弃哪个块，同位置的元数据一并丢——"存的东西永远描述存的内容"；</li>
+      <li><b>跨模型不透传</b>：A 家的缓存状态只有同一适配器实例才认——换模型续聊，缓存作废是机制使然，系统只降级不报错。</li>
+    </ol>
+
+    <h3>流式协议：碎片怎么拼回文章 <span class="ev s">源码</span></h3>
+    <ul class="plain">
+      <li><b>共享组装器</b>：拼装逻辑全系统只有一份，适配器只管吐格式正确的碎片。纪律：token 用量必须在结束标记之前；已关闭块的迟到碎片直接忽略（坏适配器撑不爆内存）；<b>被截断的工具调用一律丢弃</b>（半截命令不能执行），同位置的回放元数据同步裁剪。</li>
+      <li><b>中途取消</b>：已流出的文本/思考前缀会以 <code>interrupted</code> 标记定格入日记——"流了什么留什么，没派发的调用不存在"。</li>
+      <li>每次辅助调用（压缩摘要、会话起标题）可以带"用途"标记，适配器可据此走专用策略——普通对话不带。</li>
+    </ul>
+
+    <h3>适配器八条军规（接新模型的合同条款）<span class="ev s">源码</span></h3>
+    <table>
+      <tbody>
+        <tr><td>① 用量先于结束标记</td><td>结束后不许再吐碎片</td></tr>
+        <tr><td>② 工具参数全程保持原始字符串</td><td>模型给的什么样就传什么样，解析归组装器</td></tr>
+        <tr><td>③ 两条错误路径</td><td>直接抛异常（传输错）或以 error 结束标记收尾（提供方带内错）</td></tr>
+        <tr><td>④ 一次调用 = 一次尝试</td><td>适配器禁用底层库的重试——重试统一归上层管，不会叠罗汉</td></tr>
+        <tr><td>⑤ 停顿看门狗</td><td>默认 5 分钟无输出强制超时，早到的用户取消保留为"已取消"</td></tr>
+        <tr><td>⑥ 溢出只有一个错误码</td><td>上下文超限统一报 <code>CONTEXT_WINDOW_EXCEEDED</code>，绝不让人猜各家报错文案</td></tr>
+        <tr><td>⑦ 空回答 = 可重试错误</td><td>不是静默成功——默认自动重试</td></tr>
+        <tr><td>⑧ 每个请求带应用身份头</td><td>User-Agent 声明"是 DSH 在调用"，公开产品信息、无隐私</td></tr>
+      </tbody>
+    </table>
+
+    <h3>重试三层责任制 <span class="ev s">源码</span></h3>
+    <table>
+      <thead><tr><th>层</th><th>谁管</th><th>默认</th><th>发生什么</th></tr></thead>
+      <tbody>
+        <tr><td>路由层</td><td>模型路由配置</td><td>普通模式重试 5 次（带退避）</td><td>同一请求自动再试</td></tr>
+        <tr><td>代理层</td><td>失败恢复监听器</td><td>可修状态后返回 retry</td><td>开一个<b>新的持久轮次</b>（日志看得出是重试）</td></tr>
+        <tr><td>直调层</td><td>插件自己</td><td><b>无！一次就是一次</b></td><td>插件直接调模型必须自管重试——著名的坑</td></tr>
+      </tbody>
+    </table>
+    <p>另有两道防换防：请求的"准备-派发"绑定同一代适配器注册（设置中途变了也不会"一代的能力配另一代的端点"，不匹配直接报错）；路由替换是原子操作，请求永远看不到半新半旧。</p>
+
+    <h3>token 记账：三只互不重叠的桶 <span class="ev s">源码</span></h3>
+    <div class="grid c3">
+      <div class="mini"><b>inputTokens</b><span>未命中缓存的输入</span></div>
+      <div class="mini"><b>cacheRead / cacheWrite</b><span>缓存读/写单独计（计费输入 = 三者之和）</span></div>
+      <div class="mini"><b>outputTokens</b><span>含思考 token（内部明细不重复算）</span></div>
+    </div>
+    <p>计量器是"回放快照"不是计数器：锚定在已消费的事件数上；只有最近一次成功请求的<b>信封完全一致</b>时才复用它的精确用量做锚点，否则整包启发式估算。压缩的 80% 水位（07 章）、界面的"上下文压力"条，都吃这里。</p>
+  </div>
+</section>
+
+<!-- ============ 07 compaction ============ -->
+<section id="s7" class="reveal">
+  <div class="shead"><span class="no">07</span><h2>日记太厚：压缩（compaction）</h2><span class="diff">难度 <i>●●</i><em>○</em></span></div>
+  <p class="sub">脑容量有限（上下文窗口），日记无限增长——中间的减压阀。</p>
+  <div class="card">
+    <div class="talk"><b>一句人话：</b>不是撕页，是<span class="hl">贴便签遮住旧页</span>：把早前的内容请另一次模型调用浓缩成一页摘要，贴在对话开头。旧页一页不丢，只是模型暂时看不见——想搜历史随时翻回来。</div>
+
+    <div class="pages" aria-hidden="true">
+      <div class="sticky">📋 摘要便签<small>（新的开头）</small></div>
+      <div class="pg old"></div><div class="pg old"></div><div class="pg old"></div><div class="pg old"></div><div class="pg old"></div><div class="pg old"></div><div class="pg old"></div>
+      <div class="pg now"></div><div class="pg now"></div><div class="pg now"></div>
+    </div>
+    <p class="legend" style="text-align:left">灰页 = 被遮住（shadowed）——原文完好保留在日记里，替换标记记录了遮住的范围。</p>
+
+    <h3>什么时候压、压多少 <span class="ev s">源码</span></h3>
+    <table>
+      <thead><tr><th>参数</th><th>默认</th><th>含义</th></tr></thead>
+      <tbody>
+        <tr><td><code>thresholdRatio</code></td><td class="tc">0.8</td><td>占用超过「上下文容量 × 0.8」就触发（每步请求前检查）</td></tr>
+        <tr><td><code>retainRatio</code></td><td class="tc">0.16</td><td>最近 16% 的内容逐字保留，绝不进摘要</td></tr>
+        <tr><td><code>maxTokens</code></td><td class="tc">8192</td><td>摘要调用的最大产出</td></tr>
+        <tr><td><code>compactionRetries</code></td><td class="tc">1</td><td>压完还超水位的额外再试次数</td></tr>
+        <tr><td><code>auto</code></td><td class="tc">true</td><td>自动监听压力；关掉则只能手动</td></tr>
+        <tr><td><code>modelPolicies</code></td><td class="tc">—</td><td>可按"提供方+模型"逐对覆盖以上参数</td></tr>
+      </tbody>
+    </table>
+    <p>省钱顺序也有讲究：压力超标时<b>先跑"无模型修剪"</b>（把超大的工具输出替换成一行摘要，零 token 成本）→ 重新测量 → 不够再请模型生成摘要。可能免费就过关。</p>
+
+    <h3>三事件锁：崩溃也骗不了人 <span class="ev s">源码</span></h3>
+    <p>压缩在日记里留三行：<code>compaction/start</code>（上锁）→ <code>compaction/summary</code>（摘要+遮住范围+估算 token+用了哪个模型）→ <code>compaction/end</code>（解锁）。锁<b>最后</b>释放——中途崩溃就留下"有 start 无 end"的遗留锁，一眼可检测，绝不可能出现"谎称已完成"的假标记。另有一条"继承边界"规则（03 章 end-seed）：上个生命周期留下的遗留锁视为已死，不会误伤重启后的会话。</p>
+    <p>边界纪律：替换范围永远保持"工具申请↔结果"成对（半对不能遮）；但不必保持整轮——超大轮次里较早完成的步骤可以被单独压缩。手动压缩在完全空闲的"维护相位"跑，不抢正常轮次。</p>
+  </div>
+</section>
+
+<!-- ============ 08 工具流水线 ============ -->
+<section id="s8" class="reveal">
+  <div class="shead"><span class="no">08</span><h2>工具流水线：从申请到结果的六道关卡</h2><span class="diff">难度 <i>●●</i><em>○</em></span></div>
+  <p class="sub">AI 说"我要读那个文件"之后发生的事——以及为什么没人能篡改它的申请单。</p>
+  <div class="card">
+    <div class="talk"><b>一句人话：</b>工具调用像过安检：申请单<b>一进场就塑封</b>（谁也改不了），先问"让不让带"（可触发家长签字），再过一道<b>只收紧不放松</b>的终审，执行完还能被"开箱检查/替换展示"，最后盖章入册。</div>
+
+    <div class="chev" aria-hidden="true">
+      <div class="st"><b>① 入口塑封</b><small>参数冻结·非 JSON 拒收·发身份牌</small></div>
+      <div class="st"><b>② pre-execute</b><small>允许/拒绝/<b>请求审批</b>（瀑布，可多监听器）</small></div>
+      <div class="st"><b>③ guard 终审</b><small>只能再拒不能放行——权限只减不增</small></div>
+      <div class="st"><b>④ execute</b><small>环绕执行；可换取消信号；并行/独占调度</small></div>
+      <div class="st"><b>⑤ post-execute</b><small>验收：换展示/换值（二选一）/打回成错误</small></div>
+      <div class="st"><b>⑥ result 盖章</b><small>冻结入日志；观察者只能看不能动</small></div>
+    </div>
+
+    <h3>几条硬规矩 <span class="ev s">源码</span></h3>
+    <ul class="plain">
+      <li><b>申请单不可篡改</b>：历史、审计、界面、执行四方一致是铁律——想在半路改参数？没有这个口子。要改输入，只能在进入步骤前改"消息"（02 章 pre-step）。</li>
+      <li><b>审批是关卡 ② 的 ask 分支</b>：只有拿到"允许这一次"才继续，其余一律拒（09 章）。</li>
+      <li><b>调度两态</b>：可并行的（同时读三个文件）进滚动池；必须独占的（写文件、跑交互命令）排成顺序屏障。</li>
+      <li><b>结果分两层</b>：执行期的"结构化值"只活在当下（不入日志）；入日志的是给模型看的"内容 / 错误 / 展示元数据"。工具可以在展示元数据里塞自己的界面卡片（比如文件修改的 diff 卡）。</li>
+      <li><b>两句工具黑话</b>：<code>deferContext</code> 把补充说明挂到本次结果上（结果送达后注入）；<code>concludeTurn</code> 让"问用户"类工具在拿到结果后直接结束本轮——提问就该停下来等答案。</li>
+      <li><b>失败不掀桌</b>：未知工具、参数坏、执行炸——都变成结构化错误结果返回给模型（它能看到并自救），当前轮次继续。连"渲染结果失败"都会被降级成安全文本，流水线任何一层都不会把"没法展示"变成崩溃。</li>
+      <li><b>嵌套调用有出身牌</b>：组合工具派生的子调用带"父执行令牌"；代码模式下模型直呼原生工具名（没有父）会在进策略前就被拒——只有程序里转发的调用才能用那些内部工具。</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ 09 安全 ============ -->
+<section id="s9" class="reveal">
+  <div class="shead"><span class="no">09</span><h2>安全模型：围栏、签字，和一条大实话</h2><span class="diff">难度 <i>●●</i><em>○</em></span></div>
+  <p class="sub">能删你文件的助手必须配好保险丝——两个旋钮、两层边界、一个捆绑开关，外加一条必须知道的大实话。</p>
+  <div class="card">
+    <div class="talk"><b>一句人话：</b>保险丝有两颗：<b>围栏</b>（操作系统级，管 AI 能碰哪些文件）和<b>签字</b>（出圈前先问你）。大实话：这两颗保险丝<b>只管 AI，不管插件</b>——装插件等于请陌生人以你的身份进家门。</div>
+
+    <h3>旋钮一：围栏（沙箱）三档 <span class="ev s">源码</span></h3>
+    <table>
+      <thead><tr><th>档位</th><th>文件权限</th><th>说明</th></tr></thead>
+      <tbody>
+        <tr><td><b>只读</b></td><td>只能看，一字不能写</td><td>最严</td></tr>
+        <tr><td><b>作业区可写</b></td><td>项目文件夹 + 系统临时区</td><td>默认档；文件工具与命令行共用同一套边界，不会打架</td></tr>
+        <tr><td><b>全权</b></td><td>不设围栏</td><td>直接绕过围栏系统执行；速度快，责任在你</td></tr>
+      </tbody>
+    </table>
+    <ul class="plain">
+      <li>围栏是<b>操作系统级</b>的（macOS 安全带 / Linux Landlock·bwrap / Windows ACL），不是口头承诺；不同后端报"拒绝"的黑话不同（只读文件系统错误 / 拒绝访问 / 不允许操作），系统按方言精确识别。</li>
+      <li>围栏会诚实汇报自己的完整度：老内核或 Windows 某些缺口只能"部分强制"——<b>部分 ≠ 完整，较真场景必须当失败处理</b>。</li>
+      <li>⚠️ <span class="pen">围栏只管文件，不管网络</span>——围栏里的程序照样能上网；进程可见性同样不管。</li>
+      <li>文件工具有一层进程内"策略围栏"（读写检查路径），官方明说它是<b>提醒不是安全边界</b>——真隔离靠上面的系统级围栏。</li>
+      <li>升级重试的规矩：被围栏拦下的操作可申请"只这一次更宽权限"的重试——那是一次带新策略的新调用，不是修改进行中的调用。</li>
+    </ul>
+
+    <h3>旋钮二：签字（审批）fail-closed <span class="ev s">源码</span></h3>
+    <p>AI 想出圈（比如往项目外写文件）？先来问你。你的回答只有四种，其中只有一种放行：</p>
+    <div class="grid c4">
+      <div class="mini"><b class="ok">✅ 允许这一次</b><span>只批这一件事，下次再问</span></div>
+      <div class="mini"><b class="pen">❌ 拒绝</b><span>不干了</span></div>
+      <div class="mini"><b class="pen">↩️ 撤销</b><span>问题撤回</span></div>
+      <div class="mini"><b class="pen">💤 没人回答</b><span><b>同样算拒绝</b>——宁可不做事，不可乱做事</span></div>
+    </div>
+    <p>每次问答都成对记入日记（只入日志、不给模型看）。「一律拒绝」模式在<b>排队发问之前</b>就在服务内部生效——想偷偷插队塞一个自动点头器？插不进去。空闲会话的提问直接拒绝（审计必须落在轮次边界内）。</p>
+
+    <h3>捆绑开关：权限预设 <span class="ev s">源码</span></h3>
+    <table>
+      <thead><tr><th>预设</th><th>围栏</th><th>审批</th><th>适合</th></tr></thead>
+      <tbody>
+        <tr><td><code>workspace-write</code></td><td>作业区可写</td><td>询问</td><td>日常默认</td></tr>
+        <tr><td><code>danger-full-access</code></td><td>全权</td><td>一律拒绝</td><td>全自动可信场景（写本报告的会话正在用这套 <span class="ev m">实测</span>）</td></tr>
+      </tbody>
+    </table>
+    <p>两个旋钮也可以单独拧——单独拧出来的组合叫"自定义"，是个只读的派生态，不能当目标切换。预设服务还有个组合前提：必须配了能施围栏的执行器，否则<b>加载即失败</b>（不肯静默降级）。</p>
+
+    <h3>MCP：接外部工具的标准插口 <span class="ev s">源码</span></h3>
+    <ul class="plain">
+      <li>MCP 服务器带来的工具以 <code>mcp__服务器名__工具名</code> 注册，和原生工具平起平坐；名字做规范化防撞车（64 字符上限 + 冲突时加哈希尾）。</li>
+      <li>两种接法：<b>stdio</b>（在本机启动你配置的程序——<span class="pen">和插件同级的安全责任</span>）与 <b>http</b>（连远端服务）。</li>
+      <li>断线自动重连有预算：连续失败 10 次就注销该服务器的工具，稳定运行 30 秒重置预算——崩溃循环的外部服务不会被无限复活。</li>
+      <li>结果里的图片要成为正式附件需同时满足：附件服务在场 + 本次模型路由声明支持图片；不满足的块降级成诊断文本，绝不静默消失。</li>
+    </ul>
+
+    <h3>大实话：装插件 = 请陌生人进家门 <span class="ev s">源码</span></h3>
+    <div class="quote">官方文档原话大意：安装许可的本质，是<b>在 agent 的一切沙箱之外</b>、于你的机器上执行这个包的代码的许可。只装你信得过的来源，并把版本锁定到具体的提交（commit）。</div>
+    <p>密码本（credentials）的 0600 权限只防其他系统用户，<b>不防同身份的插件进程</b>。本研究的对策：每个插件先做"源码体检"（查偷偷执行命令/外联），过检才装。<span class="ev m">实测</span></p>
+
+    <h3>生产环境速查矩阵</h3>
+    <table>
+      <thead><tr><th>环境</th><th>推荐配置</th><th>关键动作</th></tr></thead>
+      <tbody>
+        <tr><td>个人开发机</td><td>全权+拒绝（知情使用）</td><td>现状即可</td></tr>
+        <tr><td>共享主机</td><td><b>禁全权预设</b>；作业区+询问</td><td>插件白名单 + 锁定版本；密码本用副本</td></tr>
+        <tr><td>CI / 无人值守</td><td>作业区 + 一律拒绝</td><td>确定性拒绝而非静默放行；断言围栏完整度=full</td></tr>
+        <tr><td>不可信任务</td><td>作业区 + 询问</td><td>别拿策略围栏当安全边界；不可信代码走系统级围栏</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ============ 10 帮手 ============ -->
+<section id="s10" class="reveal">
+  <div class="shead"><span class="no">10</span><h2>帮手体系：AI 也会"打电话叫人"</h2><span class="diff">难度 <i>●●●</i></span></div>
+  <p class="sub">一个 AI 忙不过来时，可以派生出一整棵帮手树——甚至雇别家 AI 打工。</p>
+  <div class="card">
+    <div class="talk"><b>一句人话：</b>帮手分两种：<b>一次性钟点工</b>（派个活，干完散伙）和<b>长期管家</b>（拉了个群，可以一直派活、催进度、按暂停）。每位管家有自己的日记本，关机了也能"冷启动"复活接着干。</div>
+
+    <h3>两类能力，两种开门方式 <span class="ev s">源码</span></h3>
+    <ul class="plain">
+      <li><b>一次性 run</b>：提供方用静态"能力旗标"声明自己会什么（结构化输出/深度上限/工具过滤/人格）。你要它不会的？启动时就拒绝，<b>绝不"假装接了然后偷偷不做"</b>。</li>
+      <li><b>可继续（continuable）</b>：提供方实现一个特定方法就算有这能力——方法存在即能力。子代理由"继续执行管理器"统一组装，提供方只贡献"要不要带父级历史"这一点点意见，其余生命周期（创建/投递/冷恢复/拆除）全归管理器。</li>
+    </ul>
+
+    <h3>六种提供方（传输层）<span class="ev s">源码</span></h3>
+    <table>
+      <thead><tr><th>提供方</th><th>类型</th><th>特点</th></tr></thead>
+      <tbody>
+        <tr><td><code>spawn</code></td><td>进程内</td><td>全新子代理，不带父级上下文</td></tr>
+        <tr><td><code>fork</code></td><td>进程内</td><td>带父级<b>已完成轮次的前缀</b>作种子（半截轮次不带上）</td></tr>
+        <tr><td><code>dsh-sdk</code></td><td>进程内</td><td>嵌套 DSH 实例</td></tr>
+        <tr><td><code>acp</code></td><td>协议桥</td><td>Agent Client Protocol 外部客户端（可代理审批）</td></tr>
+        <tr><td><code>codex</code></td><td>外部产品</td><td>把一轮委派给 OpenAI Codex；可设非交互权限模式</td></tr>
+        <tr><td><code>claude-code</code></td><td>外部产品</td><td>同理，委派给 Claude Code</td></tr>
+      </tbody>
+    </table>
+    <p>注意"继承父上下文"只指对话种子（fork 为真），<b>不意味着继承工具、服务和权限</b>——每个子代理有自己的能力组合。给子代理挑工具/换人格是"可见性"控制（挑了就从它的说明书里消失且拒绝执行），不是沙箱。</p>
+
+    <h3>长期管家的生命周期 <span class="ev s">源码</span></h3>
+    <table>
+      <thead><tr><th>状态</th><th>含义</th><th>收到新指令时</th></tr></thead>
+      <tbody>
+        <tr><td><code>running</code></td><td>正在干活</td><td>直接排队（收件箱是唯一的队列）</td></tr>
+        <tr><td><code>waiting</code></td><td>自己停稳了，但雇的下级还没收工</td><td>唤醒它本人</td></tr>
+        <tr><td>无驻留</td><td>进程里没有它（比如重启过）</td><td><b>冷恢复</b>：从日记重建，续跑等待中的轮次</td></tr>
+      </tbody>
+    </table>
+    <ul class="plain">
+      <li><b>防套娃</b>：每位帮手记"辈分"，出生就写入日记首页；可以给单次委派设深度上限，超了启动即拒。</li>
+      <li><b>防冒充</b>：派活/打断的权限来自"确切在线的直系父级"这一身份；消息上的"发送人"字段只是署名，<b>不授予任何权力</b>——班级群里没法假冒班主任点名。</li>
+      <li><b>打断的讲究</b>：只停"正在做的那一轮"，收件箱里排队的消息不丢（像按暂停，不是掀桌子）；对不存在/已收工的目标打断是合法的空操作。</li>
+      <li><b>指令的取消权只到收件</b>：消息一旦被收下，调用方的取消既不会撤回它也不会拆掉子代理。</li>
+      <li><b>汇报与记账分开记</b>：帮手主动汇报是一种来源，系统在帮手收工时自动给家长发的"结算通知"是另一种来源——日记里的署名刻意不同，<b>绝不把系统的话记成帮手说的</b>。</li>
+      <li><b>查名单三级加速</b>：活着的问内存（零成本）→ 冷的查小抄（05 章）→ 都不行翻日记。速度全靠前面章节的投影缓存撑着。</li>
+    </ul>
+
+    <h3>实验性：Agent Teams（团队）<span class="ev s">源码</span></h3>
+    <p>8 月 19 日版本新增：一组 AI 共享一块<b>任务板</b>（谁认领了什么、什么任务卡住谁——有向无环图 + 版本号防写冲突）和一个<b>留言信箱</b>（消息先存档、对方确认收货才算送达——差集就是"待送达"）。有趣的两点：任务板的"工作范围"标注只是提醒不是锁；整个团队状态存在根会话的日记里，回放日记=复活团队。官方标注"实验性"。</p>
+  </div>
+</section>
+
+<!-- ============ 11 插件机制 ============ -->
+<section id="s11" class="reveal">
+  <div class="shead"><span class="no">11</span><h2>插件机制：层叠的饼干与三个著名的坑</h2><span class="diff">难度 <i>●●●</i></span></div>
+  <p class="sub">生态有上万个插件仓库——但"装得上"和"装得好"之间隔着三个坑。</p>
+  <div class="card">
+    <div class="talk"><b>一句人话：</b>插件 = 一个带"安装说明书"的 npm 包。系统像<b>叠饼干</b>一样组合它们：官方底座 → 各插件层 → 你的个人覆盖层——下面的层打底，上面的层说了算。</div>
+
+    <h3>层叠顺序（下 → 上，上层覆盖下层）<span class="ev s">源码</span></h3>
+    <pre>① 官方组合包 bundles（base / web-app / headless + 各插件自带的 patch 层）
+② profile 覆盖层   ~/.dsh/profiles/<span class="y">&lt;名字&gt;</span>/cordis.patch.yml   <span class="c"># 某个实验场的私人定制</span>
+③ home 覆盖层     ~/.dsh/cordis.patch.yml                <span class="c"># 所有组合共享，优先级最高</span>
+④ 命令行临时层    --patch overlay                        <span class="c"># 一次性试验</span></pre>
+    <ul class="plain">
+      <li>安装命令 <code>dsh plugin --profile X add 包名</code> = 转发 pnpm 安装 + 自动把包名登记进该 profile 的 bundles。</li>
+      <li>没有"安装说明书"（<code>dsh.bundle</code> 字段）的包也能装，但只算普通依赖，<b>打警告、不激活</b>。</li>
+      <li>覆盖语法三种：整段替换某项配置 / 插入新行 / 禁用某行（<code>disabled: true</code>）；指向不存在的行只警告不报错；想禁用一整层要写"空列表"，留空文件反而报错。</li>
+      <li>模块解析先查 DSH 自带的依赖、再查 profile 自己装的——所以官方子包<b>平时根本不用装</b>。</li>
+      <li>配置各归各家：全局设置 <code>settings.yaml</code>（界面设置页写这里）、密码本 <code>.credentials.yaml</code>、插件自带数据各自目录（多数启动时读一次，改文件要重启）。</li>
+    </ul>
+
+    <h3>三个著名的坑 <span class="ev m">实测踩中</span></h3>
+    <div class="grid c3">
+      <div class="mini"><span class="em">🏷️</span><b>坑一：版本标签错位</b><span>官方子包的 npm「latest」停在远古版本，新版只在「next」——手动装子包会装到石器时代。<b>对策：显式写版本号，或干脆不装</b>（靠内置解析）</span></div>
+      <div class="mini"><span class="em">🧱</span><b>坑二：构建脚本被拦</b><span>pnpm 10 默认拦截依赖的安装后构建——含原生模块的插件"装完即坏"：界面一切正常，数据默默不落盘。<b>对策：声明构建白名单 + 手动重建</b></span></div>
+      <div class="mini"><span class="em">🌐</span><b>坑三：网页专用插件</b><span>声明"硬依赖网页服务"的插件，装进无界面组合会<b>启动失败</b>（缺服务，永远等不到）。<b>对策：这类插件只装进网页版组合</b></span></div>
+    </div>
+    <p>坑二的典型案例：会话记忆插件 dsh-thread 装完一切正常，实际每次记事都报"找不到绑定文件"——<b>记忆完全没落盘而表面无事</b>。装含数据库/原生依赖的插件，装完务必验证数据真的落了盘。</p>
+
+    <h3>怎么确认"插件真的装上了" <span class="ev m">实测</span></h3>
+    <p>网页版会把每个插件的"客户端代码"挂在固定路径下发。一行命令探测：</p>
+    <pre>curl -s -o /dev/null -w '%{http_code}' http://127.0.0.1:端口/plugins/<span class="y">包名</span>/client.js
+<span class="c"># 200 = 客户端模块在正常下发（实测 373KB 模块正常返回）；404 = 没装上/没激活</span></pre>
+
+    <h3>密码本换代事件（前车之鉴）<span class="ev m">实测</span></h3>
+    <p>8 月 21 日版本重构了密码本格式（旧"扁平表"→ 新"带版本号的结构"）。新格式写的文件，<b>旧版本的"读证件员"读不懂</b>——于是还停在旧版的电脑一夜之间"冷启动必挂"。这叫<span class="hl">格式升级的单向门</span>：门只能往前走。所幸新版本开机会自动升级旧文件。教训：别长期停在版本断代点；升级前看更新说明里有没有"凭证/存储格式"字样（12 章）。</p>
+  </div>
+</section>
+
+<!-- ============ 12 进化与追踪 ============ -->
+<section id="s12" class="reveal">
+  <div class="shead"><span class="no">12</span><h2>进化史：九天五个版本与追踪方法</h2><span class="diff">难度 <i>●</i><em>○○</em></span></div>
+  <p class="sub">2026 年 8 月的真实发布时间线——以及"30 秒查有没有新版"的常备方法。</p>
+  <div class="card">
+    <div class="talk"><b>一句人话：</b>8 月中旬这团队<b>疯跑到 9 天发 5 版</b>，然后突然安静（最新版发布后 30+ 小时零动静，三源一致确认 <span class="ev m">实测</span>）。我们做了份"30 秒查新版"的常备命令，有新版先隔离试穿再升级。</div>
+
+    <ol class="tl">
+      <li>
+        <div class="tl-time">08-12</div>
+        <div class="tl-title">0.1.0-rc.5 · 起点</div>
+        <div class="tl-body">本机当时日常在用的版本。</div>
+      </li>
+      <li>
+        <div class="tl-time">08-17</div>
+        <div class="tl-title">0.1.0-rc.7 · 学会请帮手</div>
+        <div class="tl-body">子代理大升级（外部产品当帮手、权限模式），196 个改动。</div>
+      </li>
+      <li>
+        <div class="tl-time">08-19</div>
+        <div class="tl-title">0.1.0-rc.8 · 大版本</div>
+        <div class="tl-body">日记存储大优化（−89.4%）、Windows 全套、实验性 Agent Teams。三天攒 294 个改动（30 项新功能 + 123 项修复）。</div>
+      </li>
+      <li class="warn">
+        <div class="tl-time">08-21 06:49</div>
+        <div class="tl-title">0.1.1-rc.1 · 密码本重构（引出惨案）</div>
+        <div class="tl-body">凭证格式换代——新旧单向不兼容，旧版电脑冷启动必挂（11 章讲过）。</div>
+      </li>
+      <li>
+        <div class="tl-time">08-21 12:42</div>
+        <div class="tl-title">0.1.1-rc.2 · 图片管线统一<span class="cur">当前最新</span></div>
+        <div class="tl-body">截至核查（08-23）：npm、git 主干、GitHub Releases 三源一致——<b>之后再无新发布</b>。<span class="ev m">实测</span></div>
+      </li>
+    </ol>
+
+    <h3>版本基线表（改动量供参考）<span class="ev s">源码</span></h3>
+    <table>
+      <thead><tr><th>版本</th><th>区间改动</th><th>新功能/修复</th><th>一句话主题</th></tr></thead>
+      <tbody>
+        <tr><td>rc.7</td><td class="tc">196</td><td class="tc">17 / —</td><td>子代理提供商化 + 交互打磨</td></tr>
+        <tr><td>rc.8</td><td class="tc">294</td><td class="tc">30 / 123</td><td>存储优化 + 团队 + Windows 栈</td></tr>
+        <tr><td>0.1.1-rc.1</td><td class="tc">111</td><td class="tc">12 / 46</td><td>凭证系统重构</td></tr>
+        <tr><td>0.1.1-rc.2</td><td class="tc">31</td><td class="tc">4 / 7</td><td>图片/附件统一管线（当前 latest）</td></tr>
+      </tbody>
+    </table>
+
+    <h3>30 秒查新版（常备方法）<span class="ev m">实测</span></h3>
+    <pre><span class="c"># ① npm：有没有新版本/新标签</span>
+npm view @deepseek-ai/dsh dist-tags version time --json | tail -20
+<span class="c"># ② git：主干有没有新提交（官方仓库浅克隆）</span>
+cd /tmp/dsh-repo && git fetch origin master --shallow-since=<span class="y">&lt;90天前&gt;</span> && git log HEAD..FETCH_HEAD
+<span class="c"># ③ GitHub Releases 佐证</span>
+gh release list --repo deepseek-ai/deepseek-harness --limit 5</pre>
+    <p>有新版后的归纳法：拉取两个版本标签之间的提交记录，按 <code>feat/fix</code> 前缀过滤统计（新功能逐条读，修复按模块聚合）；行为验证一律在 /tmp 隔离目录装新版本试穿，<b>绝不通勤升级全局</b>。要盯的四个信号：新版本号、子包标签是否修齐、发布分支出现、更新说明里的"凭证/存储格式"字样。</p>
+  </div>
+</section>
+
+<!-- ============ 13 生态快照 ============ -->
+<section id="s13" class="reveal">
+  <div class="shead"><span class="no">13</span><h2>生态快照：一万个插件的江湖</h2><span class="diff">难度 <i>●</i><em>○○</em></span></div>
+  <p class="sub">2026-08-22 拍下的生态快照（会过期，看个量级）。</p>
+  <div class="card">
+    <div class="talk"><b>一句人话：</b>插件生态爆发期：GitHub 上挂"DSH 插件"标签的仓库已过万，头部插件周下载破万。但江湖规矩只有一条——<span class="hl">上榜 ≠ 安全</span>，装之前先源码体检。</div>
+    <div class="grid c4">
+      <div class="stat"><div class="n">10,529</div><div class="d">GitHub 插件仓库</div></div>
+      <div class="stat"><div class="n">11.3k</div><div class="d">awesome 精选列表 star</div></div>
+      <div class="stat"><div class="n">10,503</div><div class="d">头部插件周下载</div></div>
+      <div class="stat"><div class="n">1550+</div><div class="d">市场类插件宣称收录</div></div>
+    </div>
+    <table>
+      <thead><tr><th>插件</th><th>周下载</th><th>定位</th><th>本机状态</th></tr></thead>
+      <tbody>
+        <tr><td>dsh-find-plugin</td><td class="tc">10,503</td><td>让 AI 自己找插件</td><td class="tc">✅ 实测过检</td></tr>
+        <tr><td>@rezti/dsh-rez-suite</td><td class="tc">7,718</td><td>全家桶一键装</td><td class="tc">未测</td></tr>
+        <tr><td>dsh-plugin-ima-sync</td><td class="tc">5,961</td><td>会话进度同步腾讯 IMA</td><td class="tc">未测</td></tr>
+        <tr><td>@1e0zj/dsh-plugin-mall</td><td class="tc">4,446</td><td>设置页插件市场</td><td class="tc">未测</td></tr>
+        <tr><td>dsh-mcp-sync</td><td class="tc">4,260</td><td>MCP 工具直注</td><td class="tc">未测（网页专用型）</td></tr>
+        <tr><td>dsh-routing-suite</td><td class="tc">4,156</td><td>模型路由套件</td><td class="tc">在用（43 例评测：自动路由 78.4%）</td></tr>
+        <tr><td>@aiwayds/dsh-subagent-registry</td><td class="tc">1,099</td><td>自定义 agent 注册</td><td class="tc">✅ 实测</td></tr>
+        <tr><td>dsh-thread</td><td class="tc">1,024</td><td>会话记忆+谱系</td><td class="tc">✅ 实测（踩中坑二）</td></tr>
+      </tbody>
+    </table>
+    <p class="tip">本工作区 19 个插件全部做过源码体检（扫描偷偷执行命令/外联端点），零恶意命中——但这个结论<b>不外推到没查过的插件</b>。市场类插件会跑包管理器和访问插件市场域名，属预期行为。</p>
+  </div>
+</section>
+
+<!-- ============ 14 方法 ============ -->
+<section id="s14" class="reveal">
+  <div class="shead"><span class="no">14</span><h2>研究方法：比结论更值钱的规矩</h2><span class="diff">难度 <i>●</i><em>○○</em></span></div>
+  <p class="sub">这份报告的每个数字是怎么来的。</p>
+  <div class="card">
+    <ul class="plain">
+      <li><b>绝不碰活体</b>：所有实验在隔离配置包（profile）和 /tmp 临时目录完成；真实使用的设置、密码本、正在运行的界面全程只读零改动。</li>
+      <li><b>新版本先隔离试穿</b>：/tmp 独立安装验证行为，不通勤升级全局。</li>
+      <li><b>插件先体检后安装</b>：源码扫描（进程执行/外部连接/数据外传）。</li>
+      <li><b>三级证据分级</b>，绝不混说：<span class="ev m">实测</span> 本机亲眼所见 · <span class="ev s">源码</span> 读官方代码与设计文档 · <span class="ev i">推断</span> 合理推测并明说未实证。</li>
+      <li><b>多源交叉</b>：版本动态要 npm + git + GitHub Releases 三源一致才算数；存储性能引用官方设计文档的基准数据并注明。</li>
+    </ul>
+    <h3>幕后资料</h3>
+    <table>
+      <thead><tr><th>编号</th><th>主题</th><th>本报告对应章节</th></tr></thead>
+      <tbody>
+        <tr><td>01–04</td><td>更新时间线 / 视觉插件 / 能力插件 / 生态全景</td><td>12、13 章</td></tr>
+        <tr><td>05</td><td>插件机制笔记</td><td>11 章</td></tr>
+        <tr><td>06</td><td>版本追踪（常驻文档）</td><td>12 章</td></tr>
+        <tr><td>07</td><td>会话底座（持久化/投影/压缩/检索）</td><td>03–07 章</td></tr>
+        <tr><td>08</td><td>安全模型深潜</td><td>09 章</td></tr>
+        <tr><td>09</td><td>Agent 循环核心</td><td>02、08 章</td></tr>
+        <tr><td>10</td><td>LLM 装配与流式</td><td>06 章</td></tr>
+        <tr><td>11</td><td>Subagent 体系</td><td>10 章</td></tr>
+      </tbody>
+    </table>
+    <p>全部位于 JerryDSH 工作区 <code>research/</code> 目录；这份 HTML 是它们的人话版浓缩。</p>
+  </div>
+</section>
+
+<div class="ending reveal">
+  <h2>一句话带走</h2>
+  <p>AI 助手 = 最强大脑 + 一本只往后写的日记 + 一双戴手套的手 + 一群随叫随到的帮手。<br><b>聪明是模型给的，可靠是这套身体挣来的。</b></p>
+</div>
+
+<footer>JerryDSH 研究工作区 · 科普版全景报告（自包含单文件，离线可看可打印）· 数据日期 2026-08-23 · 硬核版见 research/01–11</footer>
+
+</main>
+</div>
+
+<script>
+document.documentElement.classList.add('js');
+var bar=document.getElementById('bar');
+addEventListener('scroll',function(){
+  var h=document.documentElement;
+  var p=h.scrollTop/(h.scrollHeight-h.clientHeight);
+  bar.style.width=(p*100).toFixed(2)+'%';
+},{passive:true});
+var links=[].slice.call(document.querySelectorAll('.toc a[href^="#"]'));
+if('IntersectionObserver' in window){
+  var io=new IntersectionObserver(function(es){
+    es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
+  },{threshold:.06});
+  document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
+  var spy=new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      if(e.isIntersecting){
+        links.forEach(function(a){ a.classList.toggle('on', a.getAttribute('href')==='#'+e.target.id); });
+      }
+    });
+  },{rootMargin:'-15% 0px -75% 0px'});
+  document.querySelectorAll('section[id]').forEach(function(s){ spy.observe(s); });
+}else{
+  document.querySelectorAll('.reveal').forEach(function(el){ el.classList.add('in'); });
+}
+</script>
+</body>
+</html>
