@@ -1,0 +1,11 @@
+{
+ "preparation_id": "prep_d8b1d0e6d3d740faaf0d7915",
+ "prepared_digest": "f820b9f605cac697a1d4d725fc122191e83bfaa1f57888fe643dcfe488c4132e",
+ "prepared_artifacts": {
+  "prepared/task_6cc10de1c62c4d50bb3f7455/revision-1/prep_d8b1d0e6d3d740faaf0d7915/public_channel/transfer/prepared.openfoam.tar": "fa08cfda3d0c7189b50e4b6a20f8fe430c27de6df2d31ea4a1fb8029822e5d65"
+ },
+ "readback_sha256": "156f3e16cd642e2d89006ce0074b8a88853562a03c36b2ce43bdab407e10e1ea",
+ "adapter_build": "openfoam-channel-adapter/0.1.0+sha256:e0ccde081c6945cdf36595ce2a68d8dc99d6f3b4b76f6c65d2c056f1213639dc",
+ "software_build": "Using: OpenFOAM- (1912) - visit www.openfoam.com; Build:  (patch=200626); Arch:  LSB;label=32;scalar=64",
+ "differences": []
+}

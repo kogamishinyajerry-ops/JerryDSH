@@ -1,0 +1,1 @@
+{"evidence_mode":"REAL","finished_at":"2026-10-01T04:37:12.949655+00:00","phase":"CANCELLED","process_identity":"{\"boot_id\":\"748ab20b-2568-442e-8efe-8a87771b0a98\",\"local_pgid\":6537,\"local_pid\":6537,\"pgid\":6537,\"pid\":6537,\"pid_namespace\":\"pid:[4026533505]\",\"start_ticks\":4300121}","returncode":130,"stage":"simpleFoam"}

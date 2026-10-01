@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>证据报告 · task_6cc10de1c62c4d50bb3f7455 · R1</title>
+<style>
+  body { font-family: "Segoe UI", "Microsoft YaHei", sans-serif; margin: 2rem; color: #1c2530; position: relative; }
+  header.report-head { border-bottom: 2px solid #345; padding-bottom: .6rem; margin-bottom: 1rem; }
+  .mode-badge { display: inline-block; padding: .15rem .7rem; border-radius: 4px; font-weight: 700; letter-spacing: .12em; }
+  .mode-REAL { background: #e3f5e9; color: #146c2e; border: 1px solid #146c2e; }
+  .mode-MOCK { background: #fdecea; color: #b3261e; border: 2px dashed #b3261e; }
+  .mode-UNKNOWN { background: #f1f1f1; color: #555; border: 1px solid #999; }
+  .mock-stripes { position: fixed; inset: 0; z-index: 0; pointer-events: none;
+    background: repeating-linear-gradient(45deg, transparent 0 34px, rgba(179,38,30,.06) 34px 68px); }
+  .mock-words { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden;
+    display: grid; grid-template-columns: repeat(4, 1fr); grid-template-rows: repeat(6, 1fr); }
+  .mock-words span { display: flex; align-items: center; justify-content: center;
+    font-size: 2.6rem; font-weight: 800; color: rgba(179,38,30,.10); transform: rotate(-30deg); letter-spacing: .3em; }
+  main { position: relative; z-index: 1; }
+  table { border-collapse: collapse; width: 100%; margin: .6rem 0 1.2rem; }
+  th, td { border: 1px solid #c9d2dc; padding: .35rem .55rem; text-align: left; font-size: .92rem; }
+  th { background: #eef2f7; }
+  .state { font-weight: 600; }
+  .s-SUCCEEDED, .s-PASS, .s-IN_SCOPE, .s-CONFIRMED { color: #146c2e; }
+  .s-FAILED, .s-FAIL, .s-OUT_OF_SCOPE { color: #b3261e; }
+  .s-LOST, .s-INSUFFICIENT, .s-UNCONFIRMED, .s-NOT_CHECKED, .s-DRAFT { color: #8a5a00; }
+  .warn-box { border: 1px solid #8a5a00; background: #fff8e6; padding: .6rem .9rem; border-radius: 6px; }
+  .err-box { border: 2px solid #b3261e; background: #fdecea; padding: .6rem .9rem; border-radius: 6px; }
+  details { margin: .15rem 0; }
+  code { background: #f1f4f8; padding: 0 .3em; border-radius: 3px; font-size: .88em; }
+  h1 { font-size: 1.35rem; } h2 { font-size: 1.1rem; margin-top: 1.6rem; border-left: 4px solid #345; padding-left: .5rem; }
+  .meta { color: #56616d; font-size: .88rem; }
+</style>
+</head>
+<body>
+<main>
+<header class="report-head">
+  <h1>证据报告 · 任务 task_6cc10de1c62c4d50bb3f7455 · 修订 R1</h1>
+  <p>
+    证据模式：<span class="mode-badge mode-REAL">REAL</span>
+  </p>
+  <p class="meta">
+    证据包 <code>bundle_319956c46ba3494386028b83</code> · 清单摘要（不含报告条目）<code>b5f08a68495f0e24f7c09ea6d1162bd69bac675975b4e3adc5a1b77d25c16aab</code><br>
+    spec 摘要 <code>329ab9d9c5fe50844a3544a8647812b8eecaa83cba27787aa56abead38fdba3b</code> · 创建人 public-validation-agent
+  </p>
+  <p>用途：design_screening（内部方案筛选；不构成适航符合性结论） · 审查范围：PUBLIC LOCAL SOFTWARE VALIDATION ONLY. Synthetic authorization fixture; no human method release or engineering acceptance. Analytical errors are observations, not approval thresholds. · 方法包：openfoam_channel</p>
+  <p class="meta">
+    方法包冻结：<code>openfoam_channel@0.1.0</code>
+    · 状态 DRAFT
+    · manifest 摘要 <code>b91da8b7d79c1e922d7383e9fe11e1b082ac4bec54013d42986f1990822fead7</code>
+    · 规格声明摘要 <code>b91da8b7d79c1e922d7383e9fe11e1b082ac4bec54013d42986f1990822fead7</code>
+<br><strong>注意：该方法包状态为 DRAFT（非 RELEASED），不能据此宣称方法已获批准。</strong>  </p>
+</header>
+
+<h2>多维状态（逐 Run；执行成功 ≠ 数值通过 ≠ 方法适用）</h2>
+<table>
+  <tr><th>Run</th><th>方案×工况</th><th>执行</th><th>数值</th><th>适用性</th></tr>
+  <tr>
+    <td><code>run_a63dedd76a624965996c7381</code></td>
+    <td>public_channel×transfer</td>
+    <td class="state s-SUCCEEDED">SUCCEEDED</td>
+    <td class="state s-INSUFFICIENT">INSUFFICIENT</td>
+    <td class="state s-UNCONFIRMED">UNCONFIRMED</td>
+  </tr>
+</table>
+
+<h2>定量结论（每条 Claim 绑定 metric_id + artifact_id，可展开来源）</h2>
+<table>
+  <tr><th>指标</th><th>结论（程序模板生成；CONFIRMED 表示数字与独立复算一致）</th><th>作者类型</th><th>状态</th><th>来源</th></tr>
+  <tr>
+    <td><code>boundary_mass_flow@inlet</code></td>
+    <td>Run public_channel×transfer attempt att_225a07cda8c245b18727960c 指标 boundary_mass_flow@inlet = -0.01368000000000266 kg/s（独立复算值）；报告 artifact art_19daa091dae741c88c19efd7，交叉指标 artifact art_cf1aaf573b0348dfaf753574。</td>
+    <td>AGENT</td>
+    <td class="state s-CONFIRMED">CONFIRMED</td>
+    <td><details><summary>展开</summary>artifact <code>art_cf1aaf573b0348dfaf753574</code></details></td>
+  </tr>
+  <tr>
+    <td><code>boundary_mass_flow@outlet</code></td>
+    <td>Run public_channel×transfer attempt att_225a07cda8c245b18727960c 指标 boundary_mass_flow@outlet = 0.01368000000000247 kg/s（独立复算值）；报告 artifact art_19daa091dae741c88c19efd7，交叉指标 artifact art_cf1aaf573b0348dfaf753574。</td>
+    <td>AGENT</td>
+    <td class="state s-CONFIRMED">CONFIRMED</td>
+    <td><details><summary>展开</summary>artifact <code>art_cf1aaf573b0348dfaf753574</code></details></td>
+  </tr>
+  <tr>
+    <td><code>monitor_stability</code></td>
+    <td>Run public_channel×transfer attempt att_225a07cda8c245b18727960c 指标 monitor_stability = null（缺失）（独立复算值）；报告 artifact art_19daa091dae741c88c19efd7，交叉指标 artifact art_cf1aaf573b0348dfaf753574。</td>
+    <td>AGENT</td>
+    <td class="state s-DRAFT">DRAFT</td>
+    <td><details><summary>展开</summary>artifact <code>art_cf1aaf573b0348dfaf753574</code></details></td>
+  </tr>
+  <tr>
+    <td><code>outlet_distribution@outlet</code></td>
+    <td>Run public_channel×transfer attempt att_225a07cda8c245b18727960c 指标 outlet_distribution@outlet = 1.0 dimensionless（独立复算值）；报告 artifact art_19daa091dae741c88c19efd7，交叉指标 artifact art_cf1aaf573b0348dfaf753574。</td>
+    <td>AGENT</td>
+    <td class="state s-DRAFT">DRAFT</td>
+    <td><details><summary>展开</summary>artifact <code>art_cf1aaf573b0348dfaf753574</code></details></td>
+  </tr>
+  <tr>
+    <td><code>static_pressure@inlet</code></td>
+    <td>Run public_channel×transfer attempt att_225a07cda8c245b18727960c 指标 static_pressure@inlet = 31.857165422073745 Pa（独立复算值）；报告 artifact art_19daa091dae741c88c19efd7，交叉指标 artifact art_cf1aaf573b0348dfaf753574。</td>
+    <td>AGENT</td>
+    <td class="state s-CONFIRMED">CONFIRMED</td>
+    <td><details><summary>展开</summary>artifact <code>art_cf1aaf573b0348dfaf753574</code></details></td>
+  </tr>
+  <tr>
+    <td><code>static_pressure@outlet</code></td>
+    <td>Run public_channel×transfer attempt att_225a07cda8c245b18727960c 指标 static_pressure@outlet = 0.0 Pa（独立复算值）；报告 artifact art_19daa091dae741c88c19efd7，交叉指标 artifact art_cf1aaf573b0348dfaf753574。</td>
+    <td>AGENT</td>
+    <td class="state s-CONFIRMED">CONFIRMED</td>
+    <td><details><summary>展开</summary>artifact <code>art_cf1aaf573b0348dfaf753574</code></details></td>
+  </tr>
+  <tr>
+    <td><code>steady_mass_imbalance</code></td>
+    <td>Run public_channel×transfer attempt att_225a07cda8c245b18727960c 指标 steady_mass_imbalance = null（缺失）（独立复算值）；报告 artifact art_19daa091dae741c88c19efd7，交叉指标 artifact art_cf1aaf573b0348dfaf753574。</td>
+    <td>AGENT</td>
+    <td class="state s-DRAFT">DRAFT</td>
+    <td><details><summary>展开</summary>artifact <code>art_cf1aaf573b0348dfaf753574</code></details></td>
+  </tr>
+  <tr>
+    <td><code>total_pressure@inlet</code></td>
+    <td>Run public_channel×transfer attempt att_225a07cda8c245b18727960c 指标 total_pressure@inlet = 32.02898573294937 Pa（独立复算值）；报告 artifact art_19daa091dae741c88c19efd7，交叉指标 artifact art_cf1aaf573b0348dfaf753574。</td>
+    <td>AGENT</td>
+    <td class="state s-CONFIRMED">CONFIRMED</td>
+    <td><details><summary>展开</summary>artifact <code>art_cf1aaf573b0348dfaf753574</code></details></td>
+  </tr>
+  <tr>
+    <td><code>total_pressure@outlet</code></td>
+    <td>Run public_channel×transfer attempt att_225a07cda8c245b18727960c 指标 total_pressure@outlet = 0.1641797878527589 Pa（独立复算值）；报告 artifact art_19daa091dae741c88c19efd7，交叉指标 artifact art_cf1aaf573b0348dfaf753574。</td>
+    <td>AGENT</td>
+    <td class="state s-CONFIRMED">CONFIRMED</td>
+    <td><details><summary>展开</summary>artifact <code>art_cf1aaf573b0348dfaf753574</code></details></td>
+  </tr>
+  <tr>
+    <td><code>total_pressure_loss</code></td>
+    <td>Run public_channel×transfer attempt att_225a07cda8c245b18727960c 指标 total_pressure_loss = 31.864805945096613 Pa（独立复算值）；报告 artifact art_19daa091dae741c88c19efd7，交叉指标 artifact art_cf1aaf573b0348dfaf753574。</td>
+    <td>AGENT</td>
+    <td class="state s-DRAFT">DRAFT</td>
+    <td><details><summary>展开</summary>artifact <code>art_cf1aaf573b0348dfaf753574</code></details></td>
+  </tr>
+</table>
+
+<h2>缺项与限制（单独一节；缺项不靠减少清单通过）</h2>
+<p>必需工况完整性：齐备。</p>
+<p class="warn-box">限制：仅限内部方案筛选用途；不构成适航符合性结论。</p>
+<p>未覆盖问题：见审查记录与 issue 列表（本报告不代替审查判断；模型解释与审查人最终意见在记录中有不同作者类型）。</p>
+
+<h2>冻结清单（64 项；长度 + sha256，提交后不可覆盖）</h2>
+<table>
+  <tr><th>角色</th><th>路径</th><th>长度</th><th>sha256</th></tr>
+  <tr>
+    <td>task_spec</td>
+    <td><code>bundles/bundle_319956c46ba3494386028b83/task-spec.json</code></td>
+    <td>1190</td>
+    <td><code>329ab9d9c5fe50844a3544a8647812b8eecaa83cba27787aa56abead38fdba3b</code></td>
+  </tr>
+  <tr>
+    <td>source_refs</td>
+    <td><code>bundles/bundle_319956c46ba3494386028b83/source-refs.json</code></td>
+    <td>151</td>
+    <td><code>24c1c053e463fba099bbb7f0b125df7bc6cd736b23c6b9a8299df80ea1334f9c</code></td>
+  </tr>
+  <tr>
+    <td>preparation</td>
+    <td><code>bundles/bundle_319956c46ba3494386028b83/preparation.json</code></td>
+    <td>727</td>
+    <td><code>864790b9e76de8f259760cce87bea4bf72534702eae9af74d5ae3ea38beaca00</code></td>
+  </tr>
+  <tr>
+    <td>prepared_case</td>
+    <td><code>prepared/task_6cc10de1c62c4d50bb3f7455/revision-1/prep_d8b1d0e6d3d740faaf0d7915/public_channel/transfer/prepared.openfoam.tar</code></td>
+    <td>20480</td>
+    <td><code>fa08cfda3d0c7189b50e4b6a20f8fe430c27de6df2d31ea4a1fb8029822e5d65</code></td>
+  </tr>
+  <tr>
+    <td>method_metrics</td>
+    <td><code>bundles/bundle_319956c46ba3494386028b83/capability/metric-definitions.json</code></td>
+    <td>2248</td>
+    <td><code>e9134fde6188b13675701787daa6ffe7ec2a59a5f924bd676f32d9fa2e451fde</code></td>
+  </tr>
+  <tr>
+    <td>rules</td>
+    <td><code>bundles/bundle_319956c46ba3494386028b83/capability/rules.json</code></td>
+    <td>717</td>
+    <td><code>30b585b85b8e929bb8c301e4ae116fe2ed65520076317902c0f2ccf2301fc92d</code></td>
+  </tr>
+  <tr>
+    <td>method_domain</td>
+    <td><code>bundles/bundle_319956c46ba3494386028b83/capability/domain.json</code></td>
+    <td>994</td>
+    <td><code>2a949193bcfa5ac535df164cd12c97b4bb81da01c3742af3b2639d6ad72bb2cc</code></td>
+  </tr>
+  <tr>
+    <td>method_manifest</td>
+    <td><code>bundles/bundle_319956c46ba3494386028b83/capability/manifest.json</code></td>
+    <td>1116</td>
+    <td><code>59d6d2bbec31aabe863eff9617631b9c29cb76b618b920992231661fec77038e</code></td>
+  </tr>
+  <tr>
+    <td>method_source</td>
+    <td><code>bundles/bundle_319956c46ba3494386028b83/capability/README.md</code></td>
+    <td>1941</td>
+    <td><code>6daeadbef5cd6086513cbea51395755d493619329517531e1d5eff23ca3f7823</code></td>
+  </tr>
+  <tr>
+    <td>method_source</td>
+    <td><code>bundles/bundle_319956c46ba3494386028b83/capability/approval.json</code></td>
+    <td>236</td>
+    <td><code>288e84625812ef19bcfc8acc297b0cb2f49a076f785b7cd320f92ebfcd5e7d40</code></td>
+  </tr>
+  <tr>
+    <td>raw</td>
+    <td><code>runs/run_a63dedd76a624965996c7381/attempt-1/case/0/U</code></td>
+    <td>976</td>
+    <td><code>be3d4ee60f553461285aeced714773cee27faeaff9594b4cd21911d4285e9b27</code></td>
+  </tr>
+  <tr>
+    <td>raw</td>
+    <td><code>runs/run_a63dedd76a624965996c7381/attempt-1/case/0/p</code></td>
+    <td>284</td>
+    <td><code>ea1dc00da4794458cdfd91cc764448b5d706dd07b0ce70fbe84196043e46c2b7</code></td>
+  </tr>
+  <tr>
+    <td>raw</td>
+    <td><code>runs/run_a63dedd76a624965996c7381/attempt-1/case/1000/U</code></td>
+    <td>68236</td>
+    <td><code>f4d284403e59a26dd52dbb24a339d5f9e7c3495ba31e5d52d096044ebb207359</code></td>
+  </tr>
+  <tr>
+    <td>raw</td>
+    <td><code>runs/run_a63dedd76a624965996c7381/attempt-1/case/1000/p</code></td>
+    <td>29269</td>
+    <td><code>651ad8ffd243c863602034c375e8808a4bdccf216d3402ba0291cc00c1ab8c68</code></td>
+  </tr>
+  <tr>
+    <td>raw</td>
+    <td><code>runs/run_a63dedd76a624965996c7381/attempt-1/case/1000/phi</code></td>
+    <td>63105</td>
+    <td><code>d3de90e802b040c56d6af7162185bd082dbad4b87e02873f1ef53c3b181fe46e</code></td>
+  </tr>
+  <tr>
+    <td>raw</td>
+    <td><code>runs/run_a63dedd76a624965996c7381/attempt-1/case/1000/uniform/cumulativeContErr</code></td>
+    <td>963</td>
+    <td><code>08f11b66cdd6d6f2214a15e9a8de844eedda805a5bbc74959973bf2f6c4869c7</code></td>
+  </tr>
+  <tr>
+    <td>raw</td>
+    <td><code>runs/run_a63dedd76a624965996c7381/attempt-1/case/1000/uniform/functionObjects/functionObjectProperties</code></td>
+    <td>898</td>
+    <td><code>56e5e610769ff879b6ece4870c3c0b0ffdbfb96fb894ffc38dad61efa16b894b</code></td>
+  </tr>
+  <tr>
+    <td>raw</td>
+    <td><code>runs/run_a63dedd76a624965996c7381/attempt-1/case/1000/uniform/time</code></td>
+    <td>972</td>
+    <td><code>7be2a3286f63c9ebf720c9eb3b9d577669fa033024a192f353cf5d45e6a32095</code></td>
+  </tr>
+  <tr>
+    <td>raw</td>
+    <td><code>runs/run_a63dedd76a624965996c7381/attempt-1/case/VTK/case.vtm.series</code></td>
+    <td>103</td>
+    <td><code>12127ba025563fc3946ae6c1bdecc98a2e20def24ca14cf20a066c20e592f89e</code></td>
+  </tr>
+  <tr>
+    <td>raw</td>
+    <td><code>runs/run_a63dedd76a624965996c7381/attempt-1/case/VTK/case_1000/boundary/inlet.vtp</code></td>
+    <td>2583</td>
+    <td><code>17f12fc33bbd326dbb7887d51ceaf92306a9ef7ef4747761c5fcfee376ccb178</code></td>
+  </tr>
+  <tr>
+    <td>raw</td>
+    <td><code>runs/run_a63dedd76a624965996c7381/attempt-1/case/VTK/case_1000/boundary/outlet.vtp</code></td>
+    <td>2737</td>
+    <td><code>8a436993f50bbb57c01cdd8da4cf7f2c1a5a58b7d6764c4e7a5efb0e92de3694</code></td>
+  </tr>
+  <tr>
+    <td>raw</td>
+    <td><code>runs/run_a63dedd76a624965996c7381/attempt-1/case/VTK/case_1000/boundary.vtm</code></td>
+    <td>494</td>
+    <td><code>0914ab8e7eac94e42dc0023c312580bc65fe6d6085137ca0540487e2bed5a27d</code></td>
+  </tr>
+  <tr>
+    <td>raw</td>
+    <td><code>runs/run_a63dedd76a624965996c7381/attempt-1/case/VTK/case_1000.vtm</code></td>
+    <td>514</td>
+    <td><code>0868863577ecd791e37098b5e10eedd60f3015a16759a6626351f7bc48a5531f</code></td>
+  </tr>
+  <tr>
+    <td>raw</td>
+    <td><code>runs/run_a63dedd76a624965996c7381/attempt-1/case/boundary-map.json</code></td>
+    <td>287</td>
+    <td><code>121939fe930f7e40d428c888c8067269e573ed36b4f73fc59651c0eb5b283b85</code></td>
+  </tr>
+  <tr>
+    <td>raw</td>
+    <td><code>runs/run_a63dedd76a624965996c7381/attempt-1/case/constant/polyMesh/boundary</code></td>
+    <td>1403</td>
+    <td><code>b0c9ed59c92f8ab492e0df54ce9f14f0b30a4ca359b2ddacdf8385d8de0d617f</code></td>
+  </tr>
+  <tr>
+    <td>raw</td>
+    <td><code>runs/run_a63dedd76a624965996c7381/attempt-1/case/constant/polyMesh/faces</code></td>
+    <td>153736</td>
+    <td><code>4d72e8f4bb1855d64a3c3a7ce86c2f013a0ad6c4b07b922cc07d6b6745152018</code></td>
+  </tr>
+  <tr>
+    <td>raw</td>
+    <td><code>runs/run_a63dedd76a624965996c7381/attempt-1/case/constant/polyMesh/neighbour</code></td>
+    <td>15711</td>
+    <td><code>7513afb2ef74755dc85719a510da0d33a20ba39b601c4d138a855852ec6f8e1a</code></td>
+  </tr>
+  <tr>
+    <td>raw</td>
+    <td><code>runs/run_a63dedd76a624965996c7381/attempt-1/case/constant/polyMesh/owner</code></td>
+    <td>31385</td>
+    <td><code>f29bdfa5b1c42727e28a678f223c32519dbdbbbc8c2aabdad6dd688255979f96</code></td>
+  </tr>
+  <tr>
+    <td>raw</td>
+    <td><code>runs/run_a63dedd76a624965996c7381/attempt-1/case/constant/polyMesh/points</code></td>
+    <td>109430</td>
+    <td><code>979bbeb4172e173f289e4ff1572e7c4dec5b23b022e974bf160a35decee5ddd1</code></td>
+  </tr>
+  <tr>
+    <td>raw</td>
+    <td><code>runs/run_a63dedd76a624965996c7381/attempt-1/case/constant/transportProperties</code></td>
+    <td>143</td>
+    <td><code>84d67bb20dcfbebdf6550f386a35d0a5549d0191399bc58a3a0958597f301b2a</code></td>
+  </tr>
+  <tr>
+    <td>raw</td>
+    <td><code>runs/run_a63dedd76a624965996c7381/attempt-1/case/constant/turbulenceProperties</code></td>
+    <td>115</td>
+    <td><code>0ec08e6dfa7a27a866912c0c7b7cee964a1b4aeb6c1dcf30d3093fbe9e6cbbb9</code></td>
+  </tr>
+  <tr>
+    <td>raw</td>
+    <td><code>runs/run_a63dedd76a624965996c7381/attempt-1/case/dsh-openfoam.json</code></td>
+    <td>1587</td>
+    <td><code>d09cfd87ef9a7169fa15af88652c60185243535d6588b5d4aa226689daff1b7b</code></td>
+  </tr>
+  <tr>
+    <td>raw</td>
+    <td><code>runs/run_a63dedd76a624965996c7381/attempt-1/case/normalization.json</code></td>
+    <td>224</td>
+    <td><code>55fc21343631245b0683c52d6f4bc1f4717762e9cc982a5302930c581980b5a7</code></td>
+  </tr>
+  <tr>
+    <td>raw</td>
+    <td><code>runs/run_a63dedd76a624965996c7381/attempt-1/case/reference.json</code></td>
+    <td>404</td>
+    <td><code>b35bc1857df234e800b869197dfa1579da6b034c6bc58a11790defa89a40fa04</code></td>
+  </tr>
+  <tr>
+    <td>raw</td>
+    <td><code>runs/run_a63dedd76a624965996c7381/attempt-1/case/system/blockMeshDict</code></td>
+    <td>647</td>
+    <td><code>e72012a196ecbacabbc68c0d93a0604f30a7a5d92298a854bdacbb18ab8ef56f</code></td>
+  </tr>
+  <tr>
+    <td>raw</td>
+    <td><code>runs/run_a63dedd76a624965996c7381/attempt-1/case/system/controlDict</code></td>
+    <td>374</td>
+    <td><code>27f9c2724d8f7839bd7cec46740c773afaf0d8229c3b07d2e2b1ab1802d42c52</code></td>
+  </tr>
+  <tr>
+    <td>raw</td>
+    <td><code>runs/run_a63dedd76a624965996c7381/attempt-1/case/system/fvSchemes</code></td>
+    <td>427</td>
+    <td><code>b54a2ebca4df698dc0e4d581d43714f32f17085602d6be4121fa60501d2d0704</code></td>
+  </tr>
+  <tr>
+    <td>raw</td>
+    <td><code>runs/run_a63dedd76a624965996c7381/attempt-1/case/system/fvSolution</code></td>
+    <td>348</td>
+    <td><code>b8576320d12684e70be127ad0045c96bb3ecc21eae20a0534f2d879218a51b08</code></td>
+  </tr>
+  <tr>
+    <td>raw</td>
+    <td><code>runs/run_a63dedd76a624965996c7381/attempt-1/conversion-evidence.json</code></td>
+    <td>10383</td>
+    <td><code>20fb1d0ddf8f6d815500ae48eac6b091eef542ae9e36ec2c3688b373e317264b</code></td>
+  </tr>
+  <tr>
+    <td>raw</td>
+    <td><code>runs/run_a63dedd76a624965996c7381/attempt-1/environment-probe.json</code></td>
+    <td>8419</td>
+    <td><code>25194ade3504686441c2689a87aecce83e69b18e673b9b10b35b332b0f49e190</code></td>
+  </tr>
+  <tr>
+    <td>raw</td>
+    <td><code>runs/run_a63dedd76a624965996c7381/attempt-1/execution-commands.json</code></td>
+    <td>1210</td>
+    <td><code>e29de0361ce567fa1766cd1e251f5a2ed1769d1f4bb521206d517fabd7f8f8f7</code></td>
+  </tr>
+  <tr>
+    <td>raw</td>
+    <td><code>runs/run_a63dedd76a624965996c7381/attempt-1/logs/blockMesh.stderr.log</code></td>
+    <td>249</td>
+    <td><code>4be4f6a17a0a4c6a9da1330207a34994428d1d08dc731330d921e7d6c6e2891f</code></td>
+  </tr>
+  <tr>
+    <td>raw</td>
+    <td><code>runs/run_a63dedd76a624965996c7381/attempt-1/logs/blockMesh.stdout.log</code></td>
+    <td>2591</td>
+    <td><code>95338ea2bc7a3bc2b38198f2aa7d964a201983aa3d85d64994e79453840ef0cd</code></td>
+  </tr>
+  <tr>
+    <td>raw</td>
+    <td><code>runs/run_a63dedd76a624965996c7381/attempt-1/logs/checkMesh.stderr.log</code></td>
+    <td>0</td>
+    <td><code>e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855</code></td>
+  </tr>
+  <tr>
+    <td>raw</td>
+    <td><code>runs/run_a63dedd76a624965996c7381/attempt-1/logs/checkMesh.stdout.log</code></td>
+    <td>3567</td>
+    <td><code>7af5a0e2f134ed1cd66a0f76556b945791127be1f3bcd3fcd72dc1cc38387988</code></td>
+  </tr>
+  <tr>
+    <td>raw</td>
+    <td><code>runs/run_a63dedd76a624965996c7381/attempt-1/logs/foamToVTK.stderr.log</code></td>
+    <td>0</td>
+    <td><code>e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855</code></td>
+  </tr>
+  <tr>
+    <td>raw</td>
+    <td><code>runs/run_a63dedd76a624965996c7381/attempt-1/logs/foamToVTK.stdout.log</code></td>
+    <td>1955</td>
+    <td><code>ee254aec66f59f562d8d1bc22f5f0405b998abf5754c322fc24ed2ae759bbc76</code></td>
+  </tr>
+  <tr>
+    <td>raw</td>
+    <td><code>runs/run_a63dedd76a624965996c7381/attempt-1/logs/simpleFoam.stderr.log</code></td>
+    <td>0</td>
+    <td><code>e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855</code></td>
+  </tr>
+  <tr>
+    <td>raw</td>
+    <td><code>runs/run_a63dedd76a624965996c7381/attempt-1/logs/simpleFoam.stdout.log</code></td>
+    <td>527756</td>
+    <td><code>30bfb970afb06d9c6a9e0d39a67a3669aed0c5c5b4462225a75c11dfa85d43c9</code></td>
+  </tr>
+  <tr>
+    <td>raw</td>
+    <td><code>runs/run_a63dedd76a624965996c7381/attempt-1/monitor.csv</code></td>
+    <td>60467</td>
+    <td><code>340f830038d3de13076abe22dfcba33e6397f9c9b6b7212128fbf05f3182ce2b</code></td>
+  </tr>
+  <tr>
+    <td>raw</td>
+    <td><code>runs/run_a63dedd76a624965996c7381/attempt-1/openfoam-exit.json</code></td>
+    <td>334</td>
+    <td><code>8b64a4ef4c753e1db4817043f7c95cd00756cc39715082d45194f858b85be10a</code></td>
+  </tr>
+  <tr>
+    <td>raw</td>
+    <td><code>runs/run_a63dedd76a624965996c7381/attempt-1/openfoam-job.json</code></td>
+    <td>1319</td>
+    <td><code>e7497153e6e43fbebc6351169c0e96c0c8e1668492fb3383cb02bbedb1eb50e2</code></td>
+  </tr>
+  <tr>
+    <td>raw</td>
+    <td><code>runs/run_a63dedd76a624965996c7381/attempt-1/openfoam-process.json</code></td>
+    <td>392</td>
+    <td><code>69377e08130a64e747b81521b35e58adcd4aead62be32e0127e4a603d67c51f4</code></td>
+  </tr>
+  <tr>
+    <td>raw</td>
+    <td><code>runs/run_a63dedd76a624965996c7381/attempt-1/openfoam-stage.json</code></td>
+    <td>302</td>
+    <td><code>95f9f8c575458ca7261d8e76cb8fae3d522e98bc371eb7d518bbdeccc5ecc216</code></td>
+  </tr>
+  <tr>
+    <td>raw</td>
+    <td><code>runs/run_a63dedd76a624965996c7381/attempt-1/prepared.openfoam.tar</code></td>
+    <td>20480</td>
+    <td><code>fa08cfda3d0c7189b50e4b6a20f8fe430c27de6df2d31ea4a1fb8029822e5d65</code></td>
+  </tr>
+  <tr>
+    <td>raw</td>
+    <td><code>runs/run_a63dedd76a624965996c7381/attempt-1/report.csv</code></td>
+    <td>327</td>
+    <td><code>227f48228c6319a71cc5ba9aaae17cc1f2676575e9f8d5436d9f717c9d18f90d</code></td>
+  </tr>
+  <tr>
+    <td>raw</td>
+    <td><code>runs/run_a63dedd76a624965996c7381/attempt-1/result.openfoam.tar</code></td>
+    <td>512000</td>
+    <td><code>fdfbd199c8b6faa7245dab00874e4e8c487e946b4e67638e3a0aa6c15ae13614</code></td>
+  </tr>
+  <tr>
+    <td>raw</td>
+    <td><code>runs/run_a63dedd76a624965996c7381/attempt-1/supervisor.stderr.log</code></td>
+    <td>0</td>
+    <td><code>e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855</code></td>
+  </tr>
+  <tr>
+    <td>raw</td>
+    <td><code>runs/run_a63dedd76a624965996c7381/attempt-1/supervisor.stdout.log</code></td>
+    <td>0</td>
+    <td><code>e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855</code></td>
+  </tr>
+  <tr>
+    <td>raw</td>
+    <td><code>runs/run_a63dedd76a624965996c7381/attempt-1/worker-job-handle.json</code></td>
+    <td>638</td>
+    <td><code>dd4f8738a80d91c90b3eed81bacb87c38f82db392e03d0f40c60b07e21ad35c1</code></td>
+  </tr>
+  <tr>
+    <td>raw</td>
+    <td><code>runs/run_a63dedd76a624965996c7381/attempt-1/worker-launch-intent.json</code></td>
+    <td>9605</td>
+    <td><code>2700836aa27af018b42b8026a30bfede561abc6982574608b2045711404fe1b9</code></td>
+  </tr>
+  <tr>
+    <td>metrics</td>
+    <td><code>runs/run_a63dedd76a624965996c7381/attempt-1/metrics.json</code></td>
+    <td>1036</td>
+    <td><code>9618e7d1929123119af2352e51b236eb6f5ebd17de1dd166d4a5a5a2117e9504</code></td>
+  </tr>
+  <tr>
+    <td>verification</td>
+    <td><code>bundles/bundle_319956c46ba3494386028b83/verifications/run_a63dedd76a624965996c7381/ver_409f7f20b43341a28221e58d.json</code></td>
+    <td>2677</td>
+    <td><code>14de89f07874fb34d6733e101ea90d57e00a7d5deaa0c4900c1ba730d6f465ea</code></td>
+  </tr>
+  <tr>
+    <td>summary</td>
+    <td><code>bundles/bundle_319956c46ba3494386028b83/bundle.summary.json</code></td>
+    <td>718</td>
+    <td><code>88ce7413c9ac4b72d8bdef4808288746d4dab160c2cbd154a6a61b116f174cfb</code></td>
+  </tr>
+</table>
+</main>
+</body>
+</html>

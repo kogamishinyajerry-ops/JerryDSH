@@ -1,0 +1,82 @@
+<?xml version='1.0'?>
+<!-- patch='outlet' time='1000' index='1000' -->
+<VTKFile type='PolyData' version='0.1' byte_order='LittleEndian' header_type='UInt64'>
+  <PolyData>
+    <FieldData>
+      <DataArray type='Float32' Name='TimeValue' NumberOfTuples='1' format='ascii'>
+1000
+      </DataArray>
+    </FieldData>
+    <Piece NumberOfPoints='42' NumberOfPolys='20'>
+      <Points>
+        <DataArray type='Float32' Name='Points' NumberOfComponents='3' format='ascii'>
+1 0 0 1 0.005 0
+1 0.005 0.01 1 0 0.01
+1 0.01 0 1 0.01 0.01
+1 0.015 0 1 0.015 0.01
+1 0.02 0 1 0.02 0.01
+1 0.025 0 1 0.025 0.01
+1 0.03 0 1 0.03 0.01
+1 0.035 0 1 0.035 0.01
+1 0.04 0 1 0.04 0.01
+1 0.045 0 1 0.045 0.01
+1 0.05 0 1 0.05 0.01
+1 0.055 0 1 0.055 0.01
+1 0.06 0 1 0.06 0.01
+1 0.065 0 1 0.065 0.01
+1 0.07 0 1 0.07 0.01
+1 0.075 0 1 0.075 0.01
+1 0.08 0 1 0.08 0.01
+1 0.085 0 1 0.085 0.01
+1 0.09 0 1 0.09 0.01
+1 0.095 0 1 0.095 0.01
+1 0.1 0 1 0.1 0.01
+        </DataArray>
+      </Points>
+      <Polys>
+        <DataArray type='Int32' Name='connectivity' format='ascii'>
+0 1 2 3 1 4
+5 2 4 6 7 5
+6 8 9 7 8 10
+11 9 10 12 13 11
+12 14 15 13 14 16
+17 15 16 18 19 17
+18 20 21 19 20 22
+23 21 22 24 25 23
+24 26 27 25 26 28
+29 27 28 30 31 29
+30 32 33 31 32 34
+35 33 34 36 37 35
+36 38 39 37 38 40
+41 39
+        </DataArray>
+        <DataArray type='Int32' Name='offsets' format='ascii'>
+4 8 12 16 20 24
+28 32 36 40 44 48
+52 56 60 64 68 72
+76 80
+        </DataArray>
+      </Polys>
+      <CellData>
+        <DataArray type='Float32' Name='p' format='ascii'>
+0 0 0 0 0 0
+0 0 0 0 0 0
+0 0 0 0 0 0
+0 0
+        </DataArray>
+        <DataArray type='Float32' Name='U' NumberOfComponents='3' format='ascii'>
+0.00149254 2.11233e-16 0 0.0041791 6.05013e-16 0
+0.00656716 9.72602e-16 0 0.00865672 1.33326e-15 0
+0.0104478 1.68902e-15 0 0.0119403 1.99033e-15 0
+0.0131343 2.18362e-15 0 0.0140299 2.22238e-15 0
+0.0146269 2.03768e-15 0 0.0149254 1.61951e-15 0
+0.0149254 9.42583e-16 0 0.0146269 6.27338e-17 0
+0.0140299 -9.57985e-16 0 0.0131343 -1.99438e-15 0
+0.0119403 -2.91145e-15 0 0.0104478 -3.56565e-15 0
+0.00865672 -3.80571e-15 0 0.00656716 -3.52194e-15 0
+0.0041791 -2.58824e-15 0 0.00149254 -9.57575e-16 0
+        </DataArray>
+      </CellData>
+    </Piece>
+  </PolyData>
+</VTKFile>

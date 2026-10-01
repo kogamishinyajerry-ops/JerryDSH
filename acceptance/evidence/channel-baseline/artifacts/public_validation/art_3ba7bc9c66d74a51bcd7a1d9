@@ -1,0 +1,6 @@
+{
+ "source_refs": [
+  "public-validation:baseline:inputs.json"
+ ],
+ "spec_sha256": "ee3fe8fb9cee32429216fc91061ac8a1e62630cf093509a45dba4a206496d949"
+}

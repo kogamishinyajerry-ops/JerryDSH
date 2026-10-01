@@ -1,0 +1,18 @@
+{
+  "schema_version": "dsh-sim-validation/v1",
+  "identity_mode": "local_validation_fixture",
+  "scenario": "transfer",
+  "started_at": "2026-10-01T03:48:15.282660+00:00",
+  "parameters": {
+    "mean_velocity": 0.015,
+    "length": 0.6,
+    "height": 0.08,
+    "width": 0.012,
+    "nu": 0.002,
+    "density": 950.0,
+    "nx": 72,
+    "ny": 24,
+    "iterations": 1000
+  },
+  "authorization": "Synthetic LOCAL_VALIDATION_FIXTURE row in a new isolated DB; no human approval/acceptance has been issued."
+}

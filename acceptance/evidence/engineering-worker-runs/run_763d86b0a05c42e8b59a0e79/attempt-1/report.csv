@@ -1,0 +1,4 @@
+# evidence_mode: REAL; derived from actual solver/exported patch samples
+section,boundary_role,sign_convention,mass_flow_kg_s,total_pressure_pa,static_pressure_pa
+inlet,inlet,outward_positive,-0.0120960000000063,33.79373609678781,33.671544374999996
+outlet,outlet,outward_positive,0.01209599999999895,0.11551031931813999,0.0

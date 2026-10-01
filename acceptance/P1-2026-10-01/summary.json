@@ -1,0 +1,71 @@
+{
+ "schema": "p1-kickoff-acceptance/1",
+ "date": "2026-10-02",
+ "p0_closing": {
+  "items": 4,
+  "all_pass": true,
+  "commits": {
+   "dsh_sim": [
+    "ba72bac",
+    "e266423"
+   ],
+   "assets": [
+    "e3c4804"
+   ]
+  },
+  "regression": {
+   "run_local_tests": "8/8 PASS",
+   "container_suite": "392 passed"
+  }
+ },
+ "p1": {
+  "reuse_map": {
+   "backend": "/Users/Zhuanz/projects/aircraft-comac/civair-kb (1692 lines, non-git)",
+   "embedding_present": false,
+   "embedding_verified_by": "grep zero hits + code read",
+   "reused": [
+    "service.py",
+    "search.py",
+    "bm25.py",
+    "docmeta.py",
+    "snapshot.py",
+    "govern.py",
+    "registry.py",
+    "config.py",
+    "kbctl"
+   ],
+   "new": [
+    "oa_ingest.py",
+    "scan_oa_documents",
+    "embedding.py (seam)",
+    "p1/ scaffolds"
+   ]
+  },
+  "smoke": {
+   "mode": "synthetic, isolated store/registry",
+   "ingested": 6,
+   "quarantined": 1,
+   "ocr_queue": 1,
+   "duplicate_groups": 1,
+   "chain": "stage→validate→publish→query×3→increment→rollback all PASS",
+   "evaluate": "SYNTHETIC_CHECKS_PASS macro Hit@5=1.0; cold NOT_RUN",
+   "commits": {
+    "civair_kb": {
+     "baseline": "993b597",
+     "head": "5546a83",
+     "branch": "p1/oa-documents-v1"
+    }
+   }
+  },
+  "not_run": [
+   "real OA corpus inventory",
+   "real PDF/Office extraction quality",
+   "intranet embedding endpoint",
+   "summary/tag derivation",
+   "30-question human-labeled evaluation",
+   "permission-revoke/cache negatives",
+   "10k scale"
+  ]
+ },
+ "working_tree_note": "civair-kb P1 工作树位于工作区 repos/civair-kb（沙箱边界）；原目录 /Users/Zhuanz/projects/aircraft-comac/civair-kb 只读保留，回灌命令：cd /Users/Zhuanz/projects/aircraft-comac/civair-kb && git pull? 不适用（非 git）→ 用 diff/checkout 应用"
+}

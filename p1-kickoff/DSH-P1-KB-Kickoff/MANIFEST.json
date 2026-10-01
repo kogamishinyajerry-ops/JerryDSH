@@ -1,0 +1,85 @@
+{
+  "schema": "artifact-manifest/1",
+  "files": [
+    {
+      "path": "00-README.md",
+      "bytes": 4102,
+      "sha256": "e93baa84e2382f5935768712b25b0512fa4fda80816fd5bf45fab3657deba808"
+    },
+    {
+      "path": "01-P1-SPEC.md",
+      "bytes": 7084,
+      "sha256": "3738a30cb085f818031ec8ffb4d2b2efecbbbd791e1e35761a7a540477ecb882"
+    },
+    {
+      "path": "02-LOCAL-AGENT-PROMPT.md",
+      "bytes": 9587,
+      "sha256": "9037b3f647c3fe4e08a9adbb51b67e65e9f51c8b1df9419ad7182fd7565545c9"
+    },
+    {
+      "path": "TEST-LOG.txt",
+      "bytes": 3703,
+      "sha256": "2225246f7c16fb47ab2210de08c3be964be95b85aa9433f5b70bcf21c5e00da1"
+    },
+    {
+      "path": "TEST-REPORT.json",
+      "bytes": 542,
+      "sha256": "522de9cbc3e8c095a3a7319ceddf0e49541912dd27e8500e2e5d322b50598d48"
+    },
+    {
+      "path": "docs/RECORD-FORMAT.md",
+      "bytes": 3780,
+      "sha256": "d717e152513f4c6ee6fcacac0710e25d174a7a3ecc015063b39701290e3e78ca"
+    },
+    {
+      "path": "docs/SOURCES-AND-STATUS.md",
+      "bytes": 2790,
+      "sha256": "d0a8de0976a580ea4bfc51f41b4d475a19497929ae5966addc1b3bdb77d2fac0"
+    },
+    {
+      "path": "examples/corpus/synthetic-apu-copy.md",
+      "bytes": 229,
+      "sha256": "a543baca37345d3980733de8ae0c09d43bff42011dd84808391d5dd4c6543203"
+    },
+    {
+      "path": "examples/corpus/synthetic-apu-history.md",
+      "bytes": 229,
+      "sha256": "a543baca37345d3980733de8ae0c09d43bff42011dd84808391d5dd4c6543203"
+    },
+    {
+      "path": "examples/corpus/synthetic-meeting.txt",
+      "bytes": 156,
+      "sha256": "9ab84389f90bdfab8466b7a7f12739a15363c708de78c45b7feb132a6ecca7a0"
+    },
+    {
+      "path": "examples/corpus/synthetic-restricted.md",
+      "bytes": 100,
+      "sha256": "8a1ba5599b0b622a9f7d355b300af9d366bc75b2307345f2bb6493e9040646b8"
+    },
+    {
+      "path": "examples/queries.synthetic.jsonl",
+      "bytes": 639,
+      "sha256": "e793d6b56da26e373f111d4fbbb25a2b7fb840762b1656526fb1a8cf84edfc17"
+    },
+    {
+      "path": "examples/results.synthetic.jsonl",
+      "bytes": 4140,
+      "sha256": "e16a6d6df35cf7aa38a0df270c19f7c9e69d619aa964561e12472eaf462647f7"
+    },
+    {
+      "path": "tests/test_tools.py",
+      "bytes": 11331,
+      "sha256": "18f4bad7d7956b6dcd553a52428d0c655b65fe1209ce99a0c9cdd5100c354c29"
+    },
+    {
+      "path": "tools/evaluate.py",
+      "bytes": 11576,
+      "sha256": "9c32f839530ea4f83db7785271753ab4068fb26a6e84e5c4de6fd946a56e5c3a"
+    },
+    {
+      "path": "tools/inventory.py",
+      "bytes": 11748,
+      "sha256": "2fd53526049dd5b47a2a7c27bae8a7887dc3394a789157782e885606fcad9275"
+    }
+  ]
+}

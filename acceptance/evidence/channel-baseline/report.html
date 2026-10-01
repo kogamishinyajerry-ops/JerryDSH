@@ -1,0 +1,20 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><title>OpenFOAM validation evidence</title><style>body{font:16px/1.5 system-ui;max-width:1100px;margin:40px auto;padding:0 20px;color:#14283b}table{border-collapse:collapse}td,th{border:1px solid #cbd5df;padding:10px;text-align:left}pre{background:#eff4f8;padding:18px;white-space:pre-wrap;overflow-wrap:anywhere}.notice{padding:16px;background:#fff1c9}</style><body><h1>OpenFOAM: baseline</h1><p class="notice"><strong>REAL solver evidence · LOCAL VALIDATION FIXTURE</strong><br>No human engineering approval or method release has been issued. Numerical and applicability states are shown independently.</p><table><tr><th>Run</th><th>Execution</th><th>Numerical</th><th>Applicability</th></tr><tr><td>run_7c934add18184897b658f45a</td><td>SUCCEEDED</td><td>INSUFFICIENT</td><td>UNCONFIRMED</td></tr></table><h2>Observed values</h2><pre>{
+  &quot;metric_values&quot;: {
+    &quot;boundary_mass_flow@inlet&quot;: -0.010000000000000401,
+    &quot;total_pressure@inlet&quot;: 11.988079997851175,
+    &quot;static_pressure@inlet&quot;: 11.908619999999999,
+    &quot;boundary_mass_flow@outlet&quot;: 0.009999999999998399,
+    &quot;total_pressure@outlet&quot;: 0.0766635123423069,
+    &quot;static_pressure@outlet&quot;: 0.0,
+    &quot;steady_mass_imbalance&quot;: null,
+    &quot;outlet_distribution@outlet&quot;: 1.0,
+    &quot;total_pressure_loss&quot;: 11.911416485508868,
+    &quot;monitor_stability&quot;: null
+  },
+  &quot;static_pressure_drop_pa&quot;: 11.908619999999999,
+  &quot;analytical_fully_developed_drop_pa&quot;: 11.999999999999996,
+  &quot;relative_reference_difference&quot;: 0.007614999999999782,
+  &quot;source_artifact_id&quot;: &quot;art_5f5ef60155b4474bb4208be7&quot;,
+  &quot;source_sha256&quot;: &quot;c0a767f960a29077afe423807956b23ecf7407b24f6be3f9f277ccc1edabc360&quot;,
+  &quot;interpretation&quot;: &quot;Diagnostic comparison; no engineering tolerance has been frozen. Source pressure is relative to the solver reference.&quot;
+}</pre><h2>Evidence</h2><p><a href="evidence/report.offline.html">Frozen report, offline link view</a> · <a href="evidence/export.json">Frozen manifest and file hashes</a> · <a href="events.jsonl">Committed events</a> · <a href="summary.json">Machine-readable summary</a> · <a href="task-spec.json">TaskSpec</a></p><h2>Limits</h2><ul><li>Public local validation fixture; production identity and authorization are not exercised.</li><li>Method is DRAFT; engineering tolerances and applicability remain unconfirmed.</li><li>DSH natural-language/LLM execution is not exercised by this deterministic command.</li><li>Serial OpenFOAM v1912 only; STAR-CCM+, MPI and sim-live-hub are not validated.</li></ul></body></html>

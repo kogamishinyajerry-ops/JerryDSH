@@ -1,0 +1,70 @@
+{
+  "job_id": "job_a76592aec8a849ffb9e38fff",
+  "run_id": "run_6201e11d86d1432fa135dff6",
+  "attempt_id": "att_82f1f7a88a564cc297fe29da",
+  "preparation_id": "prep_aa38b1ba96614a84860b4ffa",
+  "prepared_digest": "c9968f82d9e867021cfa4b8eb4e4350e734aef523fbcd39c006a10ad11ec872b",
+  "prepared_ref_sha": "10a6b55456c3dbdf52989e72a2d7ec9121b8d0077f0a9c791569f98cfc28496e",
+  "adapter_build": "openfoam-channel-adapter/0.1.0+sha256:e0ccde081c6945cdf36595ce2a68d8dc99d6f3b4b76f6c65d2c056f1213639dc",
+  "evidence_mode": "REAL",
+  "method_version": "0.1.0",
+  "method_digest_match": true,
+  "mock_method_fixture": false,
+  "budget": {
+    "max_iterations": null,
+    "wall_clock_seconds": 1800,
+    "cpu_cores": 1,
+    "attempt_no": 1
+  },
+  "environment_probe": {
+    "star_build": "Using: OpenFOAM- (1912) - visit www.openfoam.com; Build:  (patch=200626); Arch:  LSB;label=32;scalar=64",
+    "executable_path": "/usr/bin/simpleFoam",
+    "version_features": [
+      "blockMesh",
+      "checkMesh",
+      "simpleFoam",
+      "foamToVTK",
+      "foamDictionary"
+    ],
+    "license_status": "LICENSED",
+    "license_details": {
+      "kind": "open-source OpenFOAM",
+      "vendor_token_required": false,
+      "probe": "Each named executable returned exit 0 for -help",
+      "execution_scope": "serial Linux v1912",
+      "executables": {
+        "blockMesh": {
+          "path": "/usr/bin/blockMesh",
+          "sha256": "7e5c42c7e46821e1bc6736a9ab0da0a33e5ac0adb6c2623ea4879667089a9fcb"
+        },
+        "checkMesh": {
+          "path": "/usr/bin/checkMesh",
+          "sha256": "ef4a6bd7c5b9f45d1f7886d7fd7e8acacc48dbd4f04375237f55112ebf4585a8"
+        },
+        "simpleFoam": {
+          "path": "/usr/bin/simpleFoam",
+          "sha256": "40bd6abd10909402dbd65c27436ae243634fd0ff2fd45e1f3dac3e6702a705f4"
+        },
+        "foamToVTK": {
+          "path": "/usr/bin/foamToVTK",
+          "sha256": "95cce90cd137f9c4c7451fc352323edd7033dc5b096ccff32edadacd6b339b3c"
+        },
+        "foamDictionary": {
+          "path": "/usr/bin/foamDictionary",
+          "sha256": "1dfba47018ff2e73507b84d3e3e378a536ab6c2d937e5ed844e13c21247e8177"
+        }
+      },
+      "observed_help": {
+        "blockMesh": "\nUsage: blockMesh [OPTIONS]\nOptions:\n  -blockTopology    Write block edges and centres as obj files and exit\n  -case <dir>       Specify case directory to use (instead of the cwd)\n  -dict <file>      Alternative dictionary for the blockMesh description\n  -noClean          Do not remove any existing polyMesh/ directory or files\n  -region <name>    Specify alternative mesh region\n  -sets             Write cellZones as cellSets too (for processing purposes)\n  -time <time>      Specify a time to write mesh to (default: constant)\n  -doc              Display documentation in browser\n  -help             Display short help and exit\n  -help-compat      Display compatibility options and exit\n  -help-full        Display full help and exit\n\nBlock mesh generator.\n  The ordering of vertex and face labels within a block as shown below.\n  For the local vertex numbering in the sequence 0 to 7:\n    Faces 0, 1 (x-direction) are left, right.\n    Faces 2, 3 (y-direction) are front, back.\n    Faces 4, 5 (z-direction) are bottom, top.\n                        7 ---- 6\n                 f5     |\\     |\\     f3\n                 |      | 4 ---- 5     \\\n                 |      3 |--- 2 |      \\\n                 |       \\|     \\|      f2\n                 f4       0 ---- 1\n    Y  Z\n     \\ |                f0 ------ f1\n      \\|\n       O--- X\n\nUsing: OpenFOAM- (1912) - visit www.openfoam.com\nBuild:  (patch=200626)\nArch:  LSB;label=32;scalar=64\n\n",
+        "checkMesh": "\nUsage: checkMesh [OPTIONS]\nOptions:\n  -allGeometry      Include bounding box checks\n  -allTopology      Include extra topology checks\n  -case <dir>       Specify case directory to use (instead of the cwd)\n  -constant         Include the 'constant/' dir in the times list\n  -decomposeParDict <file>\n                    Use specified file for decomposePar dictionary\n  -latestTime       Select the latest time\n  -meshQuality      Read user-defined mesh quality criteria from\n                    system/meshQualityDict\n  -noTopology       Skip checking the mesh topology\n  -noZero           Exclude the '0/' dir from the times list\n  -parallel         Run in parallel\n  -region <name>    Specify alternative mesh region\n  -time <ranges>    List of ranges. Eg, ':10,20 40:70 1000:', 'none', etc\n  -writeAllFields   Write volFields with mesh quality parameters\n  -writeFields <wordList>\n                    Write volFields with selected mesh quality parameters\n  -writeSets <surfaceFormat>\n                    Reconstruct and write all faceSets and cellSets in selected\n                    format\n  -doc              Display documentation in browser\n  -help             Display short help and exit\n  -help-full        Display full help and exit\n\nChecks validity of a mesh\n\nUsing: OpenFOAM- (1912) - visit www.openfoam.com\nBuild:  (patch=200626)\nArch:  LSB;label=32;scalar=64\n\n",
+        "simpleFoam": "\nUsage: simpleFoam [OPTIONS]\nOptions:\n  -case <dir>       Specify case directory to use (instead of the cwd)\n  -decomposeParDict <file>\n                    Use specified file for decomposePar dictionary\n  -dry-run          Check case set-up only using a single time step\n  -dry-run-write    Check case set-up and write only using a single time step\n  -parallel         Run in parallel\n  -postProcess      Execute functionObjects only\n  -doc              Display documentation in browser\n  -help             Display short help and exit\n  -help-full        Display full help and exit\n\nSteady-state solver for incompressible, turbulent flows.\n\nUsing: OpenFOAM- (1912) - visit www.openfoam.com\nBuild:  (patch=200626)\nArch:  LSB;label=32;scalar=64\n\n",
+        "foamToVTK": "\nUsage: foamToVTK [OPTIONS]\nOptions:\n  -allRegions       Operate on all regions in regionProperties\n  -ascii            Write in ASCII format instead of binary\n  -case <dir>       Specify case directory to use (instead of the cwd)\n  -constant         Include the 'constant/' dir in the times list\n  -fields <wordRes>\n                    Specify single or multiple fields to write (all by default)\n                    Eg, 'T' or '(p T U \"alpha.*\")'\n  -latestTime       Select the latest time\n  -name <subdir>    Directory name for VTK output (default: 'VTK')\n  -no-boundary      Suppress output for boundary patches\n  -no-internal      Suppress output for internal volume mesh\n  -no-lagrangian    Suppress writing lagrangian positions and fields\n  -no-point-data    Suppress conversion of pointFields. No interpolated\n                    PointData.\n  -noZero           Exclude the '0/' dir from the times list\n  -one-boundary     Combine all patches into a single file\n  -overwrite        Remove any existing VTK output directory\n  -parallel         Run in parallel\n  -patches <wordRes>\n                    Specify single patch or multiple patches to write\n                    Eg, 'top' or '( front \".*back\" )'\n  -region <name>    Specify alternative mesh region\n  -regions <wordRes>\n                    Operate on selected regions from regionProperties.\n                    Eg, '( gas \"solid.*\" )'\n  -time <ranges>    List of ranges. Eg, ':10,20 40:70 1000:', 'none', etc\n  -doc              Display documentation in browser\n  -help             Display short help and exit\n  -help-compat      Display compatibility options and exit\n  -help-full        Display full help and exit\n\nGeneral OpenFOAM to VTK file writer\n\nUsing: OpenFOAM- (1912) - visit www.openfoam.com\nBuild:  (patch=200626)\nArch:  LSB;label=32;scalar=64\n\n",
+        "foamDictionary": "\nUsage: foamDictionary [OPTIONS] <dict>\nArguments:\n  <dict>            The dictionary file to process\nOptions:\n  -add <value>      Add a new entry\n  -case <dir>       Specify case directory to use (instead of the cwd)\n  -decomposeParDict <file>\n                    Use specified file for decomposePar dictionary\n  -diff <dict>      Write differences with respect to the specified dictionary\n  -diff-etc <dict>  As per -diff, but locate the file as per foamEtcFile\n  -disableFunctionEntries\n                    Disable expansion of dictionary directives - #include,\n                    #codeStream etc\n  -entry <name>     Report/select the named entry\n  -expand           Read the specified dictionary file, expand the macros etc.\n                    and write the resulting dictionary to standard output\n  -includes         List the #include/#sinclude files to standard output\n  -keywords         List keywords\n  -parallel         Run in parallel\n  -precision <int>  Set default write precision for IOstreams\n  -remove           Remove the entry\n  -set <value>      Set entry value or add new entry\n  -value            Print entry value\n  -doc              Display documentation in browser\n  -help             Display short help and exit\n  -help-compat      Display compatibility options and exit\n  -help-full        Display full help and exit\n\nInterrogate and manipulate dictionaries\n\nUsing: OpenFOAM- (1912) - visit www.openfoam.com\nBuild:  (patch=200626)\nArch:  LSB;label=32;scalar=64\n\n"
+      },
+      "adapter_build": "openfoam-channel-adapter/0.1.0+sha256:e0ccde081c6945cdf36595ce2a68d8dc99d6f3b4b76f6c65d2c056f1213639dc"
+    },
+    "probed_at": "2026-10-01T04:36:44.908686+00:00",
+    "evidence_mode": "REAL",
+    "evidence_refs": []
+  }
+}

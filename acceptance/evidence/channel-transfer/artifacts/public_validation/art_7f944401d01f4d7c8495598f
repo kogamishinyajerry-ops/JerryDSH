@@ -1,0 +1,5 @@
+--> FOAM IOWarning :
+    Found [v1012] 'convertToMeters' entry instead of 'scale' in dictionary "/opt/data/channel-transfer/worker/run_a63dedd76a624965996c7381/attempt-1/case/system/blockMeshDict" 
+
+    This keyword is deemed to be 108 months old.
+

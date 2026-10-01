@@ -1,0 +1,22 @@
+{
+  "schema": "dsh-p1-tool-test-report/1",
+  "date": "2026-10-01",
+  "python": "3.13.5",
+  "platform": "Linux",
+  "machine": "x86_64",
+  "command": "python -m unittest discover -s tests -v",
+  "returncode": 0,
+  "tests": 36,
+  "result": "PASS",
+  "wall_seconds": 0.6369750559999829,
+  "scope": "NEW_AUXILIARY_TOOLS_ONLY",
+  "not_run": [
+    "existing repository regression",
+    "DSH live loading",
+    "KB backend retrieval",
+    "real OA data ingestion",
+    "embedding/LLM",
+    "Mac and intranet runtime",
+    "P0 deployment fixes"
+  ]
+}

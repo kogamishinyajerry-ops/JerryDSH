@@ -1,0 +1,277 @@
+{
+  "version": 7,
+  "record": {
+    "identity": {
+      "formatVersion": 4,
+      "createdAt": 1790828957025,
+      "cwd": "/Users/Zhuanz/projects/jerry-personal/JerryDSH/recovery/jerrydsh-acc-0.2.0-rc.2",
+      "isSeeded": false,
+      "inheritedEventCount": 0
+    },
+    "rows": {
+      "title": {
+        "ver": 1,
+        "seq": 45,
+        "val": "公开仿真通道本地验收·未见"
+      },
+      "titleInput": {
+        "ver": 3,
+        "seq": 45,
+        "val": {
+          "first": {
+            "seq": 8,
+            "text": "公开仿真通道本地验收·未见参数验证（项目 proj_a）。只做 prepare 阶段：sim_orchestrate(stage=\"prepare\") 委派内完成 create_task → revise_task → prepare_task → 轮询 get_preparation 至 READY。不要 plan、不要执行、不要授权。\n\n委托工程师确认的输入（单位 SI，全部原样写入 TaskSpec）：\n- purpose=\"design_screening\"\n- variants=[{\"variant_id\":\"blind_channel\",\"template_artifact_id\":\"public-openfoam-blind-01\",\"template_sha256\":\"cea24c2b1d44962093e21dbb1d0afbee7fa6d556fc60cee3e2a8d8d0e45d5b19\",\"boundary_map_sha256\":\"121939fe930f7e40d428c888c8067269e573ed36b4f73fc59651c0eb5b283b85\"}]\n- conditions=[{\"condition_id\":\"nominal\",\"fields\":[{\"role_id\":\"inlet\",\"field\":\"mean_velocity\",\"quantity\":{\"si_value\":0.045,\"unit\":\"m/s\",\"physical_meaning\":\"Area-mean inlet speed for a discretely normalized parabolic profile\",\"source_ref\":\"independent-test-agent:blind-2026-10-01\"}}]}]\n- execution_budget={\"max_concurrent\":1,\"cpu_cores\":1,\"memory_gb\":1.0,\"wallclock_hours\":0.5,\"max_attempts_total\":1}\n- method={\"capability_package_id\":\"openfoam_channel\",\"capability_package_sha256\":\"<先调 list_capabilities(status=\\\"DRAFT\\\") 原样复制 openfoam_channel 的 manifest_sha256>\",\"required_metrics\":[\"boundary_mass_flow@inlet\",\"boundary_mass_flow@outlet\",\"static_pressure@inlet\",\"static_pressure@outlet\"],\"review_scope\":\"Same-recipe unseen-parameter verification (blind input from independent test agent); DRAFT method, no engineering acceptance.\"}\n\n背景：几何长 0.7m、高 0.13m、宽 0.018m，介质密度 960 kg/m³、运动黏度 6.5e-4 m²/s，入口平均流速 0.045 m/s；参数由独立测试 Agent 提供， prepare 完成后汇报 task_id、revision、preparation_id、prepared_digest、blockers。"
+          },
+          "count": 1,
+          "lastSeq": 8
+        }
+      },
+      "llmRetry": {
+        "ver": 1,
+        "seq": 45,
+        "val": {}
+      },
+      "sandboxMode": {
+        "ver": 1,
+        "seq": 45,
+        "val": "workspace-write"
+      },
+      "goal": {
+        "ver": 6,
+        "seq": 45,
+        "val": {
+          "current": null,
+          "seenGoalIds": [],
+          "failure": null
+        }
+      },
+      "plan": {
+        "ver": 3,
+        "seq": 45,
+        "val": {
+          "active": false,
+          "wanted": null,
+          "running": null,
+          "activeAtLastHeader": false
+        }
+      },
+      "tokenUsage": {
+        "ver": 2,
+        "seq": 45,
+        "val": {
+          "totals": {
+            "uncachedInputTokens": 30911,
+            "outputTokens": 7215,
+            "cacheReadTokens": 82560,
+            "cacheWriteTokens": 0
+          },
+          "last": {
+            "turn": 1,
+            "step": 5,
+            "buckets": {
+              "uncachedInputTokens": 335,
+              "outputTokens": 771,
+              "cacheReadTokens": 25088,
+              "cacheWriteTokens": 0
+            }
+          }
+        }
+      },
+      "contextPressure": {
+        "ver": 5,
+        "seq": 45,
+        "val": {
+          "surfaceTokens": 13058,
+          "contextWindow": 200000,
+          "pressureTokens": 25423,
+          "sampledSurfaceTokens": 12634
+        }
+      },
+      "contextBreakdown": {
+        "ver": 5,
+        "seq": 45,
+        "val": {
+          "nodes": [
+            {
+              "seq": 7,
+              "heuristicTokens": 704,
+              "system": true
+            },
+            {
+              "seq": 8,
+              "heuristicTokens": 384,
+              "system": false
+            },
+            {
+              "seq": 9,
+              "heuristicTokens": 138,
+              "system": false
+            },
+            {
+              "seq": 10,
+              "heuristicTokens": 3880,
+              "system": false
+            },
+            {
+              "seq": 15,
+              "heuristicTokens": 4909,
+              "system": false
+            },
+            {
+              "seq": 18,
+              "heuristicTokens": 23,
+              "system": false
+            },
+            {
+              "seq": 20,
+              "heuristicTokens": 251,
+              "system": false
+            },
+            {
+              "seq": 23,
+              "heuristicTokens": 635,
+              "system": false
+            },
+            {
+              "seq": 26,
+              "heuristicTokens": 23,
+              "system": false
+            },
+            {
+              "seq": 29,
+              "heuristicTokens": 978,
+              "system": false
+            },
+            {
+              "seq": 32,
+              "heuristicTokens": 202,
+              "system": false
+            },
+            {
+              "seq": 34,
+              "heuristicTokens": 210,
+              "system": false
+            },
+            {
+              "seq": 37,
+              "heuristicTokens": 274,
+              "system": false
+            },
+            {
+              "seq": 40,
+              "heuristicTokens": 23,
+              "system": false
+            },
+            {
+              "seq": 43,
+              "heuristicTokens": 424,
+              "system": false
+            }
+          ],
+          "breakdown": {
+            "systemTokens": 704,
+            "toolsTokens": 8879,
+            "messageTokens": 12354
+          }
+        }
+      },
+      "todos": {
+        "ver": 2,
+        "seq": 45,
+        "val": [
+          {
+            "content": "list_capabilities(DRAFT) 获取 openfoam_channel 的 manifest_sha256",
+            "status": "completed"
+          },
+          {
+            "content": "sim_orchestrate(stage=prepare) 委派：create_task → revise_task → prepare_task → 轮询至 READY",
+            "status": "completed"
+          },
+          {
+            "content": "汇报 task_id / revision / preparation_id / prepared_digest / blockers",
+            "status": "completed"
+          }
+        ]
+      },
+      "turnBoundary": {
+        "ver": 2,
+        "seq": 45,
+        "val": {
+          "openTurnStartSeq": null,
+          "lastStepStartSeq": 42,
+          "lastStepBoundary": {
+            "kind": "end",
+            "seq": 44
+          },
+          "lastTurn": 1
+        }
+      },
+      "inbox": {
+        "ver": 1,
+        "seq": 45,
+        "val": {
+          "next-turn": [],
+          "next-step": []
+        }
+      },
+      "userQuestions": {
+        "ver": 2,
+        "seq": 45,
+        "val": {
+          "inheritedEventCount": 0,
+          "timed": false,
+          "questions": {
+            "active": [],
+            "settled": []
+          }
+        }
+      },
+      "subagentCatalog": {
+        "ver": 3,
+        "seq": 45,
+        "val": {
+          "inheritedEventCount": 0,
+          "head": {
+            "values": [
+              {
+                "version": 0,
+                "childId": "3a897e9b-1694-434f-9dd7-dad8ff6a3b34",
+                "childCreatedAt": 1790829057244,
+                "mode": "one-shot",
+                "label": "sim:inputwriter"
+              }
+            ]
+          }
+        }
+      },
+      "subagentTiming": {
+        "ver": 3,
+        "seq": 45,
+        "val": {
+          "descriptorSeen": false,
+          "settledMs": 0
+        }
+      },
+      "subagent": {
+        "ver": 2,
+        "seq": 45,
+        "val": {}
+      },
+      "subagentModelSelectionPolicy": {
+        "ver": 1,
+        "seq": 45,
+        "val": null
+      },
+      "permissions": {
+        "ver": 2,
+        "seq": 45,
+        "val": {
+          "preset": "workspace-write",
+          "sandbox": "workspace-write",
+          "approval": "ask",
+          "seeded": false
+        }
+      }
+    }
+  }
+}

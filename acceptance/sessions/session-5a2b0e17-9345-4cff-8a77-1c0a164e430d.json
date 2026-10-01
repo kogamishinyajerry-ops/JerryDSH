@@ -1,0 +1,342 @@
+{
+  "version": 7,
+  "record": {
+    "identity": {
+      "formatVersion": 4,
+      "createdAt": 1790827440699,
+      "cwd": "/Users/Zhuanz/projects/jerry-personal/JerryDSH/recovery/jerrydsh-acc-0.2.0-rc.2",
+      "isSeeded": false,
+      "inheritedEventCount": 0
+    },
+    "rows": {
+      "title": {
+        "ver": 1,
+        "seq": 77,
+        "val": "这是一次公开仿真通道的本地"
+      },
+      "titleInput": {
+        "ver": 3,
+        "seq": 77,
+        "val": {
+          "first": {
+            "seq": 8,
+            "text": "这是一次公开仿真通道的本地验收任务（项目 proj_a）。你可用 sim_orchestrate 工具与 dsh_sim MCP 工具。请完成 plan 与 prepare 两个阶段；准备就绪后停止，不要提交执行、不要创建授权。\n\n工程背景（委托工程师已确认的输入，单位 SI）：\n- 目标：评估二维层流平行板通道定常流动的进出口静压差与质量守恒。\n- 几何：长 1.2 m、高 0.08 m、宽 0.012 m。工质：密度 1050 kg/m³，运动黏度 1.2e-6 m²/s。\n- 工况：入口平均流速 0.012 m/s（面积平均、离散归一化抛物剖面）。\n- 参数来源：local-acceptance:inputs-2026-10-01。\n- 已登记模板 ref：public-openfoam-acc-01；template_sha256=e25e453af525f8c33db10b69f997bd9e2d65cbeb98d059bde40eb29625cac841。\n- 方法包：openfoam_channel，版本 0.1.0（DRAFT、validation-only；数值 INSUFFICIENT、适用性 UNCONFIRMED 是诚实结果）。其 capability_package_sha256 从 list_capabilities(status=\"DRAFT\") 的 manifest_sha256 字段原样复制，不要自己计算。\n- 执行预算（授权用，本轮只写入 TaskSpec.execution_budget）：wallclock_hours=0.5，cpu_cores=1，memory_gb=1.0，max_attempts_total=1。\n- required_metrics：[\"boundary_mass_flow@inlet\",\"boundary_mass_flow@outlet\",\"static_pressure@inlet\",\"static_pressure@outlet\"]。\n- 条件字段：role_id=\"inlet\"，field=\"mean_velocity\"，quantity={si_value:0.012, unit:\"m/s\", physical_meaning:\"Area-mean inlet speed for a discretely normalized parabolic profile\", source_ref:\"local-acceptance:inputs-2026-10-01\"}。\n\n步骤：\n1) sim_orchestrate(stage=\"plan\", request=...)：确认 openfoam_channel 在 DRAFT 发现视图中可见、说明适配性与缺口。\n2) sim_orchestrate(stage=\"prepare\", request=..., input=完整TaskDraft)：create_task 后 revise_task 写入完整 TaskSpec（variant_id=\"acc_channel\"，template_artifact_id=\"public-openfoam-acc-01\"，condition_id=\"nominal\"），prepare_task 并轮询 get_preparation 直到就绪或阻塞。\n3) 最终汇报：task_id、revision、preparation_id、prepared_digest、blocker 列表（如有）。"
+          },
+          "count": 1,
+          "lastSeq": 8
+        }
+      },
+      "llmRetry": {
+        "ver": 1,
+        "seq": 77,
+        "val": {}
+      },
+      "sandboxMode": {
+        "ver": 1,
+        "seq": 77,
+        "val": "workspace-write"
+      },
+      "goal": {
+        "ver": 6,
+        "seq": 77,
+        "val": {
+          "current": null,
+          "seenGoalIds": [],
+          "failure": null
+        }
+      },
+      "plan": {
+        "ver": 3,
+        "seq": 77,
+        "val": {
+          "active": false,
+          "wanted": null,
+          "running": null,
+          "activeAtLastHeader": false
+        }
+      },
+      "tokenUsage": {
+        "ver": 2,
+        "seq": 77,
+        "val": {
+          "totals": {
+            "uncachedInputTokens": 50414,
+            "outputTokens": 9285,
+            "cacheReadTokens": 254656,
+            "cacheWriteTokens": 0
+          },
+          "last": {
+            "turn": 1,
+            "step": 11,
+            "buckets": {
+              "uncachedInputTokens": 422,
+              "outputTokens": 228,
+              "cacheReadTokens": 37952,
+              "cacheWriteTokens": 0
+            }
+          }
+        }
+      },
+      "contextPressure": {
+        "ver": 5,
+        "seq": 77,
+        "val": {
+          "surfaceTokens": 24437,
+          "contextWindow": 200000,
+          "pressureTokens": 38374,
+          "sampledSurfaceTokens": 23114
+        }
+      },
+      "contextBreakdown": {
+        "ver": 5,
+        "seq": 77,
+        "val": {
+          "nodes": [
+            {
+              "seq": 7,
+              "heuristicTokens": 704,
+              "system": true
+            },
+            {
+              "seq": 8,
+              "heuristicTokens": 384,
+              "system": false
+            },
+            {
+              "seq": 9,
+              "heuristicTokens": 138,
+              "system": false
+            },
+            {
+              "seq": 10,
+              "heuristicTokens": 3880,
+              "system": false
+            },
+            {
+              "seq": 15,
+              "heuristicTokens": 902,
+              "system": false
+            },
+            {
+              "seq": 17,
+              "heuristicTokens": 251,
+              "system": false
+            },
+            {
+              "seq": 20,
+              "heuristicTokens": 1125,
+              "system": false
+            },
+            {
+              "seq": 23,
+              "heuristicTokens": 1402,
+              "system": false
+            },
+            {
+              "seq": 26,
+              "heuristicTokens": 2644,
+              "system": false
+            },
+            {
+              "seq": 29,
+              "heuristicTokens": 19,
+              "system": false
+            },
+            {
+              "seq": 32,
+              "heuristicTokens": 1036,
+              "system": false
+            },
+            {
+              "seq": 34,
+              "heuristicTokens": 12,
+              "system": false
+            },
+            {
+              "seq": 36,
+              "heuristicTokens": 999,
+              "system": false
+            },
+            {
+              "seq": 39,
+              "heuristicTokens": 189,
+              "system": false
+            },
+            {
+              "seq": 41,
+              "heuristicTokens": 115,
+              "system": false
+            },
+            {
+              "seq": 44,
+              "heuristicTokens": 126,
+              "system": false
+            },
+            {
+              "seq": 46,
+              "heuristicTokens": 15,
+              "system": false
+            },
+            {
+              "seq": 48,
+              "heuristicTokens": 85,
+              "system": false
+            },
+            {
+              "seq": 51,
+              "heuristicTokens": 471,
+              "system": false
+            },
+            {
+              "seq": 53,
+              "heuristicTokens": 3080,
+              "system": false
+            },
+            {
+              "seq": 56,
+              "heuristicTokens": 1488,
+              "system": false
+            },
+            {
+              "seq": 58,
+              "heuristicTokens": 1195,
+              "system": false
+            },
+            {
+              "seq": 61,
+              "heuristicTokens": 160,
+              "system": false
+            },
+            {
+              "seq": 63,
+              "heuristicTokens": 2376,
+              "system": false
+            },
+            {
+              "seq": 66,
+              "heuristicTokens": 171,
+              "system": false
+            },
+            {
+              "seq": 68,
+              "heuristicTokens": 147,
+              "system": false
+            },
+            {
+              "seq": 71,
+              "heuristicTokens": 205,
+              "system": false
+            },
+            {
+              "seq": 73,
+              "heuristicTokens": 12,
+              "system": false
+            },
+            {
+              "seq": 75,
+              "heuristicTokens": 1106,
+              "system": false
+            }
+          ],
+          "breakdown": {
+            "systemTokens": 704,
+            "toolsTokens": 8879,
+            "messageTokens": 23733
+          }
+        }
+      },
+      "todos": {
+        "ver": 2,
+        "seq": 77,
+        "val": null
+      },
+      "turnBoundary": {
+        "ver": 2,
+        "seq": 77,
+        "val": {
+          "openTurnStartSeq": 4,
+          "lastStepStartSeq": 77,
+          "lastStepBoundary": {
+            "kind": "start",
+            "seq": 77
+          },
+          "lastTurn": 1
+        }
+      },
+      "inbox": {
+        "ver": 1,
+        "seq": 77,
+        "val": {
+          "next-turn": [],
+          "next-step": []
+        }
+      },
+      "userQuestions": {
+        "ver": 2,
+        "seq": 77,
+        "val": {
+          "inheritedEventCount": 0,
+          "timed": false,
+          "questions": {
+            "active": [],
+            "settled": []
+          }
+        }
+      },
+      "subagentCatalog": {
+        "ver": 3,
+        "seq": 77,
+        "val": {
+          "inheritedEventCount": 0,
+          "head": {
+            "values": [
+              {
+                "version": 0,
+                "childId": "1589a8cd-3d3e-4cb9-9e47-0b60aeb05539",
+                "childCreatedAt": 1790827481656,
+                "mode": "one-shot",
+                "label": "sim:planner"
+              },
+              {
+                "version": 0,
+                "childId": "50d95ae7-c162-49ce-8f4d-54eb408fb248",
+                "childCreatedAt": 1790827672487,
+                "mode": "one-shot",
+                "label": "sim:inputwriter"
+              }
+            ]
+          }
+        }
+      },
+      "subagentTiming": {
+        "ver": 3,
+        "seq": 77,
+        "val": {
+          "descriptorSeen": false,
+          "settledMs": 0,
+          "pendingTurnStart": 1790827440706
+        }
+      },
+      "subagent": {
+        "ver": 2,
+        "seq": 77,
+        "val": {}
+      },
+      "subagentModelSelectionPolicy": {
+        "ver": 1,
+        "seq": 77,
+        "val": null
+      },
+      "permissions": {
+        "ver": 2,
+        "seq": 77,
+        "val": {
+          "preset": "workspace-write",
+          "sandbox": "workspace-write",
+          "approval": "ask",
+          "seeded": false
+        }
+      }
+    }
+  }
+}

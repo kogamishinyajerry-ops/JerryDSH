@@ -1,0 +1,336 @@
+{
+ "schema_version": "local-acceptance/v2",
+ "date": "2026-10-01",
+ "executor": "local integration agent (isolated DSH 0.2.0-rc.2 recovery + linux/amd64 container engineering env)",
+ "human_confirmations": [
+  {
+   "gate": "stage3_execute_authorization",
+   "channel": "chat confirmation + executor panel authorize-only",
+   "authorization_id": "authz_c924d3b1272247148b61eec9"
+  },
+  {
+   "gate": "stage4_batch_authorization",
+   "channel": "chat confirmation + executor panel authorize-only x3",
+   "authorization_ids": [
+    "authz_71186865840b445484b4812f",
+    "authz_69b1d4bcc0eb450d8f5ccb8a",
+    "authz_b1d3002ad8004c38972a3b0d"
+   ]
+  },
+  {
+   "gate": "stage4_cancel_request",
+   "channel": "executor panel cancel button",
+   "run_id": "run_6201e11d86d1432fa135dff6"
+  }
+ ],
+ "versions": {
+  "dsh": "0.2.0-rc.2",
+  "dsh_sim_branch": "codex/p0-openfoam-evidence @ 5b3ef0052c4c6ed02dea4085f29ebcb7b66ccfed (PR #4 head, unmerged draft) + fixes codex/p0-local-acceptance-fixes @ 71c5bdb, 42029ff",
+  "assets_branch": "codex/p0-reproducible-sim @ 2ddb2736698a50dd004610342cdc88ba28664353 (PR #1 head, unmerged draft) + fixes codex/p0-local-acceptance-fixes @ b0e3c94",
+  "openfoam": "OpenCFD v1912, Ubuntu 1912.200626-2build3 amd64, deb sha256 356f9a583fcb6c57c9972e835f2167b489ea2b6a974644947296049f20db78a6",
+  "openfoam_adapter_sha256": "e0ccde081c6945cdf36595ce2a68d8dc99d6f3b4b76f6c65d2c056f1213639dc",
+  "container": "jerrydsh-sim-env, linux/amd64 (Rosetta emulation, newly tested), Ubuntu noble, Docker Desktop",
+  "recovery_dir": "recovery/jerrydsh-acc-0.2.0-rc.2 (isolated DSH_HOME; web :3081; user's :3080 instance untouched)",
+  "model_route": "zai-coding-cn GLM Coding Plan; glm-4.7 in headless/subagent chain; web default glm-5.3-flash"
+ },
+ "fixes": {
+  "A_panel_api_mismatch": {
+   "fixed": true,
+   "details": "roles ENGINEER→EXECUTOR; confirmation target_id preparation_id→task_id; dedicated project proj_a on executor+reviewer panels",
+   "regression": "tests/test_local_acceptance_fixes.py::test_executor_panel_*"
+  },
+  "B_authorize_only": {
+   "fixed": true,
+   "details": "panel button '确认并授权（不提交）' stops after authorization; /submissions removed from panel; first submit via AGENT MCP",
+   "regression": "test_executor_panel_authorizes_without_submitting + live UI verification (runs=0 server-side)"
+  },
+  "C_persistent_worker": {
+   "fixed": true,
+   "details": "python -m dsh_sim.worker.service: idle wait with released transactions, graceful SIGTERM/SIGINT, structured logs, explicit openfoam adapter config; NOT crash auto-takeover",
+   "regression": "test_persistent_worker_claims_job_after_empty_queue + live empty-queue-then-claim verification"
+  },
+  "D_draft_discovery": {
+   "fixed": true,
+   "details": "MCP list_capabilities gains optional status param (RELEASED default unchanged; DRAFT/ANY visible; invalid rejected at bridge); planner instruction updated; approval semantics unchanged; backward-compatible frozen-contract increment",
+   "regression": "test_list_capabilities_draft_discovery, test_list_capabilities_rejects_unknown_status"
+  }
+ },
+ "tests": {
+  "mock_container": {
+   "cmd": "pytest -q -m ''",
+   "result": "386 passed, 0 skipped (linux/amd64 container, python 3.12.3)"
+  },
+  "mock_host_mac": {
+   "cmd": "pytest -q -m ''",
+   "result": "381 passed, 5 skipped (platform-dependent, non-solver)"
+  },
+  "real_solver_container": {
+   "cmd": "pytest -q -m real_solver",
+   "result": "5 passed, 381 deselected"
+  },
+  "assets_node": {
+   "cmd": "npm test (self-built/dsh-sim-orchestrator)",
+   "result": "16 passed"
+  },
+  "assets_recovery_node": {
+   "cmd": "TMPDIR=/private/tmp node --test tests/recovery/*.test.mjs",
+   "result": "12 passed (macOS /var symlink workaround documented; 8 fail without real-path TMPDIR — platform difference, not regression)"
+  }
+ },
+ "stage1_real_solver_env": {
+  "cases": {
+   "baseline": {
+    "execution": "SUCCEEDED",
+    "numerical": "INSUFFICIENT",
+    "applicability": "UNCONFIRMED",
+    "frozen_files": 65,
+    "transfer_verified": true,
+    "dp_pa": 11.90862,
+    "analytical_pa": 12.0,
+    "rel_diff": "0.7615%"
+   },
+   "transfer": {
+    "execution": "SUCCEEDED",
+    "numerical": "INSUFFICIENT",
+    "applicability": "UNCONFIRMED",
+    "frozen_files": 65,
+    "transfer_verified": true,
+    "dp_pa": 31.85716542,
+    "analytical_pa": 32.0625,
+    "rel_diff": "0.6404%"
+   },
+   "solver-failure": {
+    "execution": "FAILED",
+    "numerical": "NOT_CHECKED",
+    "applicability": "UNCONFIRMED",
+    "frozen_files": 48,
+    "transfer_verified": true
+   },
+   "cancel": {
+    "execution": "CANCELLED",
+    "numerical": "NOT_CHECKED",
+    "applicability": "UNCONFIRMED",
+    "frozen_files": 50,
+    "transfer_verified": true,
+    "note": "simpleFoam had printed Time= before cancel; process-group exit confirmed"
+   },
+   "timeout": {
+    "execution": "FAILED",
+    "numerical": "NOT_CHECKED",
+    "applicability": "UNCONFIRMED",
+    "frozen_files": 40,
+    "transfer_verified": true,
+    "note": "wall-clock budget; process-group exit confirmed"
+   }
+  },
+  "note": "diagnostic quantities only; not engineering thresholds; scenario assertions passed for all five"
+ },
+ "stage2_api_mcp_ui": {
+  "mcp_tools": [
+   "list_capabilities",
+   "get_task",
+   "create_task",
+   "revise_task",
+   "prepare_task",
+   "get_preparation",
+   "submit_runs",
+   "get_run",
+   "cancel_run",
+   "build_bundle",
+   "get_evidence",
+   "draft_review_issue"
+  ],
+  "mcp_handshake": "fastmcp stdio client, 12/12 tools, DRAFT discovery visible, RELEASED default catalog empty, invalid status rejected",
+  "real_queries": {
+   "get_task": "task_89a623fce3c2426ead12e103 READY",
+   "get_preparation": "prep_752daa0c90884f049653f863 digest ab609ca3… blockers=0"
+  },
+  "persistent_worker_live": "worker started on empty queue; claim within 2s of API task creation; preparation READY in 3s",
+  "panel_authorize_only": {
+   "verified_with": "Playwright chromium",
+   "screenshots": [
+    "ui/01-task-loaded.png",
+    "ui/02-authorize-confirm-modal.png",
+    "ui/03-authorized-result.png"
+   ],
+   "server_side_proof": "task AUTHORIZED with runs=0"
+  }
+ },
+ "stage3_natural_language_task": {
+  "task_id": "task_0dd8d88c5f804ebeacdb2242",
+  "project": "proj_a",
+  "revision": 1,
+  "preparation_id": "prep_45eae71a5e8740d888928add",
+  "prepared_digest": "9fbd40846d00baf83eae69b152275816c83c9d598c40fbf8680acec0ca06e918",
+  "authorization_id": "authz_c924d3b1272247148b61eec9",
+  "run_ids": [
+   "run_763d86b0a05c42e8b59a0e79"
+  ],
+  "execution": "SUCCEEDED",
+  "numerical": "INSUFFICIENT",
+  "applicability": "UNCONFIRMED",
+  "artifacts": 52,
+  "bundle_entries": 65,
+  "bundle_digest_prefix": "6152ead6",
+  "logs": [
+   "logs-stage3-run1.log",
+   "logs-stage3-run2.log",
+   "logs-stage3-run3.log"
+  ],
+  "notes": "stage timeout tuned 180s→600s after one delegation timeout (parameter tuning, recorded); reviewer corrected 52-vs-53 artifact count from events; draft_review_issue honestly blocked (no review entity)"
+ },
+ "stage4_blind_and_fault": {
+  "blind": {
+   "source": "independent test agent (params unseen in this session)",
+   "params": {
+    "mean_velocity": 0.045,
+    "length": 0.7,
+    "height": 0.13,
+    "width": 0.018,
+    "nu": 0.00065,
+    "density": 960,
+    "nx": 56,
+    "ny": 26,
+    "iterations": 450
+   },
+   "task_id": "task_711001721b5146d796a571ad",
+   "prepared_digest": "ad637eccb1696e17cffac13be4b130de1b6f67f05d709a08bcbe82ada61b9323",
+   "run_id": "run_5224378fc02f400ea6a6c7ff",
+   "execution": "SUCCEEDED",
+   "observed_dp_pa": 13.87091446153846,
+   "analytical_reference_pa": 13.957,
+   "rel_diff": "0.6168%",
+   "mass_flow_in_out": [
+    -0.10108800000000193,
+    0.10108799999998465
+   ],
+   "claim": "same-recipe unseen-parameter verification only; no cross-geometry/solver generalization"
+  },
+  "fault_explanation": {
+   "task_id": "task_dbfe3d56ba594c1b98050731",
+   "run_id": "run_1461d0ae05d547fca9612771",
+   "execution": "FAILED (expected)",
+   "model_explanation": "solver-stage failure 1.1s after launch, clean env signals, input-recipe root cause; stderr content honestly declared unreadable in MCP face with artifact reference",
+   "verified_stderr": "FOAM FATAL IO ERROR: Unknown convection type notAnOpenFOAMScheme (fvSchemes line 10) — matches model inference",
+   "logs": "logs-stage4-fault-exec.log"
+  },
+  "cancel": {
+   "task_id": "task_deb83d6db9f442078280dea4",
+   "run_id": "run_6201e11d86d1432fa135dff6",
+   "requested_via": "executor panel (human path) after 559 solver iterations observed",
+   "execution": "CANCELLED",
+   "exit_proof": {
+    "process_exited": true,
+    "process_group_exited": true,
+    "returncode": 130,
+    "remaining_pids": [],
+    "identity_match": true
+   },
+   "screenshot": "ui/06-cancel-requested.png"
+  }
+ },
+ "sessions": {
+  "count": 20,
+  "input_tokens": 393094,
+  "output_tokens": 132134,
+  "manifest": "sessions/session-manifest.json",
+  "transcripts": "sessions/transcripts/"
+ },
+ "honest_boundaries": [
+  "natural-language flow realized as headless one-shot sessions + panel human gate (not a single continuous web chat); web instance ready at :3081",
+  "draft_review_issue requires trusted-UI review entity; reviewer honestly blocked",
+  "no ACCEPT/review closure: DRAFT method makes ACCEPT fail by design",
+  "production IdP, method release, sim-live-hub, STAR, MPI, other OpenFOAM versions: out of scope, unverified",
+  "worker crash auto-takeover still unimplemented (persistent worker does not change this)",
+  "real_solver tests and five cases ran under Rosetta amd64 emulation; native arm64 OpenFOAM untested"
+ ],
+ "rework_round": {
+  "cloud_review_baseline": {
+   "assets": "469d7e6",
+   "dsh_sim": "42029ff"
+  },
+  "fixes": {
+   "R1_worker_stop_semantics": {
+    "fixed": true,
+    "details": "run_until_idle gains should_stop claim-boundary check; stop request finishes current job, remaining jobs stay unclaimed; service wires stop flag",
+    "regression": "tests/test_worker_stop_semantics.py: real subprocess SIGTERM/SIGINT x2, real queue with two EXECUTE jobs, staged MOCK solver; second job unclaimed (no lease/events) then claimable; plus in-process boundary test"
+   },
+   "R2_authorize_recovery": {
+    "fixed": true,
+    "details": "GET /tasks/{id}/authorizations read-only projection (project-scoped, no confirmation fields, not an MCP tool); executor panel '当前有效授权（交接恢复）' block; authorize button disabled when active authorization exists",
+    "live_verification": {
+     "recovered_authorization_id": "authz_fe67796790584221b287a214",
+     "agent_first_submit": "run_805ddf71c25a42f4aacb87bc (SUCCEEDED)",
+     "authorizations_after": 1,
+     "screenshot": "ui/08-authorization-recovery.png"
+    }
+   },
+   "R3_project_config": {
+    "fixed": true,
+    "details": "panels no longer hardcode project; shared/api.js default dshsim.projects=proj_a overridable via localStorage/explicit; executor/reviewer/AGENT same-project access tested, cross-project 403"
+   },
+   "R4_runnable_deliverables": {
+    "fixed": true,
+    "details": "TEMPLATE_REGISTRY doc corrected (JSON file path, not capability ID); deployment/local-acceptance/ (launch-worker.sh, make-template-registry.py, run-local.sh, README); Assets overlays/ sanitized headless overlays (standard + 600s)"
+   }
+  },
+  "commits": {
+   "dsh_sim": [
+    "7260236",
+    "12d1dd8"
+   ],
+   "assets": [
+    "637a894"
+   ]
+  },
+  "tests": {
+   "container_full": "392 passed (-m '')"
+  },
+  "baseline_separation": {
+   "pre_fix_cloud_records": {
+    "base": "PR heads 5b3ef00 / 2ddb273",
+    "results": "378 passed incl 5 real OpenFOAM; five cases on Ubuntu noble amd64 VM env",
+    "evidence_zip_sha256": "85e3a78dc0534f5e2de842467b27d98f775835742f67f5540e2e956db02de9bc",
+    "preserved_in": "dsh-sim docs/p0-validation-2026-10-01.md/json (unchanged)"
+   },
+   "post_fix_local_regression": "this report sections 3-6 + rework R1-R4; solver-path code zero-diff across rounds (adapters/validation/verify/evidence), worker/loop.py only adds optional should_stop"
+  }
+ },
+ "artifacts_index": {
+  "resource_index": "sessions/resource-index.json",
+  "events": "events/auth-submit-cancel-events.json",
+  "blind_input_record": "blind-input-record.md",
+  "handoff": "HANDOFF.md"
+ },
+ "p0_closing": {
+  "record": "p0-closing.md",
+  "regression_log": "p0-closing/test-run-local.log (8/8 PASS)",
+  "commits": {
+   "dsh_sim": [
+    "ba72bac",
+    "e266423"
+   ],
+   "assets": [
+    "e3c4804"
+   ]
+  },
+  "items": {
+   "1_run_local_exit_and_stop": {
+    "fixed": true,
+    "note": "双重确认启动、三态停止、zombie 识别、无 || true"
+   },
+   "2_host_container_split_and_launch_worker": {
+    "fixed": true,
+    "note": "docker cp 显式安装、DSH_SIM_DATA_DIR 派生、全新数据目录验证；set -u+bashrc 缺陷实测修复"
+   },
+   "3_headless_generator": {
+    "fixed": true,
+    "note": "generate-headless-overlay.py 参数化；dump 与运行分离；真实模型调用经生成 overlay 通过"
+   },
+   "4_template_generator_hardening": {
+    "fixed": true,
+    "note": "ref 白名单+路径穿越防护+原子 registry；负例/正例实测"
+   }
+  }
+ }
+}

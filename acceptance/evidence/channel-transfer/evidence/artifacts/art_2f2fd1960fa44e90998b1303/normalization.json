@@ -1,0 +1,1 @@
+{"density_kg_m3":950.0,"density_purpose":"postprocessing of an incompressible solver; not a solved density field","pressure_kind":"gauge","pressure_source_dimensions":"[0 2 -2 0 0 0 0]","static_pressure_conversion":"rho*p"}

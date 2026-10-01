@@ -1,0 +1,44 @@
+{
+  "schema_version": "dsh-sim-validation/v1",
+  "identity_mode": "local_validation_fixture",
+  "scenario": "solver-failure",
+  "started_at": "2026-10-01T03:48:21.733525+00:00",
+  "evidence_mode": "REAL",
+  "task_id": "task_1c92dcfa7f5842688a74b0d4",
+  "revision": 1,
+  "spec_sha256": "dc2318ae3d4235f152561a456afb35b046ca578884e6febee6778fff28e7af60",
+  "preparation_id": "prep_cf2c89cfbf0a4b78a75ef65b",
+  "prepared_digest": "7e9f055250afb9443fe36063b4d5b3f91d4c8cfb4c56cd1364256fc324dc1e92",
+  "run_ids": [
+    "run_d4060677f7ab4168ab7d3eec"
+  ],
+  "runs": [
+    {
+      "run_id": "run_d4060677f7ab4168ab7d3eec",
+      "execution_state": "FAILED",
+      "numerical_state": "NOT_CHECKED",
+      "applicability_state": "UNCONFIRMED",
+      "attempt_id": "att_86d8cb545115445c82d95ac2"
+    }
+  ],
+  "bundle_id": "bundle_4ebdb201ce204c0992d1b689",
+  "bundle_digest": "848b5706002d7d70688d1f4665c97de51789b15a4776f66b3a48b8b517618667",
+  "integrity": {
+    "bundle_id": "bundle_4ebdb201ce204c0992d1b689",
+    "bundle_digest": "848b5706002d7d70688d1f4665c97de51789b15a4776f66b3a48b8b517618667",
+    "verified_artifacts": 48,
+    "integrity": "VERIFIED"
+  },
+  "expected_execution_state": "FAILED",
+  "scenario_assertions_passed": true,
+  "observations": {},
+  "verifications": [],
+  "report_path": "/opt/data/channel-solver-failure/report.html",
+  "summary_path": "/opt/data/channel-solver-failure/summary.json",
+  "limitations": [
+    "Public local validation fixture; production identity and authorization are not exercised.",
+    "Method is DRAFT; engineering tolerances and applicability remain unconfirmed.",
+    "DSH natural-language/LLM execution is not exercised by this deterministic command.",
+    "Serial OpenFOAM v1912 only; STAR-CCM+, MPI and sim-live-hub are not validated."
+  ]
+}

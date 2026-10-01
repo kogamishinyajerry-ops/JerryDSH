@@ -1,0 +1,6 @@
+{
+ "source_refs": [
+  "public-validation:solver-failure:inputs.json"
+ ],
+ "spec_sha256": "dc2318ae3d4235f152561a456afb35b046ca578884e6febee6778fff28e7af60"
+}

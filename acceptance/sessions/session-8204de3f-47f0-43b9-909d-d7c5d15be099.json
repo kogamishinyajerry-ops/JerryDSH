@@ -1,0 +1,249 @@
+{
+  "version": 7,
+  "record": {
+    "identity": {
+      "formatVersion": 4,
+      "createdAt": 1790828012467,
+      "cwd": "/Users/Zhuanz/projects/jerry-personal/JerryDSH/recovery/jerrydsh-acc-0.2.0-rc.2",
+      "isSeeded": false,
+      "inheritedEventCount": 0
+    },
+    "rows": {
+      "title": {
+        "ver": 1,
+        "seq": 35,
+        "val": "公开仿真通道本地验收（项目"
+      },
+      "titleInput": {
+        "ver": 3,
+        "seq": 35,
+        "val": {
+          "first": {
+            "seq": 8,
+            "text": "公开仿真通道本地验收（项目 proj_a）。只做 prepare 阶段：用 sim_orchestrate(stage=\"prepare\") 委派，在委派内完成 create_task → revise_task（完整 TaskSpec）→ prepare_task → 轮询 get_preparation 至 READY。不要 plan、不要执行、不要创建授权。\n\n已确认输入（单位 SI，委托工程师提供，全部原样写入 TaskSpec）：\n- purpose=\"design_screening\"\n- variants=[{\"variant_id\":\"acc_channel\",\"template_artifact_id\":\"public-openfoam-acc-01\",\"template_sha256\":\"e25e453af525f8c33db10b69f997bd9e2d65cbeb98d059bde40eb29625cac841\",\"boundary_map_sha256\":\"121939fe930f7e40d428c888c8067269e573ed36b4f73fc59651c0eb5b283b85\"}]\n- conditions=[{\"condition_id\":\"nominal\",\"fields\":[{\"role_id\":\"inlet\",\"field\":\"mean_velocity\",\"quantity\":{\"si_value\":0.012,\"unit\":\"m/s\",\"physical_meaning\":\"Area-mean inlet speed for a discretely normalized parabolic profile\",\"source_ref\":\"local-acceptance:inputs-2026-10-01\"}}]}]\n- execution_budget={\"max_concurrent\":1,\"cpu_cores\":1,\"memory_gb\":1.0,\"wallclock_hours\":0.5,\"max_attempts_total\":1}\n- method={\"capability_package_id\":\"openfoam_channel\",\"capability_package_sha256\":\"<必须先调用 list_capabilities(status=\\\"DRAFT\\\") 并原样复制 openfoam_channel 条目的 manifest_sha256>\",\"required_metrics\":[\"boundary_mass_flow@inlet\",\"boundary_mass_flow@outlet\",\"static_pressure@inlet\",\"static_pressure@outlet\"],\"review_scope\":\"Local acceptance on shared engineering API; DRAFT method, no engineering acceptance.\"}\n\n目标：评估二维层流平行板通道（长1.2m、高0.08m、宽0.012m，介质密度1050 kg/m³、运动黏度1.2e-6 m²/s）在入口平均流速 0.012 m/s 下的静压差与质量守恒；参数来源 local-acceptance:inputs-2026-10-01。\n\n完成后汇报：task_id、revision、preparation_id、prepared_digest、blockers（如有）。"
+          },
+          "count": 1,
+          "lastSeq": 8
+        }
+      },
+      "llmRetry": {
+        "ver": 1,
+        "seq": 35,
+        "val": {}
+      },
+      "sandboxMode": {
+        "ver": 1,
+        "seq": 35,
+        "val": "workspace-write"
+      },
+      "goal": {
+        "ver": 6,
+        "seq": 35,
+        "val": {
+          "current": null,
+          "seenGoalIds": [],
+          "failure": null
+        }
+      },
+      "plan": {
+        "ver": 3,
+        "seq": 35,
+        "val": {
+          "active": false,
+          "wanted": null,
+          "running": null,
+          "activeAtLastHeader": false
+        }
+      },
+      "tokenUsage": {
+        "ver": 2,
+        "seq": 35,
+        "val": {
+          "totals": {
+            "uncachedInputTokens": 10952,
+            "outputTokens": 3633,
+            "cacheReadTokens": 66496,
+            "cacheWriteTokens": 0
+          },
+          "last": {
+            "turn": 1,
+            "step": 4,
+            "buckets": {
+              "uncachedInputTokens": 755,
+              "outputTokens": 727,
+              "cacheReadTokens": 21120,
+              "cacheWriteTokens": 0
+            }
+          }
+        }
+      },
+      "contextPressure": {
+        "ver": 5,
+        "seq": 35,
+        "val": {
+          "surfaceTokens": 9724,
+          "contextWindow": 200000,
+          "pressureTokens": 21875,
+          "sampledSurfaceTokens": 9221
+        }
+      },
+      "contextBreakdown": {
+        "ver": 5,
+        "seq": 35,
+        "val": {
+          "nodes": [
+            {
+              "seq": 7,
+              "heuristicTokens": 704,
+              "system": true
+            },
+            {
+              "seq": 8,
+              "heuristicTokens": 387,
+              "system": false
+            },
+            {
+              "seq": 9,
+              "heuristicTokens": 138,
+              "system": false
+            },
+            {
+              "seq": 10,
+              "heuristicTokens": 3880,
+              "system": false
+            },
+            {
+              "seq": 15,
+              "heuristicTokens": 1092,
+              "system": false
+            },
+            {
+              "seq": 17,
+              "heuristicTokens": 251,
+              "system": false
+            },
+            {
+              "seq": 20,
+              "heuristicTokens": 1307,
+              "system": false
+            },
+            {
+              "seq": 23,
+              "heuristicTokens": 960,
+              "system": false
+            },
+            {
+              "seq": 26,
+              "heuristicTokens": 210,
+              "system": false
+            },
+            {
+              "seq": 28,
+              "heuristicTokens": 210,
+              "system": false
+            },
+            {
+              "seq": 30,
+              "heuristicTokens": 82,
+              "system": false
+            },
+            {
+              "seq": 33,
+              "heuristicTokens": 503,
+              "system": false
+            }
+          ],
+          "breakdown": {
+            "systemTokens": 704,
+            "toolsTokens": 8879,
+            "messageTokens": 9020
+          }
+        }
+      },
+      "todos": {
+        "ver": 2,
+        "seq": 35,
+        "val": null
+      },
+      "turnBoundary": {
+        "ver": 2,
+        "seq": 35,
+        "val": {
+          "openTurnStartSeq": null,
+          "lastStepStartSeq": 32,
+          "lastStepBoundary": {
+            "kind": "end",
+            "seq": 34
+          },
+          "lastTurn": 1
+        }
+      },
+      "inbox": {
+        "ver": 1,
+        "seq": 35,
+        "val": {
+          "next-turn": [],
+          "next-step": []
+        }
+      },
+      "userQuestions": {
+        "ver": 2,
+        "seq": 35,
+        "val": {
+          "inheritedEventCount": 0,
+          "timed": false,
+          "questions": {
+            "active": [],
+            "settled": []
+          }
+        }
+      },
+      "subagentCatalog": {
+        "ver": 3,
+        "seq": 35,
+        "val": {
+          "inheritedEventCount": 0,
+          "head": {
+            "values": [
+              {
+                "version": 0,
+                "childId": "61e9b65a-93d4-4cb4-a8f8-f176a392e6ef",
+                "childCreatedAt": 1790828059785,
+                "mode": "one-shot",
+                "label": "sim:inputwriter"
+              }
+            ]
+          }
+        }
+      },
+      "subagentTiming": {
+        "ver": 3,
+        "seq": 35,
+        "val": {
+          "descriptorSeen": false,
+          "settledMs": 0
+        }
+      },
+      "subagent": {
+        "ver": 2,
+        "seq": 35,
+        "val": {}
+      },
+      "subagentModelSelectionPolicy": {
+        "ver": 1,
+        "seq": 35,
+        "val": null
+      },
+      "permissions": {
+        "ver": 2,
+        "seq": 35,
+        "val": {
+          "preset": "workspace-write",
+          "sandbox": "workspace-write",
+          "approval": "ask",
+          "seeded": false
+        }
+      }
+    }
+  }
+}

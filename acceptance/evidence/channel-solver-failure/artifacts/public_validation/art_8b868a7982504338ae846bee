@@ -1,0 +1,16 @@
+
+
+--> FOAM FATAL IO ERROR: 
+Unknown convection type notAnOpenFOAMScheme
+
+Valid convection types :
+2(Gauss bounded)
+
+
+file: /opt/data/channel-solver-failure/worker/run_d4060677f7ab4168ab7d3eec/attempt-1/case/system/fvSchemes.divSchemes.div(phi,U) at line 10.
+
+    From function static Foam::tmp<Foam::fv::convectionScheme<Type> > Foam::fv::convectionScheme<Type>::New(const Foam::fvMesh&, const Foam::surfaceScalarField&, Foam::Istream&) [with Type = Foam::Vector<double>; Foam::surfaceScalarField = Foam::GeometricField<double, Foam::fvsPatchField, Foam::surfaceMesh>]
+    in file /build/openfoam-f52DVo/openfoam-1912.200626/src/finiteVolume/lnInclude/convectionScheme.C at line 92.
+
+FOAM exiting
+

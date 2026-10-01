@@ -1,0 +1,10 @@
+{
+  "DSH_HOME": "/Users/Zhuanz/projects/jerry-personal/JerryDSH/recovery/jerrydsh-recovery-0.2.0-rc.2/dsh-home",
+  "CIVAIR_KB_HOME": "/Users/Zhuanz/projects/jerry-personal/JerryDSH/recovery/jerrydsh-recovery-0.2.0-rc.2/external-projects/aircraft-comac/civair-kb",
+  "CIVAIR_KB_PYTHON": "python3",
+  "CIVAIR_KB_STORE": "/Users/Zhuanz/projects/jerry-personal/JerryDSH/recovery/jerrydsh-recovery-0.2.0-rc.2/dsh-home/kb/civair",
+  "COMAC_BENCH_HOME": "/Users/Zhuanz/projects/jerry-personal/JerryDSH/recovery/jerrydsh-recovery-0.2.0-rc.2/external-projects/jerry-personal/JerryDSH-COMACBench",
+  "FMEA_HOME": "/Users/Zhuanz/projects/jerry-personal/JerryDSH/recovery/jerrydsh-recovery-0.2.0-rc.2/external-projects/aircraft-comac/COMAC_FMEA_FTA_Manager_8024",
+  "FMEA_PYTHON": "/Users/Zhuanz/projects/jerry-personal/JerryDSH/recovery/jerrydsh-recovery-0.2.0-rc.2/external-projects/aircraft-comac/COMAC_FMEA_FTA_Manager_8024/.venv/bin/python",
+  "PDF_FTA_BACKEND": "http://127.0.0.1:8000"
+}

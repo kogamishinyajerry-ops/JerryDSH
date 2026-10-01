@@ -1,0 +1,1 @@
+{"argv":["/usr/bin/foamToVTK","-case","/opt/data/channel-transfer/worker/run_a63dedd76a624965996c7381/attempt-1/case","-latestTime","-ascii","-fields","(p U)","-no-internal","-no-point-data","-patches","(inlet outlet)","-overwrite"],"stage":"foamToVTK","started_at":"2026-10-01T03:48:20.708478+00:00"}

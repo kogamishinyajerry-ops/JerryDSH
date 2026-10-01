@@ -1,0 +1,14 @@
+{
+  "job_id": "openfoam-d3176e5974bb4c359f8f556165d74d44",
+  "run_id": "run_7c934add18184897b658f45a",
+  "attempt_no": 1,
+  "process_identity": "{\"boot_id\":\"748ab20b-2568-442e-8efe-8a87771b0a98\",\"local_pgid\":5910,\"local_pid\":5910,\"pgid\":5910,\"pid\":5910,\"pid_namespace\":\"pid:[4026533505]\",\"start_ticks\":4008798}",
+  "work_dir": "/opt/data/channel-baseline/worker/run_7c934add18184897b658f45a/attempt-1",
+  "launch_args": [
+    "/opt/venv/bin/python",
+    "-m",
+    "dsh_sim.adapters.openfoam_adapter",
+    "--run-job",
+    "/opt/data/channel-baseline/worker/run_7c934add18184897b658f45a/attempt-1/openfoam-job.json"
+  ]
+}

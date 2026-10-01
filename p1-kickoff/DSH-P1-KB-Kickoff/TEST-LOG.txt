@@ -1,0 +1,41 @@
+test_both_expected_and_forbidden_rejected (test_tools.EvaluationTests.test_both_expected_and_forbidden_rejected) ... ok
+test_cold_latency_separate_and_budget_enforced (test_tools.EvaluationTests.test_cold_latency_separate_and_budget_enforced) ... ok
+test_duplicate_hit_rejected (test_tools.EvaluationTests.test_duplicate_hit_rejected) ... ok
+test_duplicate_query_rejected (test_tools.EvaluationTests.test_duplicate_query_rejected) ... ok
+test_duplicate_trials_rejected (test_tools.EvaluationTests.test_duplicate_trials_rejected) ... ok
+test_expected_empty_with_hit_fails (test_tools.EvaluationTests.test_expected_empty_with_hit_fails) ... ok
+test_forbidden_hit_below_k_also_fails (test_tools.EvaluationTests.test_forbidden_hit_below_k_also_fails) ... ok
+test_good_synthetic_never_production_pass (test_tools.EvaluationTests.test_good_synthetic_never_production_pass) ... ok
+test_invalid_citation_rejected (test_tools.EvaluationTests.test_invalid_citation_rejected) ... ok
+test_invalid_raw_digest_rejected (test_tools.EvaluationTests.test_invalid_raw_digest_rejected) ... ok
+test_missing_one_trial_fails (test_tools.EvaluationTests.test_missing_one_trial_fails) ... ok
+test_missing_query_trials_fail (test_tools.EvaluationTests.test_missing_query_trials_fail) ... ok
+test_mixed_snapshot_rejected (test_tools.EvaluationTests.test_mixed_snapshot_rejected) ... ok
+test_nearest_rank_p95 (test_tools.EvaluationTests.test_nearest_rank_p95) ... ok
+test_no_answer_query_cannot_inflate_positive_hit_rate (test_tools.EvaluationTests.test_no_answer_query_cannot_inflate_positive_hit_rate) ... ok
+test_nonfinite_and_bool_latency_rejected (test_tools.EvaluationTests.test_nonfinite_and_bool_latency_rejected) ... ok
+test_synthetic_cannot_masquerade_as_local (test_tools.EvaluationTests.test_synthetic_cannot_masquerade_as_local) ... ok
+test_timeout_in_latency_and_score (test_tools.EvaluationTests.test_timeout_in_latency_and_score) ... ok
+test_unknown_query_rejected (test_tools.EvaluationTests.test_unknown_query_rejected) ... ok
+test_unlabelled_query_rejected (test_tools.EvaluationTests.test_unlabelled_query_rejected) ... ok
+test_changed_read_no_digest (test_tools.InventoryTests.test_changed_read_no_digest) ... ok
+test_duplicates_never_deleted (test_tools.InventoryTests.test_duplicates_never_deleted) ... ok
+test_empty_inventory (test_tools.InventoryTests.test_empty_inventory) ... ok
+test_error_is_reported (test_tools.InventoryTests.test_error_is_reported) ... ok
+test_existing_output_never_overwritten (test_tools.InventoryTests.test_existing_output_never_overwritten) ... ok
+test_hash_and_no_content_changes (test_tools.InventoryTests.test_hash_and_no_content_changes) ... ok
+test_inventory_id_not_business_id (test_tools.InventoryTests.test_inventory_id_not_business_id) ... ok
+test_metadata_only (test_tools.InventoryTests.test_metadata_only) ... ok
+test_output_inside_source_rejected (test_tools.InventoryTests.test_output_inside_source_rejected) ... ok
+test_policy_directory_skipped (test_tools.InventoryTests.test_policy_directory_skipped) ... ok
+test_selection_is_repeatable (test_tools.InventoryTests.test_selection_is_repeatable) ... ok
+test_sensitive_names_skipped (test_tools.InventoryTests.test_sensitive_names_skipped) ... ok
+test_size_limit (test_tools.InventoryTests.test_size_limit) ... ok
+test_symlink_escape_and_cycle (test_tools.InventoryTests.test_symlink_escape_and_cycle) ... ok
+test_symlink_root_rejected (test_tools.InventoryTests.test_symlink_root_rejected) ... ok
+test_unknown_extension_is_inventory_only (test_tools.InventoryTests.test_unknown_extension_is_inventory_only) ... ok
+
+----------------------------------------------------------------------
+Ran 36 tests in 0.016s
+
+OK

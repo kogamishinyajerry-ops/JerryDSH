@@ -1,0 +1,1 @@
+{"approval":"PUBLIC_EXPERIMENT_ONLY","recipe":"plane-poiseuille-channel","region":"fluid","roles":{"inlet":{"patch":"inlet","type":"patch"},"outlet":{"patch":"outlet","type":"patch"},"walls":{"patch":"walls","type":"wall"}},"schema_version":"0.1.0","sign_convention":"outward_positive"}

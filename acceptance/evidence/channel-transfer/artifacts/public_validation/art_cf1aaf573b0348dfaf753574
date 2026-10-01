@@ -1,0 +1,22 @@
+{
+ "evidence_mode": "REAL",
+ "extractor_id": "openfoam-v1912-patch-extractor",
+ "extractor_version": "0.1.0",
+ "metric_values": {
+  "boundary_mass_flow@inlet": -0.01368000000000266,
+  "total_pressure@inlet": 32.02898573294937,
+  "static_pressure@inlet": 31.857165422073745,
+  "boundary_mass_flow@outlet": 0.01368000000000247,
+  "total_pressure@outlet": 0.1641797878527589,
+  "static_pressure@outlet": 0.0
+ },
+ "missing_metrics": [],
+ "source_artifacts": {
+  "boundary_mass_flow@inlet": "227f48228c6319a71cc5ba9aaae17cc1f2676575e9f8d5436d9f717c9d18f90d",
+  "total_pressure@inlet": "227f48228c6319a71cc5ba9aaae17cc1f2676575e9f8d5436d9f717c9d18f90d",
+  "static_pressure@inlet": "227f48228c6319a71cc5ba9aaae17cc1f2676575e9f8d5436d9f717c9d18f90d",
+  "boundary_mass_flow@outlet": "227f48228c6319a71cc5ba9aaae17cc1f2676575e9f8d5436d9f717c9d18f90d",
+  "total_pressure@outlet": "227f48228c6319a71cc5ba9aaae17cc1f2676575e9f8d5436d9f717c9d18f90d",
+  "static_pressure@outlet": "227f48228c6319a71cc5ba9aaae17cc1f2676575e9f8d5436d9f717c9d18f90d"
+ }
+}

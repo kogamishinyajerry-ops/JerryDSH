@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>证据报告 · task_39e6f815142a492abe0c6fc5 · R1</title>
+<style>
+  body { font-family: "Segoe UI", "Microsoft YaHei", sans-serif; margin: 2rem; color: #1c2530; position: relative; }
+  header.report-head { border-bottom: 2px solid #345; padding-bottom: .6rem; margin-bottom: 1rem; }
+  .mode-badge { display: inline-block; padding: .15rem .7rem; border-radius: 4px; font-weight: 700; letter-spacing: .12em; }
+  .mode-REAL { background: #e3f5e9; color: #146c2e; border: 1px solid #146c2e; }
+  .mode-MOCK { background: #fdecea; color: #b3261e; border: 2px dashed #b3261e; }
+  .mode-UNKNOWN { background: #f1f1f1; color: #555; border: 1px solid #999; }
+  .mock-stripes { position: fixed; inset: 0; z-index: 0; pointer-events: none;
+    background: repeating-linear-gradient(45deg, transparent 0 34px, rgba(179,38,30,.06) 34px 68px); }
+  .mock-words { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden;
+    display: grid; grid-template-columns: repeat(4, 1fr); grid-template-rows: repeat(6, 1fr); }
+  .mock-words span { display: flex; align-items: center; justify-content: center;
+    font-size: 2.6rem; font-weight: 800; color: rgba(179,38,30,.10); transform: rotate(-30deg); letter-spacing: .3em; }
+  main { position: relative; z-index: 1; }
+  table { border-collapse: collapse; width: 100%; margin: .6rem 0 1.2rem; }
+  th, td { border: 1px solid #c9d2dc; padding: .35rem .55rem; text-align: left; font-size: .92rem; }
+  th { background: #eef2f7; }
+  .state { font-weight: 600; }
+  .s-SUCCEEDED, .s-PASS, .s-IN_SCOPE, .s-CONFIRMED { color: #146c2e; }
+  .s-FAILED, .s-FAIL, .s-OUT_OF_SCOPE { color: #b3261e; }
+  .s-LOST, .s-INSUFFICIENT, .s-UNCONFIRMED, .s-NOT_CHECKED, .s-DRAFT { color: #8a5a00; }
+  .warn-box { border: 1px solid #8a5a00; background: #fff8e6; padding: .6rem .9rem; border-radius: 6px; }
+  .err-box { border: 2px solid #b3261e; background: #fdecea; padding: .6rem .9rem; border-radius: 6px; }
+  details { margin: .15rem 0; }
+  code { background: #f1f4f8; padding: 0 .3em; border-radius: 3px; font-size: .88em; }
+  h1 { font-size: 1.35rem; } h2 { font-size: 1.1rem; margin-top: 1.6rem; border-left: 4px solid #345; padding-left: .5rem; }
+  .meta { color: #56616d; font-size: .88rem; }
+</style>
+</head>
+<body><div style="padding:12px;background:#fff3cd;color:#392c00">Offline view of frozen evidence. Original report bytes and hashes are retained in artifacts.</div>
+<main>
+<header class="report-head">
+  <h1>证据报告 · 任务 task_39e6f815142a492abe0c6fc5 · 修订 R1</h1>
+  <p>
+    证据模式：<span class="mode-badge mode-REAL">REAL</span>
+  </p>
+  <p class="meta">
+    证据包 <code>bundle_664d525f93f345ec93c95ba0</code> · 清单摘要（不含报告条目）<code>214f8a8759e0ef280a6f02503d78331ae61b4d918c392628e0ced1f7755c158d</code><br>
+    spec 摘要 <code>ff9ecbb003f8543c0235721f469071c54951d2c56ca2c841413e9aaea67f5763</code> · 创建人 public-validation-agent
+  </p>
+  <p>用途：design_screening（内部方案筛选；不构成适航符合性结论） · 审查范围：PUBLIC LOCAL SOFTWARE VALIDATION ONLY. Synthetic authorization fixture; no human method release or engineering acceptance. Analytical errors are observations, not approval thresholds. · 方法包：openfoam_channel</p>
+  <p class="meta">
+    方法包冻结：<code>openfoam_channel@0.1.0</code>
+    · 状态 DRAFT
+    · manifest 摘要 <code>b91da8b7d79c1e922d7383e9fe11e1b082ac4bec54013d42986f1990822fead7</code>
+    · 规格声明摘要 <code>b91da8b7d79c1e922d7383e9fe11e1b082ac4bec54013d42986f1990822fead7</code>
+<br><strong>注意：该方法包状态为 DRAFT（非 RELEASED），不能据此宣称方法已获批准。</strong>  </p>
+</header>
+
+<h2>多维状态（逐 Run；执行成功 ≠ 数值通过 ≠ 方法适用）</h2>
+<table>
+  <tr><th>Run</th><th>方案×工况</th><th>执行</th><th>数值</th><th>适用性</th></tr>
+  <tr>
+    <td><code>run_825e62f1b0514723b3875187</code></td>
+    <td>public_channel×cancel</td>
+    <td class="state s-CANCELLED">CANCELLED</td>
+    <td class="state s-NOT_CHECKED">NOT_CHECKED</td>
+    <td class="state s-UNCONFIRMED">UNCONFIRMED</td>
+  </tr>
+</table>
+
+<h2>定量结论（每条 Claim 绑定 metric_id + artifact_id，可展开来源）</h2>
+<p class="warn-box">无定量 Claim：指标缺失或提取未完成；未完成的结论不得当作设计结论。</p>
+
+<h2>缺项与限制（单独一节；缺项不靠减少清单通过）</h2>
+<div class="err-box">
+  <strong>证据包 incomplete：缺 3 项，阻塞 ACCEPT。</strong>
+  <ul>
+    <li>[RUN_NOT_SUCCEEDED] 工况 public_channel×cancel （run <code>run_825e62f1b0514723b3875187</code> · CANCELLED）</li>
+    <li>[MISSING_RAW_REPORT] 工况 public_channel×cancel （run <code>run_825e62f1b0514723b3875187</code>）</li>
+    <li>[MISSING_VERIFICATION] 工况 public_channel×cancel （run <code>run_825e62f1b0514723b3875187</code>）</li>
+  </ul>
+</div>
+<p class="warn-box">限制：仅限内部方案筛选用途；不构成适航符合性结论。</p>
+<p>未覆盖问题：见审查记录与 issue 列表（本报告不代替审查判断；模型解释与审查人最终意见在记录中有不同作者类型）。</p>
+
+<h2>冻结清单（49 项；长度 + sha256，提交后不可覆盖）</h2>
+<table>
+  <tr><th>角色</th><th>路径</th><th>长度</th><th>sha256</th></tr>
+  <tr>
+    <td>task_spec</td>
+    <td><code>bundles/bundle_664d525f93f345ec93c95ba0/task-spec.json</code></td>
+    <td>1183</td>
+    <td><code>ff9ecbb003f8543c0235721f469071c54951d2c56ca2c841413e9aaea67f5763</code></td>
+  </tr>
+  <tr>
+    <td>source_refs</td>
+    <td><code>bundles/bundle_664d525f93f345ec93c95ba0/source-refs.json</code></td>
+    <td>149</td>
+    <td><code>ccb64c6006e1b323682beb4194d37d426f1ab1bcd4050c2100963bd757962e01</code></td>
+  </tr>
+  <tr>
+    <td>preparation</td>
+    <td><code>bundles/bundle_664d525f93f345ec93c95ba0/preparation.json</code></td>
+    <td>725</td>
+    <td><code>2c4cf72c5b97cae745558f7a1c6ca60788a3254688a7a746a521eb6ccff8705a</code></td>
+  </tr>
+  <tr>
+    <td>prepared_case</td>
+    <td><code>prepared/task_39e6f815142a492abe0c6fc5/revision-1/prep_2c1715377e5e4d939e28e08f/public_channel/cancel/prepared.openfoam.tar</code></td>
+    <td>20480</td>
+    <td><code>9d86624636ea93ba3854106fc86c72665b8e1f8a39052a723d50ebfd2fac39fe</code></td>
+  </tr>
+  <tr>
+    <td>method_metrics</td>
+    <td><code>bundles/bundle_664d525f93f345ec93c95ba0/capability/metric-definitions.json</code></td>
+    <td>2248</td>
+    <td><code>e9134fde6188b13675701787daa6ffe7ec2a59a5f924bd676f32d9fa2e451fde</code></td>
+  </tr>
+  <tr>
+    <td>rules</td>
+    <td><code>bundles/bundle_664d525f93f345ec93c95ba0/capability/rules.json</code></td>
+    <td>717</td>
+    <td><code>30b585b85b8e929bb8c301e4ae116fe2ed65520076317902c0f2ccf2301fc92d</code></td>
+  </tr>
+  <tr>
+    <td>method_domain</td>
+    <td><code>bundles/bundle_664d525f93f345ec93c95ba0/capability/domain.json</code></td>
+    <td>994</td>
+    <td><code>2a949193bcfa5ac535df164cd12c97b4bb81da01c3742af3b2639d6ad72bb2cc</code></td>
+  </tr>
+  <tr>
+    <td>method_manifest</td>
+    <td><code>bundles/bundle_664d525f93f345ec93c95ba0/capability/manifest.json</code></td>
+    <td>1116</td>
+    <td><code>59d6d2bbec31aabe863eff9617631b9c29cb76b618b920992231661fec77038e</code></td>
+  </tr>
+  <tr>
+    <td>method_source</td>
+    <td><code>bundles/bundle_664d525f93f345ec93c95ba0/capability/README.md</code></td>
+    <td>1941</td>
+    <td><code>6daeadbef5cd6086513cbea51395755d493619329517531e1d5eff23ca3f7823</code></td>
+  </tr>
+  <tr>
+    <td>method_source</td>
+    <td><code>bundles/bundle_664d525f93f345ec93c95ba0/capability/approval.json</code></td>
+    <td>236</td>
+    <td><code>288e84625812ef19bcfc8acc297b0cb2f49a076f785b7cd320f92ebfcd5e7d40</code></td>
+  </tr>
+  <tr>
+    <td>raw</td>
+    <td><code>runs/run_825e62f1b0514723b3875187/attempt-1/cancel-request.json</code></td>
+    <td>257</td>
+    <td><code>e5beef66c4d7d385d48815e29ab0ffb7e59da95b75d25e739136f4883bcfc8c7</code></td>
+  </tr>
+  <tr>
+    <td>raw</td>
+    <td><code>runs/run_825e62f1b0514723b3875187/attempt-1/case/0/U</code></td>
+    <td>856</td>
+    <td><code>9d943cafa55f846e2624bc17933d71fac139b2e5811643c529ed31dd4d21391f</code></td>
+  </tr>
+  <tr>
+    <td>raw</td>
+    <td><code>runs/run_825e62f1b0514723b3875187/attempt-1/case/0/p</code></td>
+    <td>284</td>
+    <td><code>ea1dc00da4794458cdfd91cc764448b5d706dd07b0ce70fbe84196043e46c2b7</code></td>
+  </tr>
+  <tr>
+    <td>raw</td>
+    <td><code>runs/run_825e62f1b0514723b3875187/attempt-1/case/boundary-map.json</code></td>
+    <td>287</td>
+    <td><code>121939fe930f7e40d428c888c8067269e573ed36b4f73fc59651c0eb5b283b85</code></td>
+  </tr>
+  <tr>
+    <td>raw</td>
+    <td><code>runs/run_825e62f1b0514723b3875187/attempt-1/case/constant/polyMesh/boundary</code></td>
+    <td>1403</td>
+    <td><code>0bb4d9576d7d1fadf6ae27aa0c1a9c405c0c16ecd3628b56505a9521f5242bba</code></td>
+  </tr>
+  <tr>
+    <td>raw</td>
+    <td><code>runs/run_825e62f1b0514723b3875187/attempt-1/case/constant/polyMesh/faces</code></td>
+    <td>142094</td>
+    <td><code>25043394c511db35d830acd5fb81bd6a081eb7aa1f6afc0b9954e9c9b2ecf744</code></td>
+  </tr>
+  <tr>
+    <td>raw</td>
+    <td><code>runs/run_825e62f1b0514723b3875187/attempt-1/case/constant/polyMesh/neighbour</code></td>
+    <td>14426</td>
+    <td><code>09cb3bc44a739a46b4bdd4e5e6235c8a8325cfd4aa41a09b90103ee682b8d4c8</code></td>
+  </tr>
+  <tr>
+    <td>raw</td>
+    <td><code>runs/run_825e62f1b0514723b3875187/attempt-1/case/constant/polyMesh/owner</code></td>
+    <td>28830</td>
+    <td><code>cb25a1a061890143c4244e8c1c209eff36dde5e1fc27bd9de4399258e2505940</code></td>
+  </tr>
+  <tr>
+    <td>raw</td>
+    <td><code>runs/run_825e62f1b0514723b3875187/attempt-1/case/constant/polyMesh/points</code></td>
+    <td>58153</td>
+    <td><code>88941de3547f60a40e0422609aac2f14e67f085bf465efc90d544c0e6d1f9cd1</code></td>
+  </tr>
+  <tr>
+    <td>raw</td>
+    <td><code>runs/run_825e62f1b0514723b3875187/attempt-1/case/constant/transportProperties</code></td>
+    <td>143</td>
+    <td><code>518fd46a6e5fdd5dcf1612c1f4c11e5ea6505cb7d7330548ca6f7eab246795c8</code></td>
+  </tr>
+  <tr>
+    <td>raw</td>
+    <td><code>runs/run_825e62f1b0514723b3875187/attempt-1/case/constant/turbulenceProperties</code></td>
+    <td>115</td>
+    <td><code>0ec08e6dfa7a27a866912c0c7b7cee964a1b4aeb6c1dcf30d3093fbe9e6cbbb9</code></td>
+  </tr>
+  <tr>
+    <td>raw</td>
+    <td><code>runs/run_825e62f1b0514723b3875187/attempt-1/case/dsh-openfoam.json</code></td>
+    <td>1584</td>
+    <td><code>e76e8fbe230e56334b9ffda0baa83ef4ab694fceba38aaebb4c82438041a97ed</code></td>
+  </tr>
+  <tr>
+    <td>raw</td>
+    <td><code>runs/run_825e62f1b0514723b3875187/attempt-1/case/normalization.json</code></td>
+    <td>225</td>
+    <td><code>6968b08057d8aa86f3d5cba8125cd9f50216737e6c929587ee907e73d6fffc4f</code></td>
+  </tr>
+  <tr>
+    <td>raw</td>
+    <td><code>runs/run_825e62f1b0514723b3875187/attempt-1/case/reference.json</code></td>
+    <td>401</td>
+    <td><code>975761bb924e2972fef15639077da0bc254e197b9807d0645bcd4a6e5e21da7d</code></td>
+  </tr>
+  <tr>
+    <td>raw</td>
+    <td><code>runs/run_825e62f1b0514723b3875187/attempt-1/case/system/blockMeshDict</code></td>
+    <td>567</td>
+    <td><code>411ea2f752e31124342fa3a7b574952e58b7d0e45c4a8cbab8f2dea351e65f1a</code></td>
+  </tr>
+  <tr>
+    <td>raw</td>
+    <td><code>runs/run_825e62f1b0514723b3875187/attempt-1/case/system/controlDict</code></td>
+    <td>378</td>
+    <td><code>5918c6a30d19385d2a3db082e4c4674c92d4b8fb123950da80781bbe0504b902</code></td>
+  </tr>
+  <tr>
+    <td>raw</td>
+    <td><code>runs/run_825e62f1b0514723b3875187/attempt-1/case/system/fvSchemes</code></td>
+    <td>427</td>
+    <td><code>b54a2ebca4df698dc0e4d581d43714f32f17085602d6be4121fa60501d2d0704</code></td>
+  </tr>
+  <tr>
+    <td>raw</td>
+    <td><code>runs/run_825e62f1b0514723b3875187/attempt-1/case/system/fvSolution</code></td>
+    <td>348</td>
+    <td><code>b8576320d12684e70be127ad0045c96bb3ecc21eae20a0534f2d879218a51b08</code></td>
+  </tr>
+  <tr>
+    <td>raw</td>
+    <td><code>runs/run_825e62f1b0514723b3875187/attempt-1/conversion-missing.json</code></td>
+    <td>140</td>
+    <td><code>d5fba62bc02431dad949f754ada3fae47bd400dc502faaec040799283eb40ce7</code></td>
+  </tr>
+  <tr>
+    <td>raw</td>
+    <td><code>runs/run_825e62f1b0514723b3875187/attempt-1/environment-probe.json</code></td>
+    <td>8419</td>
+    <td><code>d8143b41210fa21c1c52fb9bc8d344ed612fb1e1074a8fffc4a20136b494fea6</code></td>
+  </tr>
+  <tr>
+    <td>raw</td>
+    <td><code>runs/run_825e62f1b0514723b3875187/attempt-1/execution-commands.json</code></td>
+    <td>821</td>
+    <td><code>bf99bf0ef4291326bf095ee78f34f69c5ba62bcb9c88b4dea4ddb8c8bd5da0b7</code></td>
+  </tr>
+  <tr>
+    <td>raw</td>
+    <td><code>runs/run_825e62f1b0514723b3875187/attempt-1/logs/blockMesh.stderr.log</code></td>
+    <td>247</td>
+    <td><code>135cde4a094eb6c7b122bb8d71a9071ec44647b16460c3c89744fb7c650dae2d</code></td>
+  </tr>
+  <tr>
+    <td>raw</td>
+    <td><code>runs/run_825e62f1b0514723b3875187/attempt-1/logs/blockMesh.stdout.log</code></td>
+    <td>2539</td>
+    <td><code>510e769ead417803f7a94477e1c91f01c632dfcdffa92cb3b520d64c931567df</code></td>
+  </tr>
+  <tr>
+    <td>raw</td>
+    <td><code>runs/run_825e62f1b0514723b3875187/attempt-1/logs/checkMesh.stderr.log</code></td>
+    <td>0</td>
+    <td><code>e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855</code></td>
+  </tr>
+  <tr>
+    <td>raw</td>
+    <td><code>runs/run_825e62f1b0514723b3875187/attempt-1/logs/checkMesh.stdout.log</code></td>
+    <td>3507</td>
+    <td><code>03ee629cd7950560a2042384f4e9c3cc42d9fb02992ac8fcb67fa7cc2d1ad4b1</code></td>
+  </tr>
+  <tr>
+    <td>raw</td>
+    <td><code>runs/run_825e62f1b0514723b3875187/attempt-1/logs/simpleFoam.stderr.log</code></td>
+    <td>0</td>
+    <td><code>e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855</code></td>
+  </tr>
+  <tr>
+    <td>raw</td>
+    <td><code>runs/run_825e62f1b0514723b3875187/attempt-1/logs/simpleFoam.stdout.log</code></td>
+    <td>109038</td>
+    <td><code>116c050738fba1d2906061fee146e518a8a26a88c7421feffa53583028c1c698</code></td>
+  </tr>
+  <tr>
+    <td>raw</td>
+    <td><code>runs/run_825e62f1b0514723b3875187/attempt-1/monitor.csv</code></td>
+    <td>12210</td>
+    <td><code>f6546c87030103d12dd574addf6846fced7090655b1b9233858f705e3fb29501</code></td>
+  </tr>
+  <tr>
+    <td>raw</td>
+    <td><code>runs/run_825e62f1b0514723b3875187/attempt-1/openfoam-exit.json</code></td>
+    <td>337</td>
+    <td><code>93f91df3f7ae8577476479975732116af4f24f625e0de86341a19a92e11d0c71</code></td>
+  </tr>
+  <tr>
+    <td>raw</td>
+    <td><code>runs/run_825e62f1b0514723b3875187/attempt-1/openfoam-job.json</code></td>
+    <td>1317</td>
+    <td><code>25b6209033042edb8f70ffadcefa3aa7b3a0712cfce793aa3533a68cc7e70fcd</code></td>
+  </tr>
+  <tr>
+    <td>raw</td>
+    <td><code>runs/run_825e62f1b0514723b3875187/attempt-1/openfoam-process.json</code></td>
+    <td>390</td>
+    <td><code>db033e7a73268f1a9ff4e22abeb8b182299d9a6d9a7144bbeead1982060bca48</code></td>
+  </tr>
+  <tr>
+    <td>raw</td>
+    <td><code>runs/run_825e62f1b0514723b3875187/attempt-1/openfoam-stage.json</code></td>
+    <td>188</td>
+    <td><code>202a708c91773aaab5668b8d25f28d73286a3973c391871cde1ac0d22762d02d</code></td>
+  </tr>
+  <tr>
+    <td>raw</td>
+    <td><code>runs/run_825e62f1b0514723b3875187/attempt-1/prepared.openfoam.tar</code></td>
+    <td>20480</td>
+    <td><code>9d86624636ea93ba3854106fc86c72665b8e1f8a39052a723d50ebfd2fac39fe</code></td>
+  </tr>
+  <tr>
+    <td>raw</td>
+    <td><code>runs/run_825e62f1b0514723b3875187/attempt-1/result.openfoam.tar</code></td>
+    <td>266240</td>
+    <td><code>2e65772c93a1ff5bd873d1bb1fd1266add3a192e4724bebed049edc2333fe1e4</code></td>
+  </tr>
+  <tr>
+    <td>raw</td>
+    <td><code>runs/run_825e62f1b0514723b3875187/attempt-1/supervisor.stderr.log</code></td>
+    <td>0</td>
+    <td><code>e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855</code></td>
+  </tr>
+  <tr>
+    <td>raw</td>
+    <td><code>runs/run_825e62f1b0514723b3875187/attempt-1/supervisor.stdout.log</code></td>
+    <td>0</td>
+    <td><code>e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855</code></td>
+  </tr>
+  <tr>
+    <td>raw</td>
+    <td><code>runs/run_825e62f1b0514723b3875187/attempt-1/worker-job-handle.json</code></td>
+    <td>634</td>
+    <td><code>57b41e451e8e39db3c30799c0f1bfe06c91c4ce94faab5e87b5e07d368b933c4</code></td>
+  </tr>
+  <tr>
+    <td>raw</td>
+    <td><code>runs/run_825e62f1b0514723b3875187/attempt-1/worker-launch-intent.json</code></td>
+    <td>9605</td>
+    <td><code>3ff89aeccab61a135098badc0a7910a37c3f5676df120757d2755c878c6ebd35</code></td>
+  </tr>
+  <tr>
+    <td>summary</td>
+    <td><code>bundles/bundle_664d525f93f345ec93c95ba0/bundle.summary.json</code></td>
+    <td>1139</td>
+    <td><code>a720e789c2c2b5ffeb3defb41a5d7c71f4a43ed747765b631e4181bd26d1193a</code></td>
+  </tr>
+</table>
+</main>
+</body>
+</html>

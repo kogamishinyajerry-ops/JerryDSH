@@ -1,0 +1,71 @@
+<?xml version='1.0'?>
+<!-- patch='outlet' time='600' index='600' -->
+<VTKFile type='PolyData' version='0.1' byte_order='LittleEndian' header_type='UInt64'>
+  <PolyData>
+    <FieldData>
+      <DataArray type='Float32' Name='TimeValue' NumberOfTuples='1' format='ascii'>
+600
+      </DataArray>
+    </FieldData>
+    <Piece NumberOfPoints='34' NumberOfPolys='16'>
+      <Points>
+        <DataArray type='Float32' Name='Points' NumberOfComponents='3' format='ascii'>
+1.2 0 0 1.2 0.005 0
+1.2 0.005 0.012 1.2 0 0.012
+1.2 0.01 0 1.2 0.01 0.012
+1.2 0.015 0 1.2 0.015 0.012
+1.2 0.02 0 1.2 0.02 0.012
+1.2 0.025 0 1.2 0.025 0.012
+1.2 0.03 0 1.2 0.03 0.012
+1.2 0.035 0 1.2 0.035 0.012
+1.2 0.04 0 1.2 0.04 0.012
+1.2 0.045 0 1.2 0.045 0.012
+1.2 0.05 0 1.2 0.05 0.012
+1.2 0.055 0 1.2 0.055 0.012
+1.2 0.06 0 1.2 0.06 0.012
+1.2 0.065 0 1.2 0.065 0.012
+1.2 0.07 0 1.2 0.07 0.012
+1.2 0.075 0 1.2 0.075 0.012
+1.2 0.08 0 1.2 0.08 0.012
+        </DataArray>
+      </Points>
+      <Polys>
+        <DataArray type='Int32' Name='connectivity' format='ascii'>
+0 1 2 3 1 4
+5 2 4 6 7 5
+6 8 9 7 8 10
+11 9 10 12 13 11
+12 14 15 13 14 16
+17 15 16 18 19 17
+18 20 21 19 20 22
+23 21 22 24 25 23
+24 26 27 25 26 28
+29 27 28 30 31 29
+30 32 33 31
+        </DataArray>
+        <DataArray type='Int32' Name='offsets' format='ascii'>
+4 8 12 16 20 24
+28 32 36 40 44 48
+52 56 60 64
+        </DataArray>
+      </Polys>
+      <CellData>
+        <DataArray type='Float32' Name='p' format='ascii'>
+0 0 0 0 0 0
+0 0 0 0 0 0
+0 0 0 0
+        </DataArray>
+        <DataArray type='Float32' Name='U' NumberOfComponents='3' format='ascii'>
+0.00223256 3.82226e-16 0 0.00613953 1.00745e-15 0
+0.00948837 1.56743e-15 0 0.0122791 2.21768e-15 0
+0.0145116 3.04635e-15 0 0.016186 3.98705e-15 0
+0.0173023 5.00776e-15 0 0.0178605 6.0384e-15 0
+0.0178605 6.94642e-15 0 0.0173023 7.67233e-15 0
+0.016186 8.10142e-15 0 0.0145116 8.18761e-15 0
+0.0122791 7.78865e-15 0 0.00948837 6.81008e-15 0
+0.00613953 4.89668e-15 0 0.00223256 1.78611e-15 0
+        </DataArray>
+      </CellData>
+    </Piece>
+  </PolyData>
+</VTKFile>

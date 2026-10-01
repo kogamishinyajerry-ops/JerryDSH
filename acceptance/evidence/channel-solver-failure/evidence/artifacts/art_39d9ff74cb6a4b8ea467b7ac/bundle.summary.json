@@ -1,0 +1,38 @@
+{
+ "bundle_id": "bundle_4ebdb201ce204c0992d1b689",
+ "task_id": "task_1c92dcfa7f5842688a74b0d4",
+ "revision": 1,
+ "evidence_mode": "REAL",
+ "purpose": "design_screening",
+ "complete": false,
+ "incomplete_items": [
+  {
+   "kind": "RUN_NOT_SUCCEEDED",
+   "cell": "public_channel×solver_failure",
+   "run_id": "run_d4060677f7ab4168ab7d3eec",
+   "execution_state": "FAILED"
+  },
+  {
+   "kind": "MISSING_RAW_REPORT",
+   "cell": "public_channel×solver_failure",
+   "run_id": "run_d4060677f7ab4168ab7d3eec"
+  },
+  {
+   "kind": "MISSING_VERIFICATION",
+   "cell": "public_channel×solver_failure",
+   "run_id": "run_d4060677f7ab4168ab7d3eec"
+  }
+ ],
+ "prepared_artifact_issues": [],
+ "method_package": {
+  "capability_package_id": "openfoam_channel",
+  "version": "0.1.0",
+  "status": "DRAFT",
+  "manifest_sha256": "b91da8b7d79c1e922d7383e9fe11e1b082ac4bec54013d42986f1990822fead7",
+  "declared_sha256": "b91da8b7d79c1e922d7383e9fe11e1b082ac4bec54013d42986f1990822fead7",
+  "digest_match": true,
+  "released": false
+ },
+ "uncovered_scope": "缺 3 项（详见 incomplete_items）",
+ "limitations": "仅限内部方案筛选用途；不构成适航符合性结论。"
+}

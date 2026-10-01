@@ -1,0 +1,80 @@
+{
+ "verification_id": "ver_409f7f20b43341a28221e58d",
+ "run_id": "run_a63dedd76a624965996c7381",
+ "attempt_id": "att_225a07cda8c245b18727960c",
+ "rule_set_sha256": "fd7c2e65a79463d54d538532c02e7be539f528feceda6aeef5982123d0b571e7",
+ "check_inputs": {
+  "metric_values": {
+   "boundary_mass_flow@inlet": -0.01368000000000266,
+   "total_pressure@inlet": 32.02898573294937,
+   "static_pressure@inlet": 31.857165422073745,
+   "boundary_mass_flow@outlet": 0.01368000000000247,
+   "total_pressure@outlet": 0.1641797878527589,
+   "static_pressure@outlet": 0.0,
+   "steady_mass_imbalance": null,
+   "outlet_distribution@outlet": 1.0,
+   "total_pressure_loss": 31.864805945096613,
+   "monitor_stability": null
+  },
+  "missing_metrics": [
+   "steady_mass_imbalance",
+   "monitor_stability"
+  ],
+  "required_metrics": [
+   "boundary_mass_flow@inlet",
+   "boundary_mass_flow@outlet",
+   "static_pressure@inlet",
+   "static_pressure@outlet"
+  ],
+  "rule_status": "DRAFT"
+ },
+ "conclusion": "INSUFFICIENT",
+ "findings": [
+  {
+   "kind": "UNFROZEN_THRESHOLD",
+   "metric_id": "steady_mass_imbalance",
+   "message": "m_floor 未冻结（Owner/TBD-06），稳态质量不平衡无法按批准口径计算"
+  },
+  {
+   "kind": "UNFROZEN_THRESHOLD",
+   "metric_id": "total_pressure_loss",
+   "message": "批准截面/权重未冻结（Owner/TBD-06），总压损失口径 UNCONFIRMED"
+  },
+  {
+   "kind": "UNFROZEN_THRESHOLD",
+   "metric_id": "monitor_stability",
+   "message": "监控窗口/最小采样长度未冻结（Owner/TBD-06），监控稳定性无法按批准口径判定"
+  },
+  {
+   "kind": "MISSING_METRIC",
+   "metric_id": "steady_mass_imbalance",
+   "message": "指标 steady_mass_imbalance 缺失（null + MISSING；不填 0 不估算）"
+  },
+  {
+   "kind": "MISSING_METRIC",
+   "metric_id": "monitor_stability",
+   "message": "指标 monitor_stability 缺失（null + MISSING；不填 0 不估算）"
+  },
+  {
+   "kind": "RULE_UNCONFIRMED",
+   "rule_id": "RULE-MASS-IMBALANCE",
+   "severity": "BLOCKER",
+   "message": "规则 RULE-MASS-IMBALANCE 判据缺失或含 null/TBD：Owner 未冻结（TBD-06），本项 UNCONFIRMED，不判定"
+  },
+  {
+   "kind": "RULE_UNCONFIRMED",
+   "rule_id": "RULE-MONITOR-STABILITY",
+   "severity": "BLOCKER",
+   "message": "规则 RULE-MONITOR-STABILITY 判据缺失或含 null/TBD：Owner 未冻结（TBD-06），本项 UNCONFIRMED，不判定"
+  },
+  {
+   "kind": "APPLICABILITY_UNCONFIRMED",
+   "message": "能力包适用范围存在 UNCONFIRMED 项（TBD-04），适用性不能显示为 IN_SCOPE"
+  }
+ ],
+ "source_artifact_ids": [
+  "art_19daa091dae741c88c19efd7",
+  "art_23138937fc8a453aa688da9c",
+  "art_cf1aaf573b0348dfaf753574"
+ ]
+}

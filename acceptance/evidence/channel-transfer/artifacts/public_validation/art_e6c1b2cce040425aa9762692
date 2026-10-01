@@ -1,0 +1,6 @@
+{
+ "source_refs": [
+  "public-validation:transfer:inputs.json"
+ ],
+ "spec_sha256": "329ab9d9c5fe50844a3544a8647812b8eecaa83cba27787aa56abead38fdba3b"
+}

@@ -1,0 +1,6 @@
+{
+ "public-openfoam-acc-01": "/opt/data/openfoam-templates/channel-acc.tar",
+ "public-openfoam-fault-01": "/opt/data/openfoam-templates/channel-fault.tar",
+ "public-openfoam-blind-01": "/opt/data/openfoam-templates/channel-blind.tar",
+ "public-openfoam-cancel-01": "/opt/data/openfoam-templates/channel-cancel.tar"
+}

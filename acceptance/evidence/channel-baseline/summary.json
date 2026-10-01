@@ -1,0 +1,111 @@
+{
+  "schema_version": "dsh-sim-validation/v1",
+  "identity_mode": "local_validation_fixture",
+  "scenario": "baseline",
+  "started_at": "2026-10-01T03:48:08.864877+00:00",
+  "evidence_mode": "REAL",
+  "task_id": "task_5b0e19293eb14e9bb73b8591",
+  "revision": 1,
+  "spec_sha256": "ee3fe8fb9cee32429216fc91061ac8a1e62630cf093509a45dba4a206496d949",
+  "preparation_id": "prep_827a2b83774b4f81940d6177",
+  "prepared_digest": "7b185a877da2e34ca6c9c64ce6ed56158b617ff1d4c0d022702a85c2d32dfa49",
+  "run_ids": [
+    "run_7c934add18184897b658f45a"
+  ],
+  "runs": [
+    {
+      "run_id": "run_7c934add18184897b658f45a",
+      "execution_state": "SUCCEEDED",
+      "numerical_state": "INSUFFICIENT",
+      "applicability_state": "UNCONFIRMED",
+      "attempt_id": "att_8caa028d44674afbbe3a9952"
+    }
+  ],
+  "bundle_id": "bundle_233b0b773d5c47959a99912c",
+  "bundle_digest": "9bbd7cbb3fcbec6c54d1fdb05043e0a57873c703d91b817e0fc57c6655cd9869",
+  "integrity": {
+    "bundle_id": "bundle_233b0b773d5c47959a99912c",
+    "bundle_digest": "9bbd7cbb3fcbec6c54d1fdb05043e0a57873c703d91b817e0fc57c6655cd9869",
+    "verified_artifacts": 65,
+    "integrity": "VERIFIED"
+  },
+  "expected_execution_state": "SUCCEEDED",
+  "scenario_assertions_passed": true,
+  "observations": {
+    "metric_values": {
+      "boundary_mass_flow@inlet": -0.010000000000000401,
+      "total_pressure@inlet": 11.988079997851175,
+      "static_pressure@inlet": 11.908619999999999,
+      "boundary_mass_flow@outlet": 0.009999999999998399,
+      "total_pressure@outlet": 0.0766635123423069,
+      "static_pressure@outlet": 0.0,
+      "steady_mass_imbalance": null,
+      "outlet_distribution@outlet": 1.0,
+      "total_pressure_loss": 11.911416485508868,
+      "monitor_stability": null
+    },
+    "static_pressure_drop_pa": 11.908619999999999,
+    "analytical_fully_developed_drop_pa": 11.999999999999996,
+    "relative_reference_difference": 0.007614999999999782,
+    "source_artifact_id": "art_5f5ef60155b4474bb4208be7",
+    "source_sha256": "c0a767f960a29077afe423807956b23ecf7407b24f6be3f9f277ccc1edabc360",
+    "interpretation": "Diagnostic comparison; no engineering tolerance has been frozen. Source pressure is relative to the solver reference."
+  },
+  "verifications": [
+    {
+      "run_id": "run_7c934add18184897b658f45a",
+      "conclusion": "INSUFFICIENT",
+      "findings": [
+        {
+          "kind": "UNFROZEN_THRESHOLD",
+          "metric_id": "steady_mass_imbalance",
+          "message": "m_floor 未冻结（Owner/TBD-06），稳态质量不平衡无法按批准口径计算"
+        },
+        {
+          "kind": "UNFROZEN_THRESHOLD",
+          "metric_id": "total_pressure_loss",
+          "message": "批准截面/权重未冻结（Owner/TBD-06），总压损失口径 UNCONFIRMED"
+        },
+        {
+          "kind": "UNFROZEN_THRESHOLD",
+          "metric_id": "monitor_stability",
+          "message": "监控窗口/最小采样长度未冻结（Owner/TBD-06），监控稳定性无法按批准口径判定"
+        },
+        {
+          "kind": "MISSING_METRIC",
+          "metric_id": "steady_mass_imbalance",
+          "message": "指标 steady_mass_imbalance 缺失（null + MISSING；不填 0 不估算）"
+        },
+        {
+          "kind": "MISSING_METRIC",
+          "metric_id": "monitor_stability",
+          "message": "指标 monitor_stability 缺失（null + MISSING；不填 0 不估算）"
+        },
+        {
+          "kind": "RULE_UNCONFIRMED",
+          "rule_id": "RULE-MASS-IMBALANCE",
+          "severity": "BLOCKER",
+          "message": "规则 RULE-MASS-IMBALANCE 判据缺失或含 null/TBD：Owner 未冻结（TBD-06），本项 UNCONFIRMED，不判定"
+        },
+        {
+          "kind": "RULE_UNCONFIRMED",
+          "rule_id": "RULE-MONITOR-STABILITY",
+          "severity": "BLOCKER",
+          "message": "规则 RULE-MONITOR-STABILITY 判据缺失或含 null/TBD：Owner 未冻结（TBD-06），本项 UNCONFIRMED，不判定"
+        },
+        {
+          "kind": "APPLICABILITY_UNCONFIRMED",
+          "message": "能力包适用范围存在 UNCONFIRMED 项（TBD-04），适用性不能显示为 IN_SCOPE"
+        }
+      ]
+    }
+  ],
+  "report_path": "/opt/data/channel-baseline/report.html",
+  "summary_path": "/opt/data/channel-baseline/summary.json",
+  "limitations": [
+    "Public local validation fixture; production identity and authorization are not exercised.",
+    "Method is DRAFT; engineering tolerances and applicability remain unconfirmed.",
+    "DSH natural-language/LLM execution is not exercised by this deterministic command.",
+    "Serial OpenFOAM v1912 only; STAR-CCM+, MPI and sim-live-hub are not validated."
+  ]
+}

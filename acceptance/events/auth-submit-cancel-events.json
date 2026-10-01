@@ -1,0 +1,578 @@
+{
+ "schema_version": "acceptance-events/v1",
+ "note": "人工授权（authorizations + 已消费确认凭据的元数据）、首次 runner 提交与取消的相关事件。仅本验收涉及的任务；不含凭证内容（confirmation 行只导出主体/动作/消费时间）。事件经 jobs.run_id 关联。",
+ "authorizations": [
+  {
+   "authorization_id": "authz_c924d3b1272247148b61eec9",
+   "task_id": "task_0dd8d88c5f804ebeacdb2242",
+   "revision": 1,
+   "preparation_id": "prep_45eae71a5e8740d888928add",
+   "prepared_digest": "9fbd40846d00baf83eae69b152275816c83c9d598c40fbf8680acec0ca06e918",
+   "execution_budget": "{\"max_concurrent\": 1, \"cpu_cores\": 1, \"memory_gb\": 1, \"wallclock_hours\": 0.5, \"max_attempts_total\": 1}",
+   "authorized_by": "dev-executor",
+   "purpose": "design_screening",
+   "validity": "CURRENT",
+   "revoked_at": null,
+   "created_at": "2026-10-01 04:18:06.318879"
+  },
+  {
+   "authorization_id": "authz_71186865840b445484b4812f",
+   "task_id": "task_711001721b5146d796a571ad",
+   "revision": 1,
+   "preparation_id": "prep_0656e3fc26be427595c71ff0",
+   "prepared_digest": "ad637eccb1696e17cffac13be4b130de1b6f67f05d709a08bcbe82ada61b9323",
+   "execution_budget": "{\"max_concurrent\": 1, \"cpu_cores\": 1, \"memory_gb\": 1, \"wallclock_hours\": 0.5, \"max_attempts_total\": 1}",
+   "authorized_by": "dev-executor",
+   "purpose": "design_screening",
+   "validity": "CURRENT",
+   "revoked_at": null,
+   "created_at": "2026-10-01 04:35:49.461225"
+  },
+  {
+   "authorization_id": "authz_69b1d4bcc0eb450d8f5ccb8a",
+   "task_id": "task_dbfe3d56ba594c1b98050731",
+   "revision": 1,
+   "preparation_id": "prep_7fc5d0622d684d4ba594419b",
+   "prepared_digest": "a528fee5dfad8e538fa084122bebce4c39a3341637a9902d248fe8493c4a5202",
+   "execution_budget": "{\"max_concurrent\": 1, \"cpu_cores\": 1, \"memory_gb\": 1, \"wallclock_hours\": 0.5, \"max_attempts_total\": 1}",
+   "authorized_by": "dev-executor",
+   "purpose": "design_screening",
+   "validity": "CURRENT",
+   "revoked_at": null,
+   "created_at": "2026-10-01 04:35:55.744052"
+  },
+  {
+   "authorization_id": "authz_b1d3002ad8004c38972a3b0d",
+   "task_id": "task_deb83d6db9f442078280dea4",
+   "revision": 1,
+   "preparation_id": "prep_aa38b1ba96614a84860b4ffa",
+   "prepared_digest": "c9968f82d9e867021cfa4b8eb4e4350e734aef523fbcd39c006a10ad11ec872b",
+   "execution_budget": "{\"max_concurrent\": 1, \"cpu_cores\": 1, \"memory_gb\": 1, \"wallclock_hours\": 0.5, \"max_attempts_total\": 1}",
+   "authorized_by": "dev-executor",
+   "purpose": "design_screening",
+   "validity": "CURRENT",
+   "revoked_at": null,
+   "created_at": "2026-10-01 04:36:02.053818"
+  },
+  {
+   "authorization_id": "authz_fe67796790584221b287a214",
+   "task_id": "task_89a623fce3c2426ead12e103",
+   "revision": 1,
+   "preparation_id": "prep_752daa0c90884f049653f863",
+   "prepared_digest": "ab609ca31bd44c21007c976a2ff0825a56421442546063ffad6fc58abfb73800",
+   "execution_budget": "{\"max_concurrent\": 1, \"cpu_cores\": 1, \"memory_gb\": 1, \"wallclock_hours\": 0.5, \"max_attempts_total\": 1}",
+   "authorized_by": "dev-executor",
+   "purpose": "design_screening",
+   "validity": "CURRENT",
+   "revoked_at": null,
+   "created_at": "2026-10-01 03:54:22.109131"
+  }
+ ],
+ "human_confirmations": [
+  {
+   "confirmation_id": "conf_215617635a40486aa4bcca90",
+   "subject_id": "dev-executor",
+   "action": "authorizeRuns",
+   "target_id": "task_0dd8d88c5f804ebeacdb2242",
+   "expires_at": "2026-10-01 04:23:06.310680",
+   "consumed_at": "2026-10-01 04:18:06.318347"
+  },
+  {
+   "confirmation_id": "conf_99d42be99b6044d282d3c8c4",
+   "subject_id": "dev-executor",
+   "action": "authorizeRuns",
+   "target_id": "task_711001721b5146d796a571ad",
+   "expires_at": "2026-10-01 04:40:49.450375",
+   "consumed_at": "2026-10-01 04:35:49.460697"
+  },
+  {
+   "confirmation_id": "conf_979f1475d98f493d8c929c6d",
+   "subject_id": "dev-executor",
+   "action": "authorizeRuns",
+   "target_id": "task_dbfe3d56ba594c1b98050731",
+   "expires_at": "2026-10-01 04:40:55.733056",
+   "consumed_at": "2026-10-01 04:35:55.743459"
+  },
+  {
+   "confirmation_id": "conf_24aaea3ea7594e63a24ded3a",
+   "subject_id": "dev-executor",
+   "action": "authorizeRuns",
+   "target_id": "task_deb83d6db9f442078280dea4",
+   "expires_at": "2026-10-01 04:41:02.042064",
+   "consumed_at": "2026-10-01 04:36:02.053107"
+  },
+  {
+   "confirmation_id": "conf_d59d275de89843be957918b7",
+   "subject_id": "dev-executor",
+   "action": "authorizeRuns",
+   "target_id": "task_89a623fce3c2426ead12e103",
+   "expires_at": "2026-10-01 03:59:22.096118",
+   "consumed_at": "2026-10-01 03:54:22.107646"
+  }
+ ],
+ "runs": {
+  "run_763d86b0a05c42e8b59a0e79": {
+   "run": {
+    "run_id": "run_763d86b0a05c42e8b59a0e79",
+    "task_id": "task_0dd8d88c5f804ebeacdb2242",
+    "revision": 1,
+    "variant_id": "acc_channel",
+    "condition_id": "nominal",
+    "execution_state": "SUCCEEDED",
+    "numerical_state": "INSUFFICIENT",
+    "applicability_state": "UNCONFIRMED",
+    "current_attempt_id": "att_a9d0546f02cd47899f58ff60",
+    "created_at": "2026-10-01 04:19:16.237626"
+   },
+   "jobs": [
+    {
+     "job_id": "job_a0ed1b638a4a477999382f56",
+     "kind": "EXECUTE",
+     "state": "SUCCEEDED",
+     "attempt_id": "att_a9d0546f02cd47899f58ff60"
+    }
+   ],
+   "events": [
+    {
+     "job_id": "job_a0ed1b638a4a477999382f56",
+     "event_seq": 1,
+     "kind": "STARTING",
+     "payload": "{\"attempt_id\": \"att_a9d0546f02cd47899f58ff60\", \"launch_intent_id\": \"intent-job_a0ed1b638a4a477999382f56\", \"work_dir_summary\": \"fdaf782c8fda1b12\", \"stage\": \"environment_probe\"}",
+     "occurred_at": "2026-10-01 04:19:16.692123"
+    },
+    {
+     "job_id": "job_a0ed1b638a4a477999382f56",
+     "event_seq": 2,
+     "kind": "RUNNING",
+     "payload": "{\"process_identity\": {\"identity\": \"{\\\"boot_id\\\":\\\"748ab20b-2568-442e-8efe-8a87771b0a98\\\",\\\"local_pgid\\\":6351,\\\"local_pid\\\":6351,\\\"pgid\\\":6351,\\\"pid\\\":6351,\\\"pid_namespace\\\":\\\"pid:[4026533505]\\\",\\\"start_ticks\\\":4195376}\", \"adapter_job_id\": \"openfoam-fb019b39d0314cd6abbb045db47661ad\", \"work_dir\": \"/opt/data/worker/run_763d86b0a05c42e8b59a0e79/attempt-1\", \"launch_args\": [\"/opt/venv/bin/python\", \"-m\", \"dsh_sim.adapters.openfoam_adapter\", \"--run-job\", \"/opt/data/worker/run_763d86b0a05c42e8b59a0e79/attempt-1/openfoam-job.json\"]}, \"software_build\": \"Using: OpenFOAM- (1912) - visit www.openfoam.com; Build:  (patch=200626); Arch:  LSB;label=32;scalar=64\", \"stage\": \"launch\", \"evidence_mode\": \"REAL\", \"method_version\": \"0.1.0\", \"method_digest_match\": true, \"mock_method_fixture\": false}",
+     "occurred_at": "2026-10-01 04:19:18.199695"
+    },
+    {
+     "job_id": "job_a0ed1b638a4a477999382f56",
+     "event_seq": 3,
+     "kind": "HEARTBEAT",
+     "payload": "{\"stage\": \"RUNNING\", \"log_location\": \"/opt/data/worker/run_763d86b0a05c42e8b59a0e79/attempt-1/logs/simpleFoam.stdout.log\", \"resource_state\": {\"cpu_cores\": 1}, \"evidence_mode\": \"REAL\"}",
+     "occurred_at": "2026-10-01 04:19:18.206153"
+    },
+    {
+     "job_id": "job_a0ed1b638a4a477999382f56",
+     "event_seq": 4,
+     "kind": "HEARTBEAT",
+     "payload": "{\"stage\": \"RUNNING\", \"log_location\": \"/opt/data/worker/run_763d86b0a05c42e8b59a0e79/attempt-1/logs/simpleFoam.stdout.log\", \"resource_state\": {\"cpu_cores\": 1}, \"evidence_mode\": \"REAL\"}",
+     "occurred_at": "2026-10-01 04:19:19.212594"
+    },
+    {
+     "job_id": "job_a0ed1b638a4a477999382f56",
+     "event_seq": 5,
+     "kind": "COMPLETED",
+     "payload": "{\"exit_code\": 0, \"exit_proof\": {\"process_exited\": true, \"process_group_exited\": true, \"returncode\": 0, \"process_identity\": \"{\\\"boot_id\\\":\\\"748ab20b-2568-442e-8efe-8a87771b0a98\\\",\\\"local_pgid\\\":6351,\\\"local_pid\\\":6351,\\\"pgid\\\":6351,\\\"pid\\\":6351,\\\"pid_namespace\\\":\\\"pid:[4026533505]\\\",\\\"start_ticks\\\":4195376}\", \"evidence\": \"Linux boot ID + PID start ticks + process group scan; zombie processes excluded\", \"remaining_pids\": []}, \"artifact_ids\": [\"art_bef35fc5f9aa49758ea141c4\", \"art_b10923be0df7442e840938a7\", \"art_d2134d452b5845d28b864a9a\", \"art_d0b9a5b1727a4c05bea70a7c\", \"art_2b9b27c1ef1b41ac98512214\", \"art_66b838de78c2403588530ea2\", \"art_0fad165d21514b809e2d0730\", \"art_d49e542403974b2fb4e35080\", \"art_e854c42290214f799592ec52\", \"art_d596aa2268b945bd9cfda08e\", \"art_ac5a1b21a52a4f30bef1a58c\", \"art_3e7f57751e9d45b484041b3c\", \"art_4d67d60dc7104404a63a2db3\", \"art_eea07e5a698c4e4499a6145c\", \"art_a0acc003b10e4a6db8c32a14\", \"art_2fe61a183cf44441a041807a\", \"art_3c0aa24914f842e9aad4e98e\", \"art_99648d16afe74ec4bcc3fd4c\", \"art_47a6b6621eed41d79ff69d39\", \"art_0d49af6da8284f82b2d163d6\", \"art_d4b3b97c7fdc4a8cb4ee6b9f\", \"art_33f7ec809d4e43f8a791eabb\", \"art_3efb8251b79649f8b87988cf\", \"art_c8b70447ec4f4b069a272a4a\", \"art_9ef2cf14030f43cabb9264d2\", \"art_01291f4a90264860b5d78149\", \"art_e64aa0148d044df49925c2dd\", \"art_b05dde34476b44c1a08a8d03\", \"art_fb65e04ecf004750a15535a7\", \"art_91bed0e5733c49d1810d8560\", \"art_1cf11263187b4e06a58c5784\", \"art_f51b523924f34093982e4dc6\", \"art_bca76386ef2844ffb99c5868\", \"art_910357e0eb77406da22a89aa\", \"art_feb5841864224dd2a59313c8\", \"art_191ff921d56b4f949b6d3d82\", \"art_9e40742f816f416ab5b72e97\", \"art_cf986ae5130b489c86f59914\", \"art_a7a19e5a022c4e02afa27350\", \"art_6cf45b0681fc4239b784379d\", \"art_72d3f967e67848959e2c05d7\", \"art_5c2729c8e48641108faf49cc\", \"art_8f7944aa6d2d42009fffd0a0\", \"art_c64de88196ce4b109486b35e\", \"art_a9cb090b55e044878afbc6eb\", \"art_d9a76656ed80484182fa2b6d\", \"art_41a5351658894d69a349a635\", \"art_4cbc6f541f4f4de6b9f31d47\", \"art_9a1852b432f14e68b6e9e8a6\", \"art_0d311dfc87964bb0b58b1de7\", \"art_0bf13560debb49ed8120903e\", \"art_d78e509ef5df4562831fde7f\"], \"verification_id\": \"ver_3c330631d11d4f2c9303e6af\", \"numerical_conclusion\": \"INSUFFICIENT\", \"applicability\": \"UNCONFIRMED\", \"evidence_mode\": \"REAL\", \"method_version\": \"0.1.0\", \"method_digest_match\": true}",
+     "occurred_at": "2026-10-01 04:19:20.431776"
+    }
+   ]
+  },
+  "run_5224378fc02f400ea6a6c7ff": {
+   "run": {
+    "run_id": "run_5224378fc02f400ea6a6c7ff",
+    "task_id": "task_711001721b5146d796a571ad",
+    "revision": 1,
+    "variant_id": "blind_channel",
+    "condition_id": "nominal",
+    "execution_state": "SUCCEEDED",
+    "numerical_state": "INSUFFICIENT",
+    "applicability_state": "UNCONFIRMED",
+    "current_attempt_id": "att_a8385abb029648b0a95e1b71",
+    "created_at": "2026-10-01 04:37:18.567045"
+   },
+   "jobs": [
+    {
+     "job_id": "job_29136ac964294b6284ea5aec",
+     "kind": "EXECUTE",
+     "state": "SUCCEEDED",
+     "attempt_id": "att_a8385abb029648b0a95e1b71"
+    }
+   ],
+   "events": [
+    {
+     "job_id": "job_29136ac964294b6284ea5aec",
+     "event_seq": 1,
+     "kind": "STARTING",
+     "payload": "{\"attempt_id\": \"att_a8385abb029648b0a95e1b71\", \"launch_intent_id\": \"intent-job_29136ac964294b6284ea5aec\", \"work_dir_summary\": \"ba1abaaf2bfa1183\", \"stage\": \"environment_probe\"}",
+     "occurred_at": "2026-10-01 04:37:19.196922"
+    },
+    {
+     "job_id": "job_29136ac964294b6284ea5aec",
+     "event_seq": 2,
+     "kind": "RUNNING",
+     "payload": "{\"process_identity\": {\"identity\": \"{\\\"boot_id\\\":\\\"748ab20b-2568-442e-8efe-8a87771b0a98\\\",\\\"local_pgid\\\":6561,\\\"local_pid\\\":6561,\\\"pgid\\\":6561,\\\"pid\\\":6561,\\\"pid_namespace\\\":\\\"pid:[4026533505]\\\",\\\"start_ticks\\\":4303620}\", \"adapter_job_id\": \"openfoam-7f7892decdb44133973a247ba6fd3d7b\", \"work_dir\": \"/opt/data/worker/run_5224378fc02f400ea6a6c7ff/attempt-1\", \"launch_args\": [\"/opt/venv/bin/python\", \"-m\", \"dsh_sim.adapters.openfoam_adapter\", \"--run-job\", \"/opt/data/worker/run_5224378fc02f400ea6a6c7ff/attempt-1/openfoam-job.json\"]}, \"software_build\": \"Using: OpenFOAM- (1912) - visit www.openfoam.com; Build:  (patch=200626); Arch:  LSB;label=32;scalar=64\", \"stage\": \"launch\", \"evidence_mode\": \"REAL\", \"method_version\": \"0.1.0\", \"method_digest_match\": true, \"mock_method_fixture\": false}",
+     "occurred_at": "2026-10-01 04:37:20.649971"
+    },
+    {
+     "job_id": "job_29136ac964294b6284ea5aec",
+     "event_seq": 3,
+     "kind": "HEARTBEAT",
+     "payload": "{\"stage\": \"RUNNING\", \"log_location\": \"/opt/data/worker/run_5224378fc02f400ea6a6c7ff/attempt-1/logs/simpleFoam.stdout.log\", \"resource_state\": {\"cpu_cores\": 1}, \"evidence_mode\": \"REAL\"}",
+     "occurred_at": "2026-10-01 04:37:20.657837"
+    },
+    {
+     "job_id": "job_29136ac964294b6284ea5aec",
+     "event_seq": 4,
+     "kind": "HEARTBEAT",
+     "payload": "{\"stage\": \"RUNNING\", \"log_location\": \"/opt/data/worker/run_5224378fc02f400ea6a6c7ff/attempt-1/logs/simpleFoam.stdout.log\", \"resource_state\": {\"cpu_cores\": 1}, \"evidence_mode\": \"REAL\"}",
+     "occurred_at": "2026-10-01 04:37:21.666445"
+    },
+    {
+     "job_id": "job_29136ac964294b6284ea5aec",
+     "event_seq": 5,
+     "kind": "COMPLETED",
+     "payload": "{\"exit_code\": 0, \"exit_proof\": {\"process_exited\": true, \"process_group_exited\": true, \"returncode\": 0, \"process_identity\": \"{\\\"boot_id\\\":\\\"748ab20b-2568-442e-8efe-8a87771b0a98\\\",\\\"local_pgid\\\":6561,\\\"local_pid\\\":6561,\\\"pgid\\\":6561,\\\"pid\\\":6561,\\\"pid_namespace\\\":\\\"pid:[4026533505]\\\",\\\"start_ticks\\\":4303620}\", \"evidence\": \"Linux boot ID + PID start ticks + process group scan; zombie processes excluded\", \"remaining_pids\": []}, \"artifact_ids\": [\"art_086f1b241d7b407cae63ac1d\", \"art_2fe6f4688fde4bbb8139b074\", \"art_225632fb2bd349fea7d6a278\", \"art_c45e9c0ae17d450c979c46ed\", \"art_ffbe3c14567640ac9a06f65c\", \"art_6dd4de7a4b124eddb9e7f972\", \"art_50ca40c1490f45cf85438608\", \"art_474244845ab542bca4e3195f\", \"art_dcdb5edb7e004371a4b68d4c\", \"art_606896988418424f8666f635\", \"art_a3712a1ef6224024afb8759b\", \"art_f6336a13e4514a9cae2fb87a\", \"art_c1342d04b06c4f84bfd1a09f\", \"art_ecc20ab8fb4b4681a27f8967\", \"art_340307d5399f4145a3446e9f\", \"art_60c7bc1118d14d2aaca46c44\", \"art_ff77fe6a1c964d3092018871\", \"art_955f159664b14070b3deb14e\", \"art_26e4a01c80834e7ea124ca47\", \"art_aa1bc4729633425ca566901e\", \"art_3f607a1729674389a37a76ba\", \"art_7e4c83114cd744aebb2525d6\", \"art_4c51289fcdb34d148dc1c25c\", \"art_9829ee03f5ea4a489d55dc74\", \"art_937aec25f8874b40b20e4256\", \"art_204c30fedb3b4b30ae67ea07\", \"art_d75faaa55d244620854e7efe\", \"art_4539d987cdb646d5aca5c67b\", \"art_fb72bd8866c74576b35aecb6\", \"art_5cf934f1f19c471ea2b08715\", \"art_b0bce37d9189403ba5d030e5\", \"art_499d0dbdcb204fe79c662d4e\", \"art_1e9011318b704ee48ad4b0aa\", \"art_eef800468b5348c1bac31545\", \"art_75e03ca337e24abf80878308\", \"art_61ad67e1b21b4d559d710886\", \"art_cc2f5a57314744aab46fa973\", \"art_fb06858a4ff742e4b1a99c7a\", \"art_722bf14ba39543faba204204\", \"art_a7d9737274404e24a25a6687\", \"art_90d2bf3962764dc19465b98b\", \"art_fa5491f7c52c45bcb47533d3\", \"art_2025b3b05d944d068bcd596e\", \"art_6a8008a542bb449590bd8801\", \"art_90b7c6d53a8b4236be025e5e\", \"art_d42a4588b0ad4b8590bd9ca6\", \"art_718ef6a2b31b4f5cb452918d\", \"art_daf42a09b65d4ee292adaeea\", \"art_6654ff4a540a4de28fe476a8\", \"art_6a998eb7861641bebc9675be\", \"art_eec4a651f8674098b39e5fc3\", \"art_03a52ffda44c4b43b6c1c7b1\"], \"verification_id\": \"ver_c15e5d8457f5443083143d71\", \"numerical_conclusion\": \"INSUFFICIENT\", \"applicability\": \"UNCONFIRMED\", \"evidence_mode\": \"REAL\", \"method_version\": \"0.1.0\", \"method_digest_match\": true}",
+     "occurred_at": "2026-10-01 04:37:22.875770"
+    }
+   ]
+  },
+  "run_1461d0ae05d547fca9612771": {
+   "run": {
+    "run_id": "run_1461d0ae05d547fca9612771",
+    "task_id": "task_dbfe3d56ba594c1b98050731",
+    "revision": 1,
+    "variant_id": "fault_channel",
+    "condition_id": "nominal",
+    "execution_state": "FAILED",
+    "numerical_state": "NOT_CHECKED",
+    "applicability_state": "UNCONFIRMED",
+    "current_attempt_id": "att_87a06f543d3b4bbea6924a6d",
+    "created_at": "2026-10-01 04:37:37.021331"
+   },
+   "jobs": [
+    {
+     "job_id": "job_4cd576de420d411497d0dec6",
+     "kind": "EXECUTE",
+     "state": "FAILED",
+     "attempt_id": "att_87a06f543d3b4bbea6924a6d"
+    }
+   ],
+   "events": [
+    {
+     "job_id": "job_4cd576de420d411497d0dec6",
+     "event_seq": 1,
+     "kind": "STARTING",
+     "payload": "{\"attempt_id\": \"att_87a06f543d3b4bbea6924a6d\", \"launch_intent_id\": \"intent-job_4cd576de420d411497d0dec6\", \"work_dir_summary\": \"a9a4faa3a57a4ba8\", \"stage\": \"environment_probe\"}",
+     "occurred_at": "2026-10-01 04:37:38.971936"
+    },
+    {
+     "job_id": "job_4cd576de420d411497d0dec6",
+     "event_seq": 2,
+     "kind": "RUNNING",
+     "payload": "{\"process_identity\": {\"identity\": \"{\\\"boot_id\\\":\\\"748ab20b-2568-442e-8efe-8a87771b0a98\\\",\\\"local_pgid\\\":6576,\\\"local_pid\\\":6576,\\\"pgid\\\":6576,\\\"pid\\\":6576,\\\"pid_namespace\\\":\\\"pid:[4026533505]\\\",\\\"start_ticks\\\":4305601}\", \"adapter_job_id\": \"openfoam-5d17cac586f8454ca5a185c73d805b17\", \"work_dir\": \"/opt/data/worker/run_1461d0ae05d547fca9612771/attempt-1\", \"launch_args\": [\"/opt/venv/bin/python\", \"-m\", \"dsh_sim.adapters.openfoam_adapter\", \"--run-job\", \"/opt/data/worker/run_1461d0ae05d547fca9612771/attempt-1/openfoam-job.json\"]}, \"software_build\": \"Using: OpenFOAM- (1912) - visit www.openfoam.com; Build:  (patch=200626); Arch:  LSB;label=32;scalar=64\", \"stage\": \"launch\", \"evidence_mode\": \"REAL\", \"method_version\": \"0.1.0\", \"method_digest_match\": true, \"mock_method_fixture\": false}",
+     "occurred_at": "2026-10-01 04:37:40.463550"
+    },
+    {
+     "job_id": "job_4cd576de420d411497d0dec6",
+     "event_seq": 3,
+     "kind": "HEARTBEAT",
+     "payload": "{\"stage\": \"RUNNING\", \"log_location\": \"/opt/data/worker/run_1461d0ae05d547fca9612771/attempt-1/logs/simpleFoam.stdout.log\", \"resource_state\": {\"cpu_cores\": 1}, \"evidence_mode\": \"REAL\"}",
+     "occurred_at": "2026-10-01 04:37:40.471553"
+    },
+    {
+     "job_id": "job_4cd576de420d411497d0dec6",
+     "event_seq": 4,
+     "kind": "FAILED",
+     "payload": "{\"reason\": \"\\u9002\\u914d\\u5668\\u62a5\\u544a FAILED\", \"exit_code\": 1, \"exit_proof\": {\"process_exited\": true, \"process_group_exited\": true, \"returncode\": 1, \"process_identity\": \"{\\\"boot_id\\\":\\\"748ab20b-2568-442e-8efe-8a87771b0a98\\\",\\\"local_pgid\\\":6576,\\\"local_pid\\\":6576,\\\"pgid\\\":6576,\\\"pid\\\":6576,\\\"pid_namespace\\\":\\\"pid:[4026533505]\\\",\\\"start_ticks\\\":4305601}\", \"evidence\": \"Linux boot ID + PID start ticks + process group scan; zombie processes excluded\", \"remaining_pids\": []}, \"exit_unconfirmed\": false, \"execution_state\": \"FAILED\", \"evidence_mode\": \"REAL\", \"artifact_ids\": [\"art_054c8efb9f57495fb5405c0d\", \"art_071f31967649459386c70cf2\", \"art_07a828f951b14eb68668eeec\", \"art_0874de9dcbed418183cc22a2\", \"art_0f20598f626a46498f50bb8d\", \"art_10f861bf2d2449aca8d92983\", \"art_314d631e0cca4462a6ffe112\", \"art_3dfdb595e5654772b69a2d7a\", \"art_4950c096a3214ba58f8bbcf0\", \"art_49f2e79eeb104a6f9afe3f55\", \"art_57b9a7dcf0aa4b1a8ee63674\", \"art_5bf4618233344af4bcc7f341\", \"art_5cf0ccfb881d4c5b90faf9b5\", \"art_5e28ec1aba3c40fc99e0c48c\", \"art_79cc5118bd954d96a715ac22\", \"art_8c0459aba8be43d28a67cd40\", \"art_9032564c634647639ff53161\", \"art_9f830abb29374a84a5ea78f9\", \"art_a32b262d2eb14fd69c384cdb\", \"art_ad941549bc724406b75a7ee9\", \"art_b98bf7334d29446da75b6221\", \"art_bc08dd75a5f14ababf29cb51\", \"art_bc65aebb6a9b480f9b87b159\", \"art_bd96763a973243f486bb28c6\", \"art_c12c623775024777bb71522b\", \"art_c4288165fad644878036e9ec\", \"art_cb308b8eae47487f84d86bfd\", \"art_d058fc0f95564e6e8be732f6\", \"art_d0a0a0ef40bd4e70965817bb\", \"art_d4165c174240493fb124c95c\", \"art_db22ac3600b94bbe9d920a87\", \"art_db34b45a3c2c4d638b208e03\", \"art_ecd26bbe8bd54b7d9c12ea47\", \"art_f3056077dbd6489ba681807c\", \"art_f9dda4d260074d47b5a7a4a5\", \"art_ffec15e17cb944918cbb3690\"], \"partial_outputs\": true, \"collection_errors\": [], \"process_identity\": \"{\\\"boot_id\\\":\\\"748ab20b-2568-442e-8efe-8a87771b0a98\\\",\\\"local_pgid\\\":6576,\\\"local_pid\\\":6576,\\\"pgid\\\":6576,\\\"pid\\\":6576,\\\"pid_namespace\\\":\\\"pid:[4026533505]\\\",\\\"start_ticks\\\":4305601}\"}",
+     "occurred_at": "2026-10-01 04:37:41.567728"
+    }
+   ]
+  },
+  "run_6201e11d86d1432fa135dff6": {
+   "run": {
+    "run_id": "run_6201e11d86d1432fa135dff6",
+    "task_id": "task_deb83d6db9f442078280dea4",
+    "revision": 1,
+    "variant_id": "cancel_channel",
+    "condition_id": "nominal",
+    "execution_state": "CANCELLED",
+    "numerical_state": "NOT_CHECKED",
+    "applicability_state": "UNCONFIRMED",
+    "current_attempt_id": "att_82f1f7a88a564cc297fe29da",
+    "created_at": "2026-10-01 04:36:42.579583"
+   },
+   "jobs": [
+    {
+     "job_id": "job_a76592aec8a849ffb9e38fff",
+     "kind": "EXECUTE",
+     "state": "CANCELLED",
+     "attempt_id": "att_82f1f7a88a564cc297fe29da"
+    }
+   ],
+   "events": [
+    {
+     "job_id": "job_a76592aec8a849ffb9e38fff",
+     "event_seq": 1,
+     "kind": "STARTING",
+     "payload": "{\"attempt_id\": \"att_82f1f7a88a564cc297fe29da\", \"launch_intent_id\": \"intent-job_a76592aec8a849ffb9e38fff\", \"work_dir_summary\": \"6356d5a60c15d6c5\", \"stage\": \"environment_probe\"}",
+     "occurred_at": "2026-10-01 04:36:44.186804"
+    },
+    {
+     "job_id": "job_a76592aec8a849ffb9e38fff",
+     "event_seq": 2,
+     "kind": "RUNNING",
+     "payload": "{\"process_identity\": {\"identity\": \"{\\\"boot_id\\\":\\\"748ab20b-2568-442e-8efe-8a87771b0a98\\\",\\\"local_pgid\\\":6537,\\\"local_pid\\\":6537,\\\"pgid\\\":6537,\\\"pid\\\":6537,\\\"pid_namespace\\\":\\\"pid:[4026533505]\\\",\\\"start_ticks\\\":4300121}\", \"adapter_job_id\": \"openfoam-55f7b8df1caa4b32b9b70fa61c211a87\", \"work_dir\": \"/opt/data/worker/run_6201e11d86d1432fa135dff6/attempt-1\", \"launch_args\": [\"/opt/venv/bin/python\", \"-m\", \"dsh_sim.adapters.openfoam_adapter\", \"--run-job\", \"/opt/data/worker/run_6201e11d86d1432fa135dff6/attempt-1/openfoam-job.json\"]}, \"software_build\": \"Using: OpenFOAM- (1912) - visit www.openfoam.com; Build:  (patch=200626); Arch:  LSB;label=32;scalar=64\", \"stage\": \"launch\", \"evidence_mode\": \"REAL\", \"method_version\": \"0.1.0\", \"method_digest_match\": true, \"mock_method_fixture\": false}",
+     "occurred_at": "2026-10-01 04:36:45.656586"
+    },
+    {
+     "job_id": "job_a76592aec8a849ffb9e38fff",
+     "event_seq": 3,
+     "kind": "HEARTBEAT",
+     "payload": "{\"stage\": \"RUNNING\", \"log_location\": \"/opt/data/worker/run_6201e11d86d1432fa135dff6/attempt-1/logs/simpleFoam.stdout.log\", \"resource_state\": {\"cpu_cores\": 1}, \"evidence_mode\": \"REAL\"}",
+     "occurred_at": "2026-10-01 04:36:45.662383"
+    },
+    {
+     "job_id": "job_a76592aec8a849ffb9e38fff",
+     "event_seq": 4,
+     "kind": "HEARTBEAT",
+     "payload": "{\"stage\": \"RUNNING\", \"log_location\": \"/opt/data/worker/run_6201e11d86d1432fa135dff6/attempt-1/logs/simpleFoam.stdout.log\", \"resource_state\": {\"cpu_cores\": 1}, \"evidence_mode\": \"REAL\"}",
+     "occurred_at": "2026-10-01 04:36:46.668599"
+    },
+    {
+     "job_id": "job_a76592aec8a849ffb9e38fff",
+     "event_seq": 5,
+     "kind": "HEARTBEAT",
+     "payload": "{\"stage\": \"RUNNING\", \"log_location\": \"/opt/data/worker/run_6201e11d86d1432fa135dff6/attempt-1/logs/simpleFoam.stdout.log\", \"resource_state\": {\"cpu_cores\": 1}, \"evidence_mode\": \"REAL\"}",
+     "occurred_at": "2026-10-01 04:36:47.682226"
+    },
+    {
+     "job_id": "job_a76592aec8a849ffb9e38fff",
+     "event_seq": 6,
+     "kind": "HEARTBEAT",
+     "payload": "{\"stage\": \"RUNNING\", \"log_location\": \"/opt/data/worker/run_6201e11d86d1432fa135dff6/attempt-1/logs/simpleFoam.stdout.log\", \"resource_state\": {\"cpu_cores\": 1}, \"evidence_mode\": \"REAL\"}",
+     "occurred_at": "2026-10-01 04:36:48.690057"
+    },
+    {
+     "job_id": "job_a76592aec8a849ffb9e38fff",
+     "event_seq": 7,
+     "kind": "HEARTBEAT",
+     "payload": "{\"stage\": \"RUNNING\", \"log_location\": \"/opt/data/worker/run_6201e11d86d1432fa135dff6/attempt-1/logs/simpleFoam.stdout.log\", \"resource_state\": {\"cpu_cores\": 1}, \"evidence_mode\": \"REAL\"}",
+     "occurred_at": "2026-10-01 04:36:49.701051"
+    },
+    {
+     "job_id": "job_a76592aec8a849ffb9e38fff",
+     "event_seq": 8,
+     "kind": "HEARTBEAT",
+     "payload": "{\"stage\": \"RUNNING\", \"log_location\": \"/opt/data/worker/run_6201e11d86d1432fa135dff6/attempt-1/logs/simpleFoam.stdout.log\", \"resource_state\": {\"cpu_cores\": 1}, \"evidence_mode\": \"REAL\"}",
+     "occurred_at": "2026-10-01 04:36:50.709194"
+    },
+    {
+     "job_id": "job_a76592aec8a849ffb9e38fff",
+     "event_seq": 9,
+     "kind": "HEARTBEAT",
+     "payload": "{\"stage\": \"RUNNING\", \"log_location\": \"/opt/data/worker/run_6201e11d86d1432fa135dff6/attempt-1/logs/simpleFoam.stdout.log\", \"resource_state\": {\"cpu_cores\": 1}, \"evidence_mode\": \"REAL\"}",
+     "occurred_at": "2026-10-01 04:36:51.719024"
+    },
+    {
+     "job_id": "job_a76592aec8a849ffb9e38fff",
+     "event_seq": 10,
+     "kind": "HEARTBEAT",
+     "payload": "{\"stage\": \"RUNNING\", \"log_location\": \"/opt/data/worker/run_6201e11d86d1432fa135dff6/attempt-1/logs/simpleFoam.stdout.log\", \"resource_state\": {\"cpu_cores\": 1}, \"evidence_mode\": \"REAL\"}",
+     "occurred_at": "2026-10-01 04:36:52.730180"
+    },
+    {
+     "job_id": "job_a76592aec8a849ffb9e38fff",
+     "event_seq": 11,
+     "kind": "HEARTBEAT",
+     "payload": "{\"stage\": \"RUNNING\", \"log_location\": \"/opt/data/worker/run_6201e11d86d1432fa135dff6/attempt-1/logs/simpleFoam.stdout.log\", \"resource_state\": {\"cpu_cores\": 1}, \"evidence_mode\": \"REAL\"}",
+     "occurred_at": "2026-10-01 04:36:53.742518"
+    },
+    {
+     "job_id": "job_a76592aec8a849ffb9e38fff",
+     "event_seq": 12,
+     "kind": "HEARTBEAT",
+     "payload": "{\"stage\": \"RUNNING\", \"log_location\": \"/opt/data/worker/run_6201e11d86d1432fa135dff6/attempt-1/logs/simpleFoam.stdout.log\", \"resource_state\": {\"cpu_cores\": 1}, \"evidence_mode\": \"REAL\"}",
+     "occurred_at": "2026-10-01 04:36:54.754490"
+    },
+    {
+     "job_id": "job_a76592aec8a849ffb9e38fff",
+     "event_seq": 13,
+     "kind": "HEARTBEAT",
+     "payload": "{\"stage\": \"RUNNING\", \"log_location\": \"/opt/data/worker/run_6201e11d86d1432fa135dff6/attempt-1/logs/simpleFoam.stdout.log\", \"resource_state\": {\"cpu_cores\": 1}, \"evidence_mode\": \"REAL\"}",
+     "occurred_at": "2026-10-01 04:36:55.764987"
+    },
+    {
+     "job_id": "job_a76592aec8a849ffb9e38fff",
+     "event_seq": 14,
+     "kind": "HEARTBEAT",
+     "payload": "{\"stage\": \"RUNNING\", \"log_location\": \"/opt/data/worker/run_6201e11d86d1432fa135dff6/attempt-1/logs/simpleFoam.stdout.log\", \"resource_state\": {\"cpu_cores\": 1}, \"evidence_mode\": \"REAL\"}",
+     "occurred_at": "2026-10-01 04:36:56.776081"
+    },
+    {
+     "job_id": "job_a76592aec8a849ffb9e38fff",
+     "event_seq": 15,
+     "kind": "HEARTBEAT",
+     "payload": "{\"stage\": \"RUNNING\", \"log_location\": \"/opt/data/worker/run_6201e11d86d1432fa135dff6/attempt-1/logs/simpleFoam.stdout.log\", \"resource_state\": {\"cpu_cores\": 1}, \"evidence_mode\": \"REAL\"}",
+     "occurred_at": "2026-10-01 04:36:57.787042"
+    },
+    {
+     "job_id": "job_a76592aec8a849ffb9e38fff",
+     "event_seq": 16,
+     "kind": "HEARTBEAT",
+     "payload": "{\"stage\": \"RUNNING\", \"log_location\": \"/opt/data/worker/run_6201e11d86d1432fa135dff6/attempt-1/logs/simpleFoam.stdout.log\", \"resource_state\": {\"cpu_cores\": 1}, \"evidence_mode\": \"REAL\"}",
+     "occurred_at": "2026-10-01 04:36:58.796602"
+    },
+    {
+     "job_id": "job_a76592aec8a849ffb9e38fff",
+     "event_seq": 17,
+     "kind": "HEARTBEAT",
+     "payload": "{\"stage\": \"RUNNING\", \"log_location\": \"/opt/data/worker/run_6201e11d86d1432fa135dff6/attempt-1/logs/simpleFoam.stdout.log\", \"resource_state\": {\"cpu_cores\": 1}, \"evidence_mode\": \"REAL\"}",
+     "occurred_at": "2026-10-01 04:36:59.807905"
+    },
+    {
+     "job_id": "job_a76592aec8a849ffb9e38fff",
+     "event_seq": 18,
+     "kind": "HEARTBEAT",
+     "payload": "{\"stage\": \"RUNNING\", \"log_location\": \"/opt/data/worker/run_6201e11d86d1432fa135dff6/attempt-1/logs/simpleFoam.stdout.log\", \"resource_state\": {\"cpu_cores\": 1}, \"evidence_mode\": \"REAL\"}",
+     "occurred_at": "2026-10-01 04:37:00.821240"
+    },
+    {
+     "job_id": "job_a76592aec8a849ffb9e38fff",
+     "event_seq": 19,
+     "kind": "HEARTBEAT",
+     "payload": "{\"stage\": \"RUNNING\", \"log_location\": \"/opt/data/worker/run_6201e11d86d1432fa135dff6/attempt-1/logs/simpleFoam.stdout.log\", \"resource_state\": {\"cpu_cores\": 1}, \"evidence_mode\": \"REAL\"}",
+     "occurred_at": "2026-10-01 04:37:01.831695"
+    },
+    {
+     "job_id": "job_a76592aec8a849ffb9e38fff",
+     "event_seq": 20,
+     "kind": "HEARTBEAT",
+     "payload": "{\"stage\": \"RUNNING\", \"log_location\": \"/opt/data/worker/run_6201e11d86d1432fa135dff6/attempt-1/logs/simpleFoam.stdout.log\", \"resource_state\": {\"cpu_cores\": 1}, \"evidence_mode\": \"REAL\"}",
+     "occurred_at": "2026-10-01 04:37:02.842652"
+    },
+    {
+     "job_id": "job_a76592aec8a849ffb9e38fff",
+     "event_seq": 21,
+     "kind": "HEARTBEAT",
+     "payload": "{\"stage\": \"RUNNING\", \"log_location\": \"/opt/data/worker/run_6201e11d86d1432fa135dff6/attempt-1/logs/simpleFoam.stdout.log\", \"resource_state\": {\"cpu_cores\": 1}, \"evidence_mode\": \"REAL\"}",
+     "occurred_at": "2026-10-01 04:37:03.853359"
+    },
+    {
+     "job_id": "job_a76592aec8a849ffb9e38fff",
+     "event_seq": 22,
+     "kind": "HEARTBEAT",
+     "payload": "{\"stage\": \"RUNNING\", \"log_location\": \"/opt/data/worker/run_6201e11d86d1432fa135dff6/attempt-1/logs/simpleFoam.stdout.log\", \"resource_state\": {\"cpu_cores\": 1}, \"evidence_mode\": \"REAL\"}",
+     "occurred_at": "2026-10-01 04:37:04.866365"
+    },
+    {
+     "job_id": "job_a76592aec8a849ffb9e38fff",
+     "event_seq": 23,
+     "kind": "HEARTBEAT",
+     "payload": "{\"stage\": \"RUNNING\", \"log_location\": \"/opt/data/worker/run_6201e11d86d1432fa135dff6/attempt-1/logs/simpleFoam.stdout.log\", \"resource_state\": {\"cpu_cores\": 1}, \"evidence_mode\": \"REAL\"}",
+     "occurred_at": "2026-10-01 04:37:05.875910"
+    },
+    {
+     "job_id": "job_a76592aec8a849ffb9e38fff",
+     "event_seq": 24,
+     "kind": "HEARTBEAT",
+     "payload": "{\"stage\": \"RUNNING\", \"log_location\": \"/opt/data/worker/run_6201e11d86d1432fa135dff6/attempt-1/logs/simpleFoam.stdout.log\", \"resource_state\": {\"cpu_cores\": 1}, \"evidence_mode\": \"REAL\"}",
+     "occurred_at": "2026-10-01 04:37:06.887993"
+    },
+    {
+     "job_id": "job_a76592aec8a849ffb9e38fff",
+     "event_seq": 25,
+     "kind": "HEARTBEAT",
+     "payload": "{\"stage\": \"RUNNING\", \"log_location\": \"/opt/data/worker/run_6201e11d86d1432fa135dff6/attempt-1/logs/simpleFoam.stdout.log\", \"resource_state\": {\"cpu_cores\": 1}, \"evidence_mode\": \"REAL\"}",
+     "occurred_at": "2026-10-01 04:37:07.897909"
+    },
+    {
+     "job_id": "job_a76592aec8a849ffb9e38fff",
+     "event_seq": 26,
+     "kind": "HEARTBEAT",
+     "payload": "{\"stage\": \"RUNNING\", \"log_location\": \"/opt/data/worker/run_6201e11d86d1432fa135dff6/attempt-1/logs/simpleFoam.stdout.log\", \"resource_state\": {\"cpu_cores\": 1}, \"evidence_mode\": \"REAL\"}",
+     "occurred_at": "2026-10-01 04:37:08.907168"
+    },
+    {
+     "job_id": "job_a76592aec8a849ffb9e38fff",
+     "event_seq": 27,
+     "kind": "HEARTBEAT",
+     "payload": "{\"stage\": \"RUNNING\", \"log_location\": \"/opt/data/worker/run_6201e11d86d1432fa135dff6/attempt-1/logs/simpleFoam.stdout.log\", \"resource_state\": {\"cpu_cores\": 1}, \"evidence_mode\": \"REAL\"}",
+     "occurred_at": "2026-10-01 04:37:09.919328"
+    },
+    {
+     "job_id": "job_a76592aec8a849ffb9e38fff",
+     "event_seq": 28,
+     "kind": "HEARTBEAT",
+     "payload": "{\"stage\": \"RUNNING\", \"log_location\": \"/opt/data/worker/run_6201e11d86d1432fa135dff6/attempt-1/logs/simpleFoam.stdout.log\", \"resource_state\": {\"cpu_cores\": 1}, \"evidence_mode\": \"REAL\"}",
+     "occurred_at": "2026-10-01 04:37:10.927018"
+    },
+    {
+     "job_id": "job_a76592aec8a849ffb9e38fff",
+     "event_seq": 29,
+     "kind": "HEARTBEAT",
+     "payload": "{\"stage\": \"RUNNING\", \"log_location\": \"/opt/data/worker/run_6201e11d86d1432fa135dff6/attempt-1/logs/simpleFoam.stdout.log\", \"resource_state\": {\"cpu_cores\": 1}, \"evidence_mode\": \"REAL\"}",
+     "occurred_at": "2026-10-01 04:37:11.936432"
+    },
+    {
+     "job_id": "job_a76592aec8a849ffb9e38fff",
+     "event_seq": 30,
+     "kind": "CANCELLED",
+     "payload": "{\"reason\": \"\\u7528\\u6237\\u53d6\\u6d88\\u8bf7\\u6c42\\uff0c\\u68c0\\u67e5\\u53d7\\u63a7\\u8fdb\\u7a0b\\u7ec4\\u9000\\u51fa\", \"exit_code\": 130, \"exit_proof\": {\"process_exited\": true, \"process_group_exited\": true, \"returncode\": 130, \"process_identity\": \"{\\\"boot_id\\\":\\\"748ab20b-2568-442e-8efe-8a87771b0a98\\\",\\\"local_pgid\\\":6537,\\\"local_pid\\\":6537,\\\"pgid\\\":6537,\\\"pid\\\":6537,\\\"pid_namespace\\\":\\\"pid:[4026533505]\\\",\\\"start_ticks\\\":4300121}\", \"evidence\": \"Linux boot ID + PID start ticks + process group scan; zombie processes excluded\", \"remaining_pids\": []}, \"exit_unconfirmed\": false, \"execution_state\": \"CANCELLED\", \"evidence_mode\": \"REAL\", \"artifact_ids\": [\"art_007776afe41443b08e17b7a9\", \"art_0589d35bb68b4f49984a9cb2\", \"art_08a2356fb0fb47c58a235e8b\", \"art_117205eab2204997a0b2a683\", \"art_14d09ab8f92c447c8935e93c\", \"art_194928fc95144d9bbc7d5fe4\", \"art_20605d7b6175432c85459f5c\", \"art_2728446f0d6e4bdb80f0eecc\", \"art_2a2b7fa85ee24e888db3431d\", \"art_2efbaca2e3044bf686f8fe7a\", \"art_3d00b1475d9c4edfb04c8337\", \"art_3d951ed47210480da6b16e4f\", \"art_3ec7e5394ba644f5968cc029\", \"art_4d1f2eea3079431188b66c2a\", \"art_4d37c7c02be44b608a0260e9\", \"art_55375d248c534c6caf0a2b97\", \"art_5937301aa70247fa9ea54e3a\", \"art_6147824fa2f54ff981bcf9d2\", \"art_6a4b6f757fe847c0b1dd144b\", \"art_78f503ec59b249ff94acd3d6\", \"art_7a3624c782db4b9faab81fcc\", \"art_7b5e7d06ff3841888ae61b49\", \"art_8f8294b0a6cd4a5aa538810c\", \"art_8ff01ac60d3746cdb9d6c6d9\", \"art_94e2f2ccf9784959bcf4fe1c\", \"art_952ecf069a7e4a708f599de5\", \"art_9d7c199cf2964934bdbd96f6\", \"art_a697ef95246d4e26bfa93821\", \"art_acdf9e0a40ff4831b3e06a11\", \"art_b6ebbad24e884b4bb9fb7ddd\", \"art_ca01df4c1a854549b566b8e2\", \"art_dbc282ce45b04242a38ef241\", \"art_e09d2d9d5ef1409580f596d6\", \"art_e13b20e036fa4e21a4eacf34\", \"art_eb66c893e424499c80fecd95\", \"art_edfd25e812ff432282f74854\", \"art_ef9aec7f0122455c8f6efea8\", \"art_f721169eee2744c4a0a7137d\"], \"partial_outputs\": true, \"collection_errors\": [], \"process_identity\": \"{\\\"boot_id\\\":\\\"748ab20b-2568-442e-8efe-8a87771b0a98\\\",\\\"local_pgid\\\":6537,\\\"local_pid\\\":6537,\\\"pgid\\\":6537,\\\"pid\\\":6537,\\\"pid_namespace\\\":\\\"pid:[4026533505]\\\",\\\"start_ticks\\\":4300121}\"}",
+     "occurred_at": "2026-10-01 04:37:13.131581"
+    }
+   ]
+  },
+  "run_805ddf71c25a42f4aacb87bc": {
+   "run": {
+    "run_id": "run_805ddf71c25a42f4aacb87bc",
+    "task_id": "task_89a623fce3c2426ead12e103",
+    "revision": 1,
+    "variant_id": "acc_channel",
+    "condition_id": "nominal",
+    "execution_state": "SUCCEEDED",
+    "numerical_state": "INSUFFICIENT",
+    "applicability_state": "UNCONFIRMED",
+    "current_attempt_id": "att_f5f76a124bfa4e1bb354d6f5",
+    "created_at": "2026-10-01 06:12:19.965893"
+   },
+   "jobs": [
+    {
+     "job_id": "job_36c2d9d6f19344bc9cde9184",
+     "kind": "EXECUTE",
+     "state": "SUCCEEDED",
+     "attempt_id": "att_f5f76a124bfa4e1bb354d6f5"
+    }
+   ],
+   "events": [
+    {
+     "job_id": "job_36c2d9d6f19344bc9cde9184",
+     "event_seq": 1,
+     "kind": "STARTING",
+     "payload": "{\"attempt_id\": \"att_f5f76a124bfa4e1bb354d6f5\", \"launch_intent_id\": \"intent-job_36c2d9d6f19344bc9cde9184\", \"work_dir_summary\": \"9643ddb431ac4e0c\", \"stage\": \"environment_probe\"}",
+     "occurred_at": "2026-10-01 06:12:20.934583"
+    },
+    {
+     "job_id": "job_36c2d9d6f19344bc9cde9184",
+     "event_seq": 2,
+     "kind": "RUNNING",
+     "payload": "{\"process_identity\": {\"identity\": \"{\\\"boot_id\\\":\\\"748ab20b-2568-442e-8efe-8a87771b0a98\\\",\\\"local_pgid\\\":6794,\\\"local_pid\\\":6794,\\\"pgid\\\":6794,\\\"pid\\\":6794,\\\"pid_namespace\\\":\\\"pid:[4026533505]\\\",\\\"start_ticks\\\":4873800}\", \"adapter_job_id\": \"openfoam-c66267def7744310a322f82d6a33299c\", \"work_dir\": \"/opt/data/worker/run_805ddf71c25a42f4aacb87bc/attempt-1\", \"launch_args\": [\"/opt/venv/bin/python\", \"-m\", \"dsh_sim.adapters.openfoam_adapter\", \"--run-job\", \"/opt/data/worker/run_805ddf71c25a42f4aacb87bc/attempt-1/openfoam-job.json\"]}, \"software_build\": \"Using: OpenFOAM- (1912) - visit www.openfoam.com; Build:  (patch=200626); Arch:  LSB;label=32;scalar=64\", \"stage\": \"launch\", \"evidence_mode\": \"REAL\", \"method_version\": \"0.1.0\", \"method_digest_match\": true, \"mock_method_fixture\": false}",
+     "occurred_at": "2026-10-01 06:12:22.465973"
+    },
+    {
+     "job_id": "job_36c2d9d6f19344bc9cde9184",
+     "event_seq": 3,
+     "kind": "HEARTBEAT",
+     "payload": "{\"stage\": \"RUNNING\", \"log_location\": \"/opt/data/worker/run_805ddf71c25a42f4aacb87bc/attempt-1/logs/simpleFoam.stdout.log\", \"resource_state\": {\"cpu_cores\": 1}, \"evidence_mode\": \"REAL\"}",
+     "occurred_at": "2026-10-01 06:12:22.476557"
+    },
+    {
+     "job_id": "job_36c2d9d6f19344bc9cde9184",
+     "event_seq": 4,
+     "kind": "HEARTBEAT",
+     "payload": "{\"stage\": \"RUNNING\", \"log_location\": \"/opt/data/worker/run_805ddf71c25a42f4aacb87bc/attempt-1/logs/simpleFoam.stdout.log\", \"resource_state\": {\"cpu_cores\": 1}, \"evidence_mode\": \"REAL\"}",
+     "occurred_at": "2026-10-01 06:12:23.485018"
+    },
+    {
+     "job_id": "job_36c2d9d6f19344bc9cde9184",
+     "event_seq": 5,
+     "kind": "COMPLETED",
+     "payload": "{\"exit_code\": 0, \"exit_proof\": {\"process_exited\": true, \"process_group_exited\": true, \"returncode\": 0, \"process_identity\": \"{\\\"boot_id\\\":\\\"748ab20b-2568-442e-8efe-8a87771b0a98\\\",\\\"local_pgid\\\":6794,\\\"local_pid\\\":6794,\\\"pgid\\\":6794,\\\"pid\\\":6794,\\\"pid_namespace\\\":\\\"pid:[4026533505]\\\",\\\"start_ticks\\\":4873800}\", \"evidence\": \"Linux boot ID + PID start ticks + process group scan; zombie processes excluded\", \"remaining_pids\": []}, \"artifact_ids\": [\"art_21f83a4b369948b0bd177157\", \"art_cc99a1d7cb1d4c38aba0658f\", \"art_9286b3c141354b3cb1620e85\", \"art_5465b7df57744ccb97195db3\", \"art_cf751c2d664e435b8da66229\", \"art_7014c1f487e3472b96ace367\", \"art_cf323f891b6244b08748f3d7\", \"art_25f9a19e77c8487b941fa2f7\", \"art_d4a7e16335384183b023e92f\", \"art_69ab46db366d48daaa44491b\", \"art_c6249a906d54440db6f7e8cc\", \"art_b4287c97055c46d5acfe90c9\", \"art_2aed627362a1453699c9af2d\", \"art_c6808f3405cf419d90eb4345\", \"art_5376ee7292204eb0a87964fa\", \"art_757e6877a40b40b5bc0aef1b\", \"art_e3386afa5b614cd9a5c92207\", \"art_3627c0d0122349f08cd48316\", \"art_2301358238414bd6bfe907ed\", \"art_5206ca6f6f6e4411845a4084\", \"art_af6cf2ff36e5485ab8c945c4\", \"art_a497c4c790524e7780dcc9db\", \"art_d58c9b129de74283853ea5b3\", \"art_665961bf6f364ba0a3f697ae\", \"art_f40d43e29c88491cb60f223f\", \"art_a209d29916224562b6f66b53\", \"art_00852ae05f5f4f0c89629f82\", \"art_07ae5a0c7a064c20936d25a6\", \"art_78a7cb60261f422ba4bcd247\", \"art_bd3e1c8be85d44829247820f\", \"art_9a8cf541a0884176911ce9ce\", \"art_9bf7571475f140329e3d529a\", \"art_6837d84b9a24401db1abc301\", \"art_7715c5f1aede4d16abe08a05\", \"art_68947325264c4cda9ffdb168\", \"art_d73b7f97bcca4522a153b37e\", \"art_4ef7b041cd114d7aba545936\", \"art_ed36706203dc4e72abb49c30\", \"art_d54a37df19bd49beae05dd6c\", \"art_4680399cf7c5403e99122520\", \"art_b0e8c2b16b764075a725be58\", \"art_efdc2b8a279a4e1f823ad7b6\", \"art_b1bd9dfb7f234dc2a8803596\", \"art_ee843ac1812f496cb1362a35\", \"art_1999927f770a41dba7d10cf0\", \"art_63e64234ede348c6a37f2881\", \"art_154c356dca574ae0acfbf4b7\", \"art_2763ebe9243f4e52b16d551e\", \"art_46a6095413b84da58b63a553\", \"art_21076216dcc543d48be1f7c3\", \"art_7c68a8e727f145669c39d7bb\", \"art_7902544fef4e41d2bc060796\"], \"verification_id\": \"ver_87e7d830401f420da9031cfe\", \"numerical_conclusion\": \"INSUFFICIENT\", \"applicability\": \"UNCONFIRMED\", \"evidence_mode\": \"REAL\", \"method_version\": \"0.1.0\", \"method_digest_match\": true}",
+     "occurred_at": "2026-10-01 06:12:24.744750"
+    }
+   ]
+  }
+ }
+}

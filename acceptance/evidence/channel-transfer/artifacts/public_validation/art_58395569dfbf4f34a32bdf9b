@@ -1,0 +1,21 @@
+{
+ "bundle_id": "bundle_319956c46ba3494386028b83",
+ "task_id": "task_6cc10de1c62c4d50bb3f7455",
+ "revision": 1,
+ "evidence_mode": "REAL",
+ "purpose": "design_screening",
+ "complete": true,
+ "incomplete_items": [],
+ "prepared_artifact_issues": [],
+ "method_package": {
+  "capability_package_id": "openfoam_channel",
+  "version": "0.1.0",
+  "status": "DRAFT",
+  "manifest_sha256": "b91da8b7d79c1e922d7383e9fe11e1b082ac4bec54013d42986f1990822fead7",
+  "declared_sha256": "b91da8b7d79c1e922d7383e9fe11e1b082ac4bec54013d42986f1990822fead7",
+  "digest_match": true,
+  "released": false
+ },
+ "uncovered_scope": "全部必需工况齐备",
+ "limitations": "仅限内部方案筛选用途；不构成适航符合性结论。"
+}

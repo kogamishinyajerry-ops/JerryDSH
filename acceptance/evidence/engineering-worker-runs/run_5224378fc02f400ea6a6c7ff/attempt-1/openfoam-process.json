@@ -1,0 +1,1 @@
+{"launch_args":["/opt/venv/bin/python","-m","dsh_sim.adapters.openfoam_adapter","--run-job","/opt/data/worker/run_5224378fc02f400ea6a6c7ff/attempt-1/openfoam-job.json"],"process_identity":"{\"boot_id\":\"748ab20b-2568-442e-8efe-8a87771b0a98\",\"local_pgid\":6561,\"local_pid\":6561,\"pgid\":6561,\"pid\":6561,\"pid_namespace\":\"pid:[4026533505]\",\"start_ticks\":4303620}"}

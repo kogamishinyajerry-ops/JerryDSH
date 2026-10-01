@@ -1,0 +1,44 @@
+/*---------------------------------------------------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:                                        |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+Build  : OPENFOAM=1912 patch=200626
+Arch   : "LSB;label=32;scalar=64"
+Exec   : /usr/bin/foamToVTK -case /opt/data/channel-transfer/worker/run_a63dedd76a624965996c7381/attempt-1/case -latestTime -ascii -fields (p U) -no-internal -no-point-data -patches (inlet outlet) -overwrite
+Date   : Oct 01 2026
+Time   : 03:48:20
+Host   : db0412b7eb76
+PID    : 5952
+--> FOAM Warning : 
+    From function Foam::fileName Foam::cwd_L()
+    in file POSIX.C at line 494
+    PWD is not the cwd() - reverting to physical description
+I/O    : uncollated
+Case   : /opt/data/channel-transfer/worker/run_a63dedd76a624965996c7381/attempt-1/case
+nProcs : 1
+trapFpe: Floating point exception trapping enabled (FOAM_SIGFPE).
+fileModificationChecking : Monitoring run-time modified files using timeStampMaster (fileModificationSkew 10)
+allowSystemOperations : Allowing user-supplied system call operations
+
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+Point fields and interpolated point data disabled with the '-no-point-data' option
+Including patches 2(inlet outlet)
+
+Create time
+
+Initial memory 373640 kB
+Create mesh for time = 1000
+
+VTK mesh topology: 0.01 s, 374572 kB
+Time: 1000
+    volScalar    : p
+    volVector    : U
+    Boundary  : "VTK/case_1000/boundary/inlet.vtp"
+    Boundary  : "VTK/case_1000/boundary/outlet.vtp"
+Wrote in 0.02 s, 375424 kB
+
+End: 0.03 s, 375424 kB (peak)
+

@@ -1,0 +1,646 @@
+{
+ "schema_version": "acceptance-resource-index/v2",
+ "note": "case/stage/parent/child/resource ID 索引。会话资源 ID 从转录 tool/call 参数自动抽取；无会话链路（API/MCP 脚本驱动）单列。人工确认/授权事件详见 events/。",
+ "stages": [
+  {
+   "stage": "model-connectivity",
+   "desc": "隔离 DSH 最小真实模型调用（headless，无仿真工具）",
+   "parent_session": "session-6844e3b5-3934-47ff-851d-afecf7fc547b",
+   "children": [],
+   "resources": [],
+   "note": "回复『模型就绪』；证明恢复实例的 GLM 路由与凭证可用"
+  },
+  {
+   "stage": "web-instance-shell",
+   "desc": "隔离 DSH web 实例（Simulation preset overlay）会话壳（无对话）",
+   "parent_session": "session-cc35a487-41e3-424e-880d-1fdf6b6ecfbc",
+   "children": [],
+   "resources": [],
+   "note": "web 进程启动时创建；本轮自然语言链路走 headless 会话，web 供人工复核"
+  },
+  {
+   "stage": "stage3-superseded-attempt",
+   "desc": "直挂 overlay 首验（无 preset 注册的探索会话，被中止）",
+   "parent_session": "session-80cff54e-e9f1-4b67-b1d1-c441ebfd3e45",
+   "children": [],
+   "resources": [],
+   "note": "发现 headless 需直挂 overlay；由此产出 overlays/simulation.headless.patch.yml"
+  },
+  {
+   "stage": "stage3-plan-and-prepare-timeout",
+   "desc": "第三阶段 plan（成功）+ prepare 委派 180s 超时（半成品）",
+   "parent_session": "session-5a2b0e17-9345-4cff-8a77-1c0a164e430d",
+   "children": [
+    "1589a8cd-3d3e-4cb9-9e47-0b60aeb05539 (planner)",
+    "50d95ae7-c162-49ce-8f4d-54eb408fb248 (inputwriter, 超时)"
+   ],
+   "resources": [
+    "task_277793ef2a33439dae66cf3a (DRAFT 半成品，保留未删)"
+   ],
+   "note": "由此把 stageTimeoutMs 调至 600s（配置调优，600s overlay 入 overlays/）"
+  },
+  {
+   "stage": "stage3-plan-aborted-prompt",
+   "desc": "盲测 prepare 首次提示词字段说明混乱，启动后即中止（0 步）",
+   "parent_session": "session-d88a058e-fb77-4719-a57f-5ff436141927",
+   "children": [],
+   "resources": [],
+   "note": "boundary_map_sha256 说明错误，重写提示词后重跑；会话保留"
+  },
+  {
+   "stage": "stage3-prepare",
+   "desc": "第三阶段 prepare（600s 配置）",
+   "parent_session": "session-8204de3f-47f0-43b9-909d-d7c5d15be099",
+   "children": [
+    "61e9b65a-93d4-4cb4-a8f8-f176a392e6ef (inputwriter)"
+   ],
+   "resources": [
+    "task_0dd8d88c5f804ebeacdb2242",
+    "prep_45eae71a5e8740d888928add",
+    "prepared_digest=9fbd40846d00baf83eae69b152275816c83c9d598c40fbf8680acec0ca06e918"
+   ],
+   "human_gate": {
+    "authorization_id": "authz_c924d3b1272247148b61eec9",
+    "how": "对话内向用户展示准备摘要与预算 → 用户确认 → 执行台『确认并授权（不提交）』（面板 runs=0）"
+   }
+  },
+  {
+   "stage": "stage3-execute-review",
+   "desc": "第三阶段 execute（AGENT runner 首提）+ review",
+   "parent_session": "session-bfcd7756-5016-4247-a96d-b44e7a84d83f",
+   "children": [
+    "495e8de2-d521-4b42-8210-? (runner)",
+    "60dfdb98-6295-4c19-bc76-? (reviewer)"
+   ],
+   "resources": [
+    "run_763d86b0a05c42e8b59a0e79",
+    "bundle_9d93561c328443ddbb710cdc (65 项, digest 6152ead6…)"
+   ],
+   "note": "SUCCEEDED / INSUFFICIENT / UNCONFIRMED；52 artifacts"
+  },
+  {
+   "stage": "stage4-blind-prepare",
+   "desc": "第四阶段盲测 prepare（参数由独立测试 Agent 提供）",
+   "parent_session": "session-afa8c4ae-682d-42a1-a63a-28954f85cfe4",
+   "children": [
+    "3a897e9b-1694-434f-9dd7-dad8ff6a3b34 (inputwriter)"
+   ],
+   "resources": [
+    "task_711001721b5146d796a571ad",
+    "prep_0656e3fc26be427595c71ff0",
+    "prepared_digest=ad637eccb1696e17cffac13be4b130de1b6f67f05d709a08bcbe82ada61b9323"
+   ],
+   "human_gate": {
+    "authorization_id": "authz_71186865840b445484b4812f"
+   }
+  },
+  {
+   "stage": "stage4-blind-execute-review",
+   "desc": "第四阶段盲测 execute+review",
+   "parent_session": "session-8f8cac7e-6286-49aa-8d22-8ccaeea96da9",
+   "children": [
+    "255bd082-b572-4c5f-ba7d-c6050c3e6f62 (runner)",
+    "18d1c4eb-a010-4178-b33e-b9fcd6dbad17 (reviewer)"
+   ],
+   "resources": [
+    "run_5224378fc02f400ea6a6c7ff",
+    "bundle_7d2d4fdc2cec4bba9db35c0b (65 项)"
+   ],
+   "note": "观测 Δp=13.8709 Pa vs 解析 13.957 Pa（0.617%）；同配方未见参数验证"
+  },
+  {
+   "stage": "stage4-fault-execute-review",
+   "desc": "第四阶段失败任务 execute+review（模板注入非法离散格式，预期 FAILED）",
+   "parent_session": "session-a0cec7bd-6a38-4f8f-a4f9-01466a4aa596",
+   "children": [
+    "2aac2a32-cd0e-4949-bd7e-00b103a2dfe6 (runner)",
+    "a7c128ef-3c08-485d-ad26-14e4cf71ab90 (reviewer)"
+   ],
+   "resources": [
+    "task_dbfe3d56ba594c1b98050731",
+    "run_1461d0ae05d547fca9612771",
+    "bundle_98811ef935ed402fb041c5d7",
+    "authz_69b1d4bcc0eb450d8f5ccb8a"
+   ],
+   "note": "模型根因推断与真实 stderr 一致（stderr 原文经执行者人工核对）"
+  }
+ ],
+ "non_session_chains": [
+  {
+   "chain": "stage2-smoke-and-recovery",
+   "how": "API 脚本 + MCP 脚本（非模型会话）",
+   "resources": [
+    "task_89a623fce3c2426ead12e103",
+    "prep_752daa0c90884f049653f863",
+    "prepared_digest=ab609ca31bd44c21007c976a2ff0825a56421442546063ffad6fc58abfb73800",
+    "authz_fe67796790584221b287a214",
+    "run_805ddf71c25a42f4aacb87bc (返修复核：恢复授权→AGENT 首提→SUCCEEDED)"
+   ],
+   "note": "返修第 2/3 项的实机验证链；授权仅 1 条（不重复授权）"
+  },
+  {
+   "chain": "stage4-cancel",
+   "how": "API 建任务 + MCP AGENT 提交 + 执行台人工取消",
+   "resources": [
+    "task_deb83d6db9f442078280dea4",
+    "prep_aa38b1ba96614a84860b4ffa",
+    "authz_b1d3002ad8004c38972a3b0d",
+    "run_6201e11d86d1432fa135dff6 (CANCELLED, remaining_pids=[])"
+   ]
+  },
+  {
+   "chain": "stage1-five-cases",
+   "how": "validation CLI（隔离本地夹具库，非共享工程库）",
+   "resources": [
+    "channel-baseline/task_5b0e19293eb14e9bb73b8591",
+    "channel-transfer/task_6cc10de1c62c4d50bb3f7455",
+    "channel-solver-failure/task_1c92dcfa7f5842688a74b0d4",
+    "channel-cancel/task_39e6f815142a492abe0c6fc5",
+    "channel-timeout/task_91b0b6259f154283ac83d55b"
+   ],
+   "note": "各自 summary.json/evidence 在 evidence/channel-*/"
+  }
+ ],
+ "session_details": [
+  {
+   "session_id": "session-5a2b0e17-9345-4cff-8a77-1c0a164e430d",
+   "origin": null,
+   "parent": null,
+   "created_at": 1790827440699,
+   "sim_tool_calls": [
+    {
+     "tool": "mcp__dsh_sim__list_capabilities",
+     "args_excerpt": "{\"status\":\"DRAFT\"}"
+    }
+   ],
+   "resources": [],
+   "children": [
+    {
+     "session_id": "1589a8cd-3d3e-4cb9-9e47-0b60aeb05539",
+     "origin": "subagent",
+     "parent": "session-5a2b0e17-9345-4cff-8a77-1c0a164e430d",
+     "created_at": 1790827481656,
+     "sim_tool_calls": [
+      {
+       "tool": "mcp__dsh_sim__list_capabilities",
+       "args_excerpt": "{\"status\":\"RELEASED\"}"
+      },
+      {
+       "tool": "mcp__dsh_sim__list_capabilities",
+       "args_excerpt": "{\"status\":\"DRAFT\"}"
+      }
+     ],
+     "resources": []
+    },
+    {
+     "session_id": "50d95ae7-c162-49ce-8f4d-54eb408fb248",
+     "origin": "subagent",
+     "parent": "session-5a2b0e17-9345-4cff-8a77-1c0a164e430d",
+     "created_at": 1790827672487,
+     "sim_tool_calls": [
+      {
+       "tool": "mcp__dsh_sim__list_capabilities",
+       "args_excerpt": "{\"limit\":50,\"status\":\"DRAFT\"}"
+      },
+      {
+       "tool": "mcp__dsh_sim__create_task",
+       "args_excerpt": "{\"draft\":{\"capability_package\":{\"capability_package_id\":\"openfoam_channel\",\"capability_package_sha256\":\"b91da8b7d79c1e922d7383e9fe11e1b082ac4bec54013d42986f1990"
+      },
+      {
+       "tool": "mcp__dsh_sim__create_task",
+       "args_excerpt": "{\"draft\":{\"spec\":{\"capability_package\":{\"capability_package_id\":\"openfoam_channel\",\"capability_package_sha256\":\"b91da8b7d79c1e922d7383e9fe11e1b082ac4bec54013d42"
+      },
+      {
+       "tool": "mcp__dsh_sim__create_task",
+       "args_excerpt": "{\"draft\":{},\"idempotency_key\":\"proj_a-acc_channel-prepare-2026-10-01\"}"
+      },
+      {
+       "tool": "mcp__dsh_sim__revise_task",
+       "args_excerpt": "{\"expected_revision\":0,\"idempotency_key\":\"proj_a-acc_channel-spec-rev1-2026-10-01\",\"spec\":{\"capability_package\":{\"capability_package_id\":\"openfoam_channel\",\"cap"
+      },
+      {
+       "tool": "mcp__dsh_sim__revise_task",
+       "args_excerpt": "{\"expected_revision\":0,\"idempotency_key\":\"proj_a-acc_channel-spec-rev1-probe-2026-10-01\",\"spec\":{\"conditions\":[],\"execution_budget\":{\"cpu_cores\":1,\"max_attempts"
+      },
+      {
+       "tool": "mcp__dsh_sim__revise_task",
+       "args_excerpt": "{\"expected_revision\":0,\"idempotency_key\":\"proj_a-acc_channel-spec-rev1-probe2-2026-10-01\",\"spec\":{\"conditions\":[{}],\"execution_budget\":{\"cpu_cores\":1,\"max_attem"
+      }
+     ],
+     "resources": []
+    }
+   ]
+  },
+  {
+   "session_id": "session-8204de3f-47f0-43b9-909d-d7c5d15be099",
+   "origin": null,
+   "parent": null,
+   "created_at": 1790828012467,
+   "sim_tool_calls": [
+    {
+     "tool": "mcp__dsh_sim__list_capabilities",
+     "args_excerpt": "{\"status\":\"DRAFT\"}"
+    },
+    {
+     "tool": "mcp__dsh_sim__get_preparation",
+     "args_excerpt": "{\"preparation_id\":\"prep_45eae71a5e8740d888928add\"}"
+    },
+    {
+     "tool": "mcp__dsh_sim__get_task",
+     "args_excerpt": "{\"task_id\":\"task_0dd8d88c5f804ebeacdb2242\"}"
+    }
+   ],
+   "resources": [
+    "prep_45eae71a5e8740d888928add",
+    "task_0dd8d88c5f804ebeacdb2242"
+   ],
+   "children": [
+    {
+     "session_id": "61e9b65a-93d4-4cb4-a8f8-f176a392e6ef",
+     "origin": "subagent",
+     "parent": "session-8204de3f-47f0-43b9-909d-d7c5d15be099",
+     "created_at": 1790828059785,
+     "sim_tool_calls": [
+      {
+       "tool": "mcp__dsh_sim__create_task",
+       "args_excerpt": "{\"draft\":{\"conditions\":[{\"condition_id\":\"nominal\",\"fields\":[{\"field\":\"mean_velocity\",\"quantity\":{\"physical_meaning\":\"Area-mean inlet speed for a discretely norm"
+      },
+      {
+       "tool": "mcp__dsh_sim__revise_task",
+       "args_excerpt": "{\"expected_revision\":0,\"idempotency_key\":\"inputwriter-acc-channel-revise-20261001-r1\",\"spec\":{\"conditions\":[{\"condition_id\":\"nominal\",\"fields\":[{\"field\":\"mean_v"
+      },
+      {
+       "tool": "mcp__dsh_sim__prepare_task",
+       "args_excerpt": "{\"idempotency_key\":\"inputwriter-acc-channel-prepare-20261001-r1\",\"revision\":1,\"task_id\":\"task_0dd8d88c5f804ebeacdb2242\"}"
+      },
+      {
+       "tool": "mcp__dsh_sim__get_preparation",
+       "args_excerpt": "{\"preparation_id\":\"prep_45eae71a5e8740d888928add\"}"
+      },
+      {
+       "tool": "mcp__dsh_sim__get_preparation",
+       "args_excerpt": "{\"preparation_id\":\"prep_45eae71a5e8740d888928add\"}"
+      }
+     ],
+     "resources": [
+      "prep_45eae71a5e8740d888928add",
+      "task_0dd8d88c5f804ebeacdb2242"
+     ]
+    }
+   ]
+  },
+  {
+   "session_id": "session-8f8cac7e-6286-49aa-8d22-8ccaeea96da9",
+   "origin": null,
+   "parent": null,
+   "created_at": 1790829392725,
+   "sim_tool_calls": [
+    {
+     "tool": "mcp__dsh_sim__get_task",
+     "args_excerpt": "{\"task_id\":\"task_711001721b5146d796a571ad\"}"
+    },
+    {
+     "tool": "mcp__dsh_sim__get_preparation",
+     "args_excerpt": "{\"preparation_id\":\"prep_0656e3fc26be427595c71ff0\"}"
+    },
+    {
+     "tool": "mcp__dsh_sim__get_run",
+     "args_excerpt": "{\"run_id\":\"run_5224378fc02f400ea6a6c7ff\"}"
+    },
+    {
+     "tool": "mcp__dsh_sim__get_evidence",
+     "args_excerpt": "{\"bundle_id\":\"bundle_7d2d4fdc2cec4bba9db35c0b\",\"max_entries\":70}"
+    }
+   ],
+   "resources": [
+    "authz_71186865840b445484b4812f",
+    "bundle_7d2d4fdc2cec4bba9db35c0b",
+    "prep_0656e3fc26be427595c71ff0",
+    "run_5224378fc02f400ea6a6c7ff",
+    "task_711001721b5146d796a571ad"
+   ],
+   "children": [
+    {
+     "session_id": "18d1c4eb-a010-4178-b33e-b9fcd6dbad17",
+     "origin": "subagent",
+     "parent": "session-8f8cac7e-6286-49aa-8d22-8ccaeea96da9",
+     "created_at": 1790829489922,
+     "sim_tool_calls": [
+      {
+       "tool": "mcp__dsh_sim__get_task",
+       "args_excerpt": "{\"task_id\":\"task_711001721b5146d796a571ad\"}"
+      },
+      {
+       "tool": "mcp__dsh_sim__get_run",
+       "args_excerpt": "{\"run_id\":\"run_5224378fc02f400ea6a6c7ff\"}"
+      },
+      {
+       "tool": "mcp__dsh_sim__build_bundle",
+       "args_excerpt": "{\"idempotency_key\":\"review-task_711001721b5146d796a571ad-r1-run_5224378fc02f400ea6a6c7ff\",\"revision\":1,\"task_id\":\"task_711001721b5146d796a571ad\"}"
+      },
+      {
+       "tool": "mcp__dsh_sim__get_evidence",
+       "args_excerpt": "{\"bundle_id\":\"bundle_7d2d4fdc2cec4bba9db35c0b\"}"
+      },
+      {
+       "tool": "mcp__dsh_sim__draft_review_issue",
+       "args_excerpt": "{\"close_criteria\":\"由具备授权 artifact 读取能力的审查人通过受信界面读取冻结证据 art_03a52ffda44c4b43b6c1c7b1 (metrics.json) / art_d42a4588b0ad4b8590bd9ca6 (report.csv) / art_f44c82d6261"
+      }
+     ],
+     "resources": [
+      "bundle_7d2d4fdc2cec4bba9db35c0b",
+      "run_5224378fc02f400ea6a6c7ff",
+      "task_711001721b5146d796a571ad"
+     ]
+    },
+    {
+     "session_id": "255bd082-b572-4c5f-ba7d-c6050c3e6f62",
+     "origin": "subagent",
+     "parent": "session-8f8cac7e-6286-49aa-8d22-8ccaeea96da9",
+     "created_at": 1790829422368,
+     "sim_tool_calls": [
+      {
+       "tool": "mcp__dsh_sim__get_task",
+       "args_excerpt": "{\"task_id\":\"task_711001721b5146d796a571ad\"}"
+      },
+      {
+       "tool": "mcp__dsh_sim__get_preparation",
+       "args_excerpt": "{\"preparation_id\":\"prep_0656e3fc26be427595c71ff0\"}"
+      },
+      {
+       "tool": "mcp__dsh_sim__submit_runs",
+       "args_excerpt": "{\"authorization_id\":\"authz_71186865840b445484b4812f\",\"prepared_digest\":\"ad637eccb1696e17cffac13be4b130de1b6f67f05d709a08bcbe82ada61b9323\",\"task_id\":\"task_711001"
+      },
+      {
+       "tool": "mcp__dsh_sim__get_run",
+       "args_excerpt": "{\"run_id\":\"run_5224378fc02f400ea6a6c7ff\"}"
+      }
+     ],
+     "resources": [
+      "authz_71186865840b445484b4812f",
+      "prep_0656e3fc26be427595c71ff0",
+      "run_5224378fc02f400ea6a6c7ff",
+      "task_711001721b5146d796a571ad"
+     ]
+    }
+   ]
+  },
+  {
+   "session_id": "session-a0cec7bd-6a38-4f8f-a4f9-01466a4aa596",
+   "origin": null,
+   "parent": null,
+   "created_at": 1790829412784,
+   "sim_tool_calls": [
+    {
+     "tool": "mcp__dsh_sim__get_preparation",
+     "args_excerpt": "{\"preparation_id\":\"prep_7fc5d0622d684d4ba594419b\"}"
+    },
+    {
+     "tool": "mcp__dsh_sim__get_task",
+     "args_excerpt": "{\"task_id\":\"task_dbfe3d56ba594c1b98050731\"}"
+    },
+    {
+     "tool": "mcp__dsh_sim__get_run",
+     "args_excerpt": "{\"run_id\":\"run_1461d0ae05d547fca9612771\"}"
+    },
+    {
+     "tool": "mcp__dsh_sim__get_evidence",
+     "args_excerpt": "{\"bundle_id\":\"bundle_98811ef935ed402fb041c5d7\",\"max_entries\":60}"
+    }
+   ],
+   "resources": [
+    "authz_69b1d4bcc0eb450d8f5ccb8a",
+    "bundle_98811ef935ed402fb041c5d7",
+    "prep_7fc5d0622d684d4ba594419b",
+    "run_1461d0ae05d547fca9612771",
+    "task_dbfe3d56ba594c1b98050731"
+   ],
+   "children": [
+    {
+     "session_id": "2aac2a32-cd0e-4949-bd7e-00b103a2dfe6",
+     "origin": "subagent",
+     "parent": "session-a0cec7bd-6a38-4f8f-a4f9-01466a4aa596",
+     "created_at": 1790829438072,
+     "sim_tool_calls": [
+      {
+       "tool": "mcp__dsh_sim__get_task",
+       "args_excerpt": "{\"task_id\":\"task_dbfe3d56ba594c1b98050731\"}"
+      },
+      {
+       "tool": "mcp__dsh_sim__get_preparation",
+       "args_excerpt": "{\"preparation_id\":\"prep_7fc5d0622d684d4ba594419b\"}"
+      },
+      {
+       "tool": "mcp__dsh_sim__submit_runs",
+       "args_excerpt": "{\"authorization_id\":\"authz_69b1d4bcc0eb450d8f5ccb8a\",\"prepared_digest\":\"a528fee5dfad8e538fa084122bebce4c39a3341637a9902d248fe8493c4a5202\",\"task_id\":\"task_dbfe3d"
+      },
+      {
+       "tool": "mcp__dsh_sim__get_run",
+       "args_excerpt": "{\"run_id\":\"run_1461d0ae05d547fca9612771\"}"
+      }
+     ],
+     "resources": [
+      "authz_69b1d4bcc0eb450d8f5ccb8a",
+      "prep_7fc5d0622d684d4ba594419b",
+      "run_1461d0ae05d547fca9612771",
+      "task_dbfe3d56ba594c1b98050731"
+     ]
+    },
+    {
+     "session_id": "a7c128ef-3c08-485d-ad26-14e4cf71ab90",
+     "origin": "subagent",
+     "parent": "session-a0cec7bd-6a38-4f8f-a4f9-01466a4aa596",
+     "created_at": 1790829521054,
+     "sim_tool_calls": [
+      {
+       "tool": "mcp__dsh_sim__get_task",
+       "args_excerpt": "{\"task_id\":\"task_dbfe3d56ba594c1b98050731\"}"
+      },
+      {
+       "tool": "mcp__dsh_sim__get_run",
+       "args_excerpt": "{\"run_id\":\"run_1461d0ae05d547fca9612771\"}"
+      },
+      {
+       "tool": "mcp__dsh_sim__build_bundle",
+       "args_excerpt": "{\"task_id\":\"task_dbfe3d56ba594c1b98050731\",\"revision\":1}"
+      },
+      {
+       "tool": "mcp__dsh_sim__get_evidence",
+       "args_excerpt": "{\"bundle_id\":\"bundle_98811ef935ed402fb041c5d7\"}"
+      },
+      {
+       "tool": "mcp__dsh_sim__get_run",
+       "args_excerpt": "{\"after_seq\":4,\"run_id\":\"run_1461d0ae05d547fca9612771\"}"
+      },
+      {
+       "tool": "mcp__dsh_sim__draft_review_issue",
+       "args_excerpt": "{\"close_criteria\":\"1) 经受权 artifact 接口读取 runs/run_1461d0ae05d547fca9612771/attempt-1/logs/simpleFoam.stderr.log 与 simpleFoam.stdout.log、openfoam-stage.json、openf"
+      }
+     ],
+     "resources": [
+      "bundle_98811ef935ed402fb041c5d7",
+      "run_1461d0ae05d547fca9612771",
+      "task_dbfe3d56ba594c1b98050731"
+     ]
+    }
+   ]
+  },
+  {
+   "session_id": "session-afa8c4ae-682d-42a1-a63a-28954f85cfe4",
+   "origin": null,
+   "parent": null,
+   "created_at": 1790828957025,
+   "sim_tool_calls": [
+    {
+     "tool": "mcp__dsh_sim__list_capabilities",
+     "args_excerpt": "{\"status\":\"DRAFT\"}"
+    },
+    {
+     "tool": "mcp__dsh_sim__get_preparation",
+     "args_excerpt": "{\"preparation_id\":\"prep_0656e3fc26be427595c71ff0\"}"
+    }
+   ],
+   "resources": [
+    "prep_0656e3fc26be427595c71ff0"
+   ],
+   "children": [
+    {
+     "session_id": "3a897e9b-1694-434f-9dd7-dad8ff6a3b34",
+     "origin": "subagent",
+     "parent": "session-afa8c4ae-682d-42a1-a63a-28954f85cfe4",
+     "created_at": 1790829057244,
+     "sim_tool_calls": [
+      {
+       "tool": "mcp__dsh_sim__create_task",
+       "args_excerpt": "{\"draft\":{\"conditions\":[{\"condition_id\":\"nominal\",\"fields\":[{\"field\":\"mean_velocity\",\"quantity\":{\"physical_meaning\":\"Area-mean inlet speed for a discretely norm"
+      },
+      {
+       "tool": "mcp__dsh_sim__list_capabilities",
+       "args_excerpt": "{\"status\":\"ANY\"}"
+      },
+      {
+       "tool": "mcp__dsh_sim__create_task",
+       "args_excerpt": "{\"draft\":{\"conditions\":[{\"condition_id\":\"nominal\",\"fields\":[{\"field\":\"mean_velocity\",\"quantity\":{\"physical_meaning\":\"Area-mean inlet speed for a discretely norm"
+      },
+      {
+       "tool": "mcp__dsh_sim__revise_task",
+       "args_excerpt": "{\"expected_revision\":0,\"idempotency_key\":\"inputwriter:proj_a:blind_channel:nominal:blind-2026-10-01:rev1\",\"spec\":{\"conditions\":[{\"condition_id\":\"nominal\",\"field"
+      },
+      {
+       "tool": "mcp__dsh_sim__prepare_task",
+       "args_excerpt": "{\"idempotency_key\":\"inputwriter:proj_a:blind_channel:nominal:blind-2026-10-01:prep:rev1\",\"revision\":1,\"task_id\":\"task_711001721b5146d796a571ad\"}"
+      },
+      {
+       "tool": "mcp__dsh_sim__get_preparation",
+       "args_excerpt": "{\"preparation_id\":\"prep_0656e3fc26be427595c71ff0\"}"
+      },
+      {
+       "tool": "mcp__dsh_sim__get_preparation",
+       "args_excerpt": "{\"preparation_id\":\"prep_0656e3fc26be427595c71ff0\"}"
+      }
+     ],
+     "resources": [
+      "prep_0656e3fc26be427595c71ff0",
+      "task_711001721b5146d796a571ad"
+     ]
+    }
+   ]
+  },
+  {
+   "session_id": "session-bfcd7756-5016-4247-a96d-b44e7a84d83f",
+   "origin": null,
+   "parent": null,
+   "created_at": 1790828306578,
+   "sim_tool_calls": [
+    {
+     "tool": "mcp__dsh_sim__get_task",
+     "args_excerpt": "{\"task_id\":\"task_0dd8d88c5f804ebeacdb2242\"}"
+    },
+    {
+     "tool": "mcp__dsh_sim__get_preparation",
+     "args_excerpt": "{\"preparation_id\":\"prep_45eae71a5e8740d888928add\"}"
+    },
+    {
+     "tool": "mcp__dsh_sim__get_run",
+     "args_excerpt": "{\"run_id\":\"run_763d86b0a05c42e8b59a0e79\"}"
+    },
+    {
+     "tool": "mcp__dsh_sim__get_evidence",
+     "args_excerpt": "{\"bundle_id\":\"bundle_9d93561c328443ddbb710cdc\",\"max_entries\":20}"
+    }
+   ],
+   "resources": [
+    "authz_c924d3b1272247148b61eec9",
+    "bundle_9d93561c328443ddbb710cdc",
+    "prep_45eae71a5e8740d888928add",
+    "run_763d86b0a05c42e8b59a0e79",
+    "task_0dd8d88c5f804ebeacdb2242"
+   ],
+   "children": [
+    {
+     "session_id": "495e8de2-d521-4b42-8211-728283ed37e7",
+     "origin": "subagent",
+     "parent": "session-bfcd7756-5016-4247-a96d-b44e7a84d83f",
+     "created_at": 1790828337054,
+     "sim_tool_calls": [
+      {
+       "tool": "mcp__dsh_sim__get_task",
+       "args_excerpt": "{\"task_id\":\"task_0dd8d88c5f804ebeacdb2242\"}"
+      },
+      {
+       "tool": "mcp__dsh_sim__get_preparation",
+       "args_excerpt": "{\"preparation_id\":\"prep_45eae71a5e8740d888928add\"}"
+      },
+      {
+       "tool": "mcp__dsh_sim__submit_runs",
+       "args_excerpt": "{\"authorization_id\":\"authz_c924d3b1272247148b61eec9\",\"prepared_digest\":\"9fbd40846d00baf83eae69b152275816c83c9d598c40fbf8680acec0ca06e918\",\"task_id\":\"task_0dd8d8"
+      },
+      {
+       "tool": "mcp__dsh_sim__get_run",
+       "args_excerpt": "{\"run_id\":\"run_763d86b0a05c42e8b59a0e79\"}"
+      }
+     ],
+     "resources": [
+      "authz_c924d3b1272247148b61eec9",
+      "prep_45eae71a5e8740d888928add",
+      "run_763d86b0a05c42e8b59a0e79",
+      "task_0dd8d88c5f804ebeacdb2242"
+     ]
+    },
+    {
+     "session_id": "60dfdb98-6295-4c19-bc76-5632eac2d09b",
+     "origin": "subagent",
+     "parent": "session-bfcd7756-5016-4247-a96d-b44e7a84d83f",
+     "created_at": 1790828454130,
+     "sim_tool_calls": [
+      {
+       "tool": "mcp__dsh_sim__get_task",
+       "args_excerpt": "{\"task_id\":\"task_0dd8d88c5f804ebeacdb2242\"}"
+      },
+      {
+       "tool": "mcp__dsh_sim__get_run",
+       "args_excerpt": "{\"run_id\":\"run_763d86b0a05c42e8b59a0e79\"}"
+      },
+      {
+       "tool": "mcp__dsh_sim__build_bundle",
+       "args_excerpt": "{\"revision\":1,\"task_id\":\"task_0dd8d88c5f804ebeacdb2242\"}"
+      },
+      {
+       "tool": "mcp__dsh_sim__get_evidence",
+       "args_excerpt": "{\"bundle_id\":\"bundle_9d93561c328443ddbb710cdc\"}"
+      },
+      {
+       "tool": "mcp__dsh_sim__draft_review_issue",
+       "args_excerpt": "{\"close_criteria\":\"审查人在受信界面 confirmIssue 并核对 ver_3c330631d11d4f2c9303e6af.json（artifact art_cc662b6ba03e41799f4e7ffa）中各项发现的证据与 capability/approval.json（art_c185"
+      }
+     ],
+     "resources": [
+      "bundle_9d93561c328443ddbb710cdc",
+      "run_763d86b0a05c42e8b59a0e79",
+      "task_0dd8d88c5f804ebeacdb2242"
+     ]
+    }
+   ]
+  }
+ ]
+}
