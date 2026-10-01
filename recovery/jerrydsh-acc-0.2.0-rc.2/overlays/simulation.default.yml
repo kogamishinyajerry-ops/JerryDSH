@@ -1,6 +1,0 @@
-# headless 一次性会话默认选择 Simulation preset（web 会话仍可在界面手选）。
-# 仅指向已注册的 simulation preset，不新增任何工具或权限。
-- id: agent-preset-registry
-  name: '@deepseek-ai/dsh-agent-preset-registry'
-  config:
-    default: simulation
