@@ -1,6 +1,13 @@
 # JerryDSH — DSH 研究与插件精选工作区
 
-两个核心目录：
+三个核心目录：
+
+## 🛠 [plugin-dev/](plugin-dev/) — 自研插件实体
+
+本机自研 DSH 插件的完整源码（可直接 `dsh plugin add` 安装）：
+
+- [dsh-usage-insights](plugin-dev/dsh-usage-insights/) — DSH 使用洞察仪表盘（零 npm 依赖 · 纯本地只读聚合）
+- [dsh-medini](plugin-dev/dsh-medini/) — Ansys medini Analyze FTA 自动化 MCP 桥（15 工具：PDF 解析→独立解算→headless 实跑→三方校验；实测 T1-001 端到端 ~11.5s，自研/medini 相对误差 0）
 
 ## 📦 [plugins/](plugins/) — 实测高价值插件精选
 

@@ -1,0 +1,13 @@
+{
+  "medini-agent": {
+    "command": "C:\\Users\\Kogami\\.workbuddy\\binaries\\python\\envs\\default\\Scripts\\python.exe",
+    "args": [
+      "D:\\MediniAgent\\mcp\\server.py"
+    ],
+    "env": {
+      "PYTHONIOENCODING": "utf-8",
+      "MEDINI_MCP_LOG": "INFO"
+    },
+    "description": "Ansys medini Analyze 2023 R2 FTA automation - PDF parse / independent solve / medini headless / cross-verify / render"
+  }
+}
